@@ -23,6 +23,10 @@ on:
         description: "Nur anzeigen, nichts posten"
         type: boolean
         default: false
+      check_only:
+        description: "Nur Token und Kontozugriff pruefen (nichts posten)"
+        type: boolean
+        default: false
 
 # Das Skript schreibt published.json zurueck ins Repo, damit ein
 # Doppelpost auch bei einem Wiederholungslauf ausgeschlossen ist.
@@ -51,12 +55,25 @@ jobs:
           # Bei Facebook Login for Business: graph.facebook.com
           IG_API_HOST: ${{ secrets.IG_API_HOST || 'graph.instagram.com' }}
         run: |
+          # Laenge des Secrets ausgeben, ohne es preiszugeben.
+          # Ein Instagram-Token ist rund 190 Zeichen lang. Weicht die Zahl
+          # stark ab oder ist sie 0, stimmt etwas mit dem Secret nicht.
+          echo "Laenge IG_ACCESS_TOKEN: ${#IG_ACCESS_TOKEN}"
+          echo "Laenge IG_USER_ID:      ${#IG_USER_ID}"
+          case "$IG_ACCESS_TOKEN" in
+            *\'*|*\"*) echo "WARNUNG: Der Token enthaelt Anführungszeichen. Die gehoeren nicht ins Secret." ;;
+          esac
+
           ARGS=""
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            ARGS="$ARGS --dry-run"
-          fi
-          if [ -n "${{ inputs.force_date }}" ]; then
-            ARGS="$ARGS --force ${{ inputs.force_date }}"
+          if [ "${{ inputs.check_only }}" = "true" ]; then
+            ARGS="--check"
+          else
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              ARGS="$ARGS --dry-run"
+            fi
+            if [ -n "${{ inputs.force_date }}" ]; then
+              ARGS="$ARGS --force ${{ inputs.force_date }}"
+            fi
           fi
           python3 publish.py $ARGS
 
