@@ -1,0 +1,74 @@
+# Ablegen unter: .github/workflows/publish.yml
+#
+# Der Cron feuert zweimal taeglich, 16:00 und 17:00 UTC. Das ist Absicht:
+# 18:00 Berliner Zeit sind im Sommer 16:00 UTC und im Winter 17:00 UTC.
+# publish.py prueft selbst, ob es in Berlin gerade 18 Uhr ist, und der
+# jeweils falsche Lauf beendet sich ohne etwas zu tun.
+#
+# GitHub-Cron ist nicht puenktlich - unter Last sind 5 bis 15 Minuten
+# Verspaetung normal. Fuer einen Feed-Post ist das egal.
+
+name: Instagram Daily Post
+
+on:
+  schedule:
+    - cron: "0 16 * * *"   # 18:00 Berlin (Sommerzeit)
+    - cron: "0 17 * * *"   # 18:00 Berlin (Winterzeit)
+  workflow_dispatch:        # erlaubt manuelles Ausloesen per Knopf
+    inputs:
+      force_date:
+        description: "Bestimmten Tag nachholen (YYYY-MM-DD), leer = normaler Lauf"
+        required: false
+      dry_run:
+        description: "Nur anzeigen, nichts posten"
+        type: boolean
+        default: false
+
+# Das Skript schreibt published.json zurueck ins Repo, damit ein
+# Doppelpost auch bei einem Wiederholungslauf ausgeschlossen ist.
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Post veroeffentlichen
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          # Leer lassen bei Business Login for Instagram (Standard).
+          # Bei Facebook Login for Business: graph.facebook.com
+          IG_API_HOST: ${{ secrets.IG_API_HOST || 'graph.instagram.com' }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ -n "${{ inputs.force_date }}" ]; then
+            ARGS="$ARGS --force ${{ inputs.force_date }}"
+          fi
+          python3 publish.py $ARGS
+
+      - name: Stand zurueckschreiben
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if git diff --quiet published.json 2>/dev/null; then
+            echo "Nichts veroeffentlicht, kein Commit noetig."
+            exit 0
+          fi
+          git config user.name  "trademate-bot"
+          git config user.email "bot@trademate-app.com"
+          git add published.json
+          git commit -m "published: $(date -u +%Y-%m-%d)"
+          git push
