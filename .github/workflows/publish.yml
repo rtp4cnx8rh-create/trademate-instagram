@@ -63,12 +63,21 @@ jobs:
       - name: Stand zurueckschreiben
         if: ${{ inputs.dry_run != true }}
         run: |
-          if git diff --quiet published.json 2>/dev/null; then
-            echo "Nichts veroeffentlicht, kein Commit noetig."
+          # Wurde nichts veroeffentlicht, existiert die Datei gar nicht.
+          if [ ! -f published.json ]; then
+            echo "Keine published.json - nichts zu committen."
             exit 0
           fi
+
           git config user.name  "trademate-bot"
           git config user.email "bot@trademate-app.com"
           git add published.json
+
+          # Unveraendert? Dann ebenfalls nichts zu tun.
+          if git diff --cached --quiet; then
+            echo "published.json unveraendert - kein Commit noetig."
+            exit 0
+          fi
+
           git commit -m "published: $(date -u +%Y-%m-%d)"
           git push
