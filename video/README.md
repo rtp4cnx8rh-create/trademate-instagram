@@ -1,16 +1,25 @@
-# Trademate Fast-Cut-Reel (Remotion)
+# Trademate Fast-Cut-Reels (Remotion)
 
-Baut aus den woechentlichen Figma-Exporten unter `../images/KW-*/` ein kurzes
-Instagram-Reel (1080x1920, 30 fps, ~6,5 s): zwei Text-Hooks, danach schnelle
-Cuts mit Punch-Zoom durch alle Motive der Woche, am Ende eine CTA-Endcard.
+Zwei Kompositionen (jeweils 1080x1920, 30 fps) aus den woechentlichen
+Figma-Exporten unter `../images/KW-*/`:
+
+- **TrademateReel** (~6,5 s): zwei Text-Hooks, danach schnelle Cuts mit
+  Punch-Zoom durch alle Motive der Woche, am Ende eine CTA-Endcard.
+- **TrademateRapid** (~3,5 s): nur die App-UI, keine Text-Hooks. Karten- und
+  Detail-Ausschnitte (Zahlen, Chart, Kalenderzellen, Ratios) als harte
+  Jump-Cuts in einem Bezel-Rahmen, kurzer Wortmarken-Abbinder. Die
+  Ausschnitt-Rechtecke in `src/TrademateRapid.tsx` sind Pixelkoordinaten in
+  den Quellbildern und muessen fuer neue Wochen auf die neuen Motive
+  angepasst werden.
 
 ## Nutzung
 
 ```bash
 cd video
 npm install
-npm run render                 # neueste KW, Ausgabe: out/trademate-reel.mp4
-WEEK=KW-35 npm run render      # bestimmte Woche
+npm run render                 # TrademateReel, Ausgabe: out/trademate-reel.mp4
+npm run render:rapid           # TrademateRapid, Ausgabe: out/trademate-rapid.mp4
+WEEK=KW-35 npm run render      # bestimmte Woche statt der neuesten
 npm run dev                    # Remotion Studio (Vorschau im Browser)
 ```
 
