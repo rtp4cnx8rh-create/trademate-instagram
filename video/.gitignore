@@ -1,0 +1,5 @@
+node_modules/
+public/
+out/
+src/assets.generated.ts
+.DS_Store
