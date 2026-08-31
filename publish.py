@@ -149,6 +149,14 @@ def main():
             f"Nichts faellig. Lokale Zeit {jetzt:%Y-%m-%d %H:%M %Z}, "
             f"Plan {plan['week']}."
         )
+        # Damit im Log sofort sichtbar ist, WARUM nichts passt.
+        print(f"  --force war: {args.force!r}")
+        print(f"  Heute:       {jetzt.date().isoformat()}, Stunde {jetzt.hour}")
+        print("  Termine im Plan:")
+        for p in plan["posts"]:
+            print(f"    {p['date']} {p['hour']:02d}:00  {Path(p['file']).name}")
+        if not args.force:
+            print("  Hinweis: ohne --force wird nur die exakte Stunde getroffen.")
         return
 
     key = f"{plan['week']}:{faellig['date']}"
