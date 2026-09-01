@@ -1,0 +1,27 @@
+{
+  "name": "trademate-reel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Remotion-Projekt: kurzes Fast-Cut-Reel aus den woechentlichen Figma-Exporten",
+  "scripts": {
+    "sync": "node scripts/sync-assets.mjs",
+    "predev": "npm run sync",
+    "dev": "remotion studio",
+    "prerender": "npm run sync",
+    "render": "remotion render TrademateReel out/trademate-reel.mp4",
+    "prerender:rapid": "npm run sync",
+    "render:rapid": "remotion render TrademateRapid out/trademate-rapid.mp4"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.1.0",
+    "@remotion/cli": "^4.0.0",
+    "@remotion/fonts": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "typescript": "^5.6.3"
+  }
+}
