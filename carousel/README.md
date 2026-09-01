@@ -13,6 +13,7 @@ demselben Export freigestellt (`assets/wordmark-*.png`).
 ```bash
 pip install pillow
 python3 carousel/render.py fun-trader          # -> carousel/out/fun-trader/01..07.jpg
+python3 carousel/render.py prop-firm           # -> carousel/out/prop-firm/01..07.jpg
 python3 carousel/render.py fun-trader --keep-html   # HTML der Slides mit ausgeben
 CHROME=/pfad/zu/chrome python3 carousel/render.py fun-trader
 ```
@@ -43,6 +44,7 @@ Slide-Typen:
   - `kind: "donut"` - Ring mit Win Rate und drei Werten darunter.
   - `kind: "bars"` - zwei Balken (gruen/rot) plus drei Kacheln.
   - `kind: "hero"` - grosse Summe, Kurve, drei Kacheln (wie der Performance-Post).
+  - `kind: "rows"` - Liste gefundener Leaks: Regelbruch, Anzahl, Kosten.
   - `tone: "green"|"red"` faerbt einzelne Werte ein.
 - **`cta`** - Abschlussslide mit Headline, gruener Zeile und Wortmarke.
 

@@ -103,6 +103,13 @@ body{{font-family:'Inter','Liberation Sans',sans-serif;-webkit-font-smoothing:an
 .tiles .tile{{flex:1;background:{COLORS['tile']};border-radius:20px;padding:20px 0 24px;text-align:center;}}
 .tiles .tile .l{{font-weight:500;font-size:26px;color:{COLORS['muted']};}}
 .tiles .tile .v{{font-weight:700;font-size:46px;color:{COLORS['white']};letter-spacing:-1px;margin-top:6px;}}
+.rows{{flex:1;display:flex;flex-direction:column;justify-content:center;margin-bottom:12px;}}
+.rows .row{{display:flex;align-items:center;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.07);}}
+.rows .row:last-child{{border-bottom:none;}}
+.rows .row .name{{flex:1;font-weight:500;font-size:30px;color:#d7dae0;letter-spacing:-0.3px;}}
+.rows .row .count{{min-width:74px;text-align:center;font-weight:700;font-size:26px;color:{COLORS['muted']};
+  background:{COLORS['tile']};border-radius:12px;padding:8px 0;margin-right:26px;}}
+.rows .row .amount{{min-width:190px;text-align:right;font-weight:700;font-size:40px;letter-spacing:-1px;}}
 .green{{color:{COLORS['green']};}}
 .red{{color:{COLORS['red']};}}
 .stats .cell .v.green,.tiles .tile .v.green{{color:{COLORS['green']};}}
@@ -243,6 +250,19 @@ def spark(values: list) -> str:
 </svg>"""
 
 
+def rows(card: dict) -> str:
+    """Liste gefundener Leaks: Regelbruch, Anzahl, Kosten."""
+    out = ""
+    for r in card["rows"]:
+        color = COLORS["green"] if r.get("tone") == "green" else COLORS["red"]
+        out += (
+            f'<div class="row"><span class="name">{r["name"]}</span>'
+            f'<span class="count">{r["count"]}x</span>'
+            f'<span class="amount" style="color:{color}">{r["amount"]}</span></div>'
+        )
+    return f'<div class="rows">{out}</div>'
+
+
 def bars(card: dict) -> str:
     rows = ""
     for b in card["bars"]:
@@ -272,6 +292,8 @@ def metric(slide: dict, index: int, total: int) -> str:
             '<div style="flex:1;display:flex;align-items:center;justify-content:center">'
             f"{donut(card)}</div>{stats_row(card['stats'])}"
         )
+    elif card["kind"] == "rows":
+        inner += rows(card) + tiles_row(card["stats"])
     elif card["kind"] == "bars":
         inner += f'<div style="flex:1">{bars(card)}</div>{tiles_row(card["stats"])}'
     else:  # hero: grosse Zahl, Kurve, Kacheln - wie der Performance-Post

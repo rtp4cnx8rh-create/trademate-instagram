@@ -1,0 +1,13 @@
+The $100k evaluation was gone on day nine. Not to a bad strategy — to a daily loss limit that got treated as a target.
+
+Thirty days of logging after that put a number on it: 21 rule breaks across 96 trades. Sizing up after a loss, 11 times, -$1,860. Trading past the daily limit, 4 times, -$2,240. Entering with no stop, 6 times, -$980. The trades that followed the plan made +$1,140. The ones that didn't took -$5,080.
+
+Same setups the month after, with the breaks tagged as they happened: 2 rule breaks, max daily drawdown 1.9%, profit factor 1.32.
+
+Pass or fail, the evaluation is decided by the rules you can prove you followed — and prop firms audit exactly that.
+
+Composite example — a story assembled from common patterns, not a real customer. The figures illustrate the feature, not real trader results and not a promise of passing any evaluation.
+
+Tag your rule breaks — 7 days free, link in bio.
+
+#propfirm #propfirmtrader #fundedtrader #tradingdiscipline #riskmanagement #tradingjournal

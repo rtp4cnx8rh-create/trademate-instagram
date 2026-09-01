@@ -1,0 +1,89 @@
+{
+  "id": "prop-firm",
+  "title": "Blown on day nine",
+  "note": "Erfundene Beispielgeschichte (Composite), keine echten Kundenzahlen. Zahlen konsistent: 21 Regelbrueche kosten 1.860 + 2.240 + 980 = 5.080 USD; regelkonforme Trades +1.140 -> Netto -3.940 USD auf 96 Trades.",
+  "caption": "The $100k evaluation was gone on day nine. Not to a bad strategy — to a daily loss limit that got treated as a target.\n\nThirty days of logging after that put a number on it: 21 rule breaks across 96 trades. Sizing up after a loss, 11 times, -$1,860. Trading past the daily limit, 4 times, -$2,240. Entering with no stop, 6 times, -$980. The trades that followed the plan made +$1,140. The ones that didn't took -$5,080.\n\nSame setups the month after, with the breaks tagged as they happened: 2 rule breaks, max daily drawdown 1.9%, profit factor 1.32.\n\nPass or fail, the evaluation is decided by the rules you can prove you followed — and prop firms audit exactly that.\n\nComposite example — a story assembled from common patterns, not a real customer. The figures illustrate the feature, not real trader results and not a promise of passing any evaluation.\n\nTag your rule breaks — 7 days free, link in bio.\n\n#propfirm #propfirmtrader #fundedtrader #tradingdiscipline #riskmanagement #tradingjournal",
+  "slides": [
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": ["The $100k account.", "Gone on day nine."],
+      "cue": "Swipe"
+    },
+    {
+      "type": "statement",
+      "theme": "dark",
+      "align": "left",
+      "lines": ["The rules were", "on the wall.", "Nowhere else."]
+    },
+    {
+      "type": "metric",
+      "headline": ["The leak had", "a name"],
+      "card": {
+        "kind": "rows",
+        "title": "Rule Breaks · 30 days",
+        "rows": [
+          {"name": "Size up after a loss", "count": 11, "amount": "-$1,860"},
+          {"name": "Past the daily limit", "count": 4, "amount": "-$2,240"},
+          {"name": "Entry without a stop", "count": 6, "amount": "-$980"}
+        ],
+        "stats": [
+          {"label": "Trades", "value": "96"},
+          {"label": "Rule breaks", "value": "21"},
+          {"label": "Cost", "value": "-$5,080", "tone": "red"}
+        ]
+      },
+      "note": "Product example — figures illustrate the feature, not real trader results."
+    },
+    {
+      "type": "metric",
+      "headline": ["The plan was", "never the problem"],
+      "card": {
+        "kind": "bars",
+        "title": "P&L by rule status",
+        "bars": [
+          {"label": "Plan followed · 75 trades", "value": "+$1,140", "share": 0.22, "tone": "green"},
+          {"label": "Rule broken · 21 trades", "value": "-$5,080", "share": 1.0, "tone": "red"}
+        ],
+        "stats": [
+          {"label": "Net", "value": "-$3,940", "tone": "red"},
+          {"label": "Days", "value": "30"},
+          {"label": "Break rate", "value": "22%"}
+        ]
+      },
+      "note": "Product example — figures illustrate the feature, not real trader results."
+    },
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": ["A rule you can't", "count is a rule", "you don't have."]
+    },
+    {
+      "type": "metric",
+      "headline": ["Next 30 days,", "breaks tagged"],
+      "card": {
+        "kind": "hero",
+        "label": "Total Performance",
+        "value": "+$4,120.00",
+        "delta": "+$210",
+        "delta_suffix": "Today",
+        "spark": [10, 9, 13, 12, 16, 15, 19, 18, 22, 28, 27, 34, 41, 48, 55, 63, 74],
+        "stats": [
+          {"label": "Rule breaks", "value": "2"},
+          {"label": "Max daily DD", "value": "1.9%"},
+          {"label": "Profit Factor", "value": "1.32"}
+        ]
+      },
+      "note": "Product example — figures illustrate the feature, not real trader results."
+    },
+    {
+      "type": "cta",
+      "theme": "light",
+      "lines": ["Pass or fail,", "keep the record."],
+      "sub": "7 days free · link in bio",
+      "note": "Composite example, not a real customer. No promise of passing any evaluation."
+    }
+  ]
+}
