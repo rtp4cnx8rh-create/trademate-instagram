@@ -115,6 +115,24 @@ body{{font-family:'Inter','Liberation Sans',sans-serif;-webkit-font-smoothing:an
 .rows .row .count{{min-width:74px;text-align:center;font-weight:700;font-size:26px;color:{COLORS['muted']};
   background:{COLORS['tile']};border-radius:12px;padding:8px 0;margin-right:26px;}}
 .rows .row .amount{{min-width:190px;text-align:right;font-weight:700;font-size:40px;letter-spacing:-1px;}}
+.rows.tight .row{{padding:13px 0;}}
+.rows.tight .row .name{{font-size:29px;}}
+.rows.tight .row .amount{{font-size:38px;}}
+.rows .row.hi{{background:rgba(251,76,91,0.10);border-radius:14px;
+  padding-left:18px;padding-right:18px;margin:0 -18px;border-bottom:none;}}
+.kpis{{display:flex;margin-bottom:26px;}}
+.kpis .k{{flex:1;text-align:center;}}
+.kpis .k .v{{font-weight:700;font-size:44px;letter-spacing:-1px;color:{COLORS['white']};}}
+.kpis .k .l{{font-weight:500;font-size:24px;color:{COLORS['muted']};margin-top:2px;}}
+.cal{{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}}
+.cal .wd{{text-align:center;font-weight:500;font-size:24px;color:{COLORS['muted']};padding-bottom:6px;}}
+.cal .day{{height:76px;border-radius:14px;background:{COLORS['tile']};display:flex;
+  flex-direction:column;align-items:center;justify-content:center;}}
+.cal .day.empty{{background:transparent;}}
+.cal .day .n{{font-weight:700;font-size:28px;color:{COLORS['white']};line-height:1.1;}}
+.cal .day.empty .n{{color:#4a4e56;}}
+.cal .day .a{{font-weight:700;font-size:21px;margin-top:2px;}}
+.cal .day.hi{{box-shadow:inset 0 0 0 2px {COLORS['red']};}}
 .green{{color:{COLORS['green']};}}
 .red{{color:{COLORS['red']};}}
 .stats .cell .v.green,.tiles .tile .v.green{{color:{COLORS['green']};}}
@@ -260,17 +278,45 @@ def spark(values: list) -> str:
 </svg>"""
 
 
+def calendar(card: dict) -> str:
+    """Monatsraster wie im Kalender-Post: KPI-Zeile, Wochentage, Tageszellen."""
+    kpis = "".join(
+        f'<div class="k"><div class="v {k.get("tone", "")}">{k["value"]}</div>'
+        f'<div class="l">{k["label"]}</div></div>'
+        for k in card["kpis"]
+    )
+    cells = "".join(
+        f'<div class="wd">{d}</div>' for d in ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    )
+    for _ in range(card.get("offset", 0)):
+        cells += '<div class="day empty"></div>'
+    for day in card["days"]:
+        if day.get("amount") is None:
+            cells += f'<div class="day empty"><div class="n">{day["n"]}</div></div>'
+            continue
+        tone = "green" if day["amount"].startswith("+") else "red"
+        hi = " hi" if day.get("highlight") else ""
+        cells += (
+            f'<div class="day{hi}"><div class="n">{day["n"]}</div>'
+            f'<div class="a {tone}">{day["amount"]}</div></div>'
+        )
+    return f'<div class="kpis">{kpis}</div><div class="cal">{cells}</div>'
+
+
 def rows(card: dict) -> str:
     """Liste gefundener Leaks: Regelbruch, Anzahl, Kosten."""
     out = ""
     for r in card["rows"]:
         color = COLORS["green"] if r.get("tone") == "green" else COLORS["red"]
+        chip = r.get("chip") or (f'{r["count"]}x' if r.get("count") is not None else "")
+        chip_html = f'<span class="count">{chip}</span>' if chip else ""
+        hi = " hi" if r.get("highlight") else ""
         out += (
-            f'<div class="row"><span class="name">{r["name"]}</span>'
-            f'<span class="count">{r["count"]}x</span>'
+            f'<div class="row{hi}"><span class="name">{r["name"]}</span>{chip_html}'
             f'<span class="amount" style="color:{color}">{r["amount"]}</span></div>'
         )
-    return f'<div class="rows">{out}</div>'
+    tight = " tight" if len(card["rows"]) > 3 else ""
+    return f'<div class="rows{tight}">{out}</div>'
 
 
 def bars(card: dict) -> str:
@@ -355,6 +401,7 @@ def split(slide: dict, index: int, total: int) -> str:
 def metric(slide: dict, index: int, total: int) -> str:
     card = slide["card"]
     head = "<br>".join(slide["headline"])
+    is_cal = card["kind"] == "calendar"
     inner = ""
     if card.get("title"):
         inner = f'<div class="card-title"><span>{card["title"]}</span><span class="chev">&#8250;</span></div>'
@@ -364,6 +411,8 @@ def metric(slide: dict, index: int, total: int) -> str:
             '<div style="flex:1;display:flex;align-items:center;justify-content:center">'
             f"{donut(card)}</div>{stats_row(card['stats'])}"
         )
+    elif card["kind"] == "calendar":
+        inner += calendar(card)
     elif card["kind"] == "rows":
         inner += rows(card) + tiles_row(card["stats"])
     elif card["kind"] == "bars":
@@ -379,11 +428,20 @@ def metric(slide: dict, index: int, total: int) -> str:
 <div style="flex:1;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px">{spark(card['spark'])}</div>
 {tiles_row(card['stats'])}"""
 
+    # Der Kalender braucht mehr Hoehe: Headline nach oben, Karte groesser,
+    # Wortmarke unten rechts - wie im Kalender-Post der Wochenreihe.
+    if is_cal:
+        box = "left:150px;top:334px;width:780px;height:534px;padding:26px;"
+        headline_top, logo = 104, mark("dark", "br")
+    else:
+        box, headline_top, logo = "", 206, mark("dark", "tl")
+
     return (
         '<div class="slide dark">'
-        f'{mark("dark", "tl")}'
-        f'<div class="headline silver" style="position:absolute;left:{MARGIN}px;right:{MARGIN}px;top:206px">{head}</div>'
-        f'<div class="card">{inner}</div>'
+        f"{logo}"
+        f'<div class="headline silver" style="position:absolute;left:{MARGIN}px;right:{MARGIN}px;'
+        f'top:{headline_top}px">{head}</div>'
+        f'<div class="card" style="{box}">{inner}</div>'
         f"{counter(index, total, 'dark')}{note(slide.get('note', ''), 'dark')}</div>"
     )
 

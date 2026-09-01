@@ -16,6 +16,7 @@ python3 carousel/render.py fun-trader          # -> carousel/out/fun-trader/01..
 python3 carousel/render.py prop-firm           # -> carousel/out/prop-firm/01..07.jpg
 python3 carousel/render.py reset-loop          # -> carousel/out/reset-loop/01..06.jpg
 python3 carousel/render.py trade-four          # -> carousel/out/trade-four/01..06.jpg
+python3 carousel/render.py fourth-trade        # -> carousel/out/fourth-trade/01..07.jpg
 python3 carousel/render.py fun-trader --keep-html   # HTML der Slides mit ausgeben
 CHROME=/pfad/zu/chrome python3 carousel/render.py fun-trader
 ```
@@ -46,7 +47,14 @@ Slide-Typen:
   - `kind: "donut"` - Ring mit Win Rate und drei Werten darunter.
   - `kind: "bars"` - zwei Balken (gruen/rot) plus drei Kacheln.
   - `kind: "hero"` - grosse Summe, Kurve, drei Kacheln (wie der Performance-Post).
-  - `kind: "rows"` - Liste gefundener Leaks: Regelbruch, Anzahl, Kosten.
+  - `kind: "rows"` - Liste: Name, Chip (`chip` frei oder `count`), Betrag.
+    `highlight: true` hebt eine Zeile rot hinterlegt hervor (z. B. der Trade,
+    um den es geht). Ab vier Zeilen ruecken die Zeilen automatisch enger.
+  - `kind: "calendar"` - Monatsraster wie im Kalender-Post: `kpis` (vier
+    Werte oben), `offset` (Leerzellen vor dem Ersten) und `days` mit
+    `n`/`amount`/`highlight`; `amount: null` = handelsfreier Tag.
+    Kalender-Slides bekommen automatisch die groessere Karte und die
+    Wortmarke unten rechts.
   - `tone: "green"|"red"` faerbt einzelne Werte ein.
 - **`number`** - eine einzige grosse Zahl mit Eyebrow darueber und einer
   Zeile darunter (`label`, `value`, `size`, `sub`). Fuer minimale Slides
