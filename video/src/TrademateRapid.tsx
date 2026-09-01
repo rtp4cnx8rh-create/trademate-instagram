@@ -56,7 +56,14 @@ const Backdrop: React.FC = () => (
 
 const BezelShot: React.FC<{shot: Shot; index: number}> = ({shot, index}) => {
   const frame = useCurrentFrame();
+  const {width, height} = useVideoConfig();
   const direction = index % 2 === 0 ? 1 : -1;
+
+  // Der Bezel ist auf 1080x1920 ausgelegt; in breiteren Formaten waechst er
+  // mit, bleibt aber innerhalb der Bildraender.
+  const bezelW = SCREEN_W + 2 * FRAME_PAD;
+  const bezelH = SCREEN_H + 2 * FRAME_PAD;
+  const fit = Math.min((width * 0.885) / bezelW, (height * 0.75) / bezelH);
 
   // Ausschnitt deckend in das Screen-Fenster einpassen, Drift-Zoom obendrauf.
   const cover = Math.max(SCREEN_W / shot.rect.w, SCREEN_H / shot.rect.h);
@@ -90,7 +97,7 @@ const BezelShot: React.FC<{shot: Shot; index: number}> = ({shot, index}) => {
           border: '1px solid rgba(255, 255, 255, 0.07)',
           boxShadow:
             '0 50px 140px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-          transform: `scale(${punch}) rotate(${tilt}deg)`,
+          transform: `scale(${punch * fit}) rotate(${tilt}deg)`,
         }}
       >
         <div

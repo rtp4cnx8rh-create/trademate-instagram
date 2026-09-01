@@ -76,7 +76,12 @@ const IntroBeat: React.FC<{text: string}> = ({text}) => {
 
 const ImageCut: React.FC<{src: string; index: number}> = ({src, index}) => {
   const frame = useCurrentFrame();
+  const {width, height} = useVideoConfig();
   const direction = index % 2 === 0 ? 1 : -1;
+
+  // Die Motive sind quadratisch: Kantenlaenge aus der kurzen Videoseite,
+  // damit 9:16, 1:1 und 16:9 denselben Look ergeben.
+  const cardSize = Math.round(Math.min(width, height) * 0.926);
 
   // Punch-Zoom: harter Einstieg, der in wenigen Frames einrastet und danach driftet.
   const scale =
@@ -117,8 +122,8 @@ const ImageCut: React.FC<{src: string; index: number}> = ({src, index}) => {
         <Img
           src={staticFile(src)}
           style={{
-            width: 1000,
-            height: 1000,
+            width: cardSize,
+            height: cardSize,
             borderRadius: 32,
             boxShadow: '0 40px 120px rgba(0, 0, 0, 0.65)',
             transform: `translateX(${shiftX}px) rotate(${tilt}deg) scale(${scale})`,
