@@ -83,8 +83,8 @@ body{{font-family:'Inter','Liberation Sans',sans-serif;-webkit-font-smoothing:an
 .mark.br{{right:{MARGIN - LOGO_PAD}px;bottom:{SIZE - 982 - LOGO_PAD}px;}}
 .headline{{font-weight:800;font-size:94px;line-height:101px;letter-spacing:-2.6px;
   background-clip:text;-webkit-background-clip:text;color:transparent;}}
-.headline.silver{{background-image:{SILVER};}}
-.headline.graphite{{background-image:{GRAPHITE};}}
+.headline.silver,.big.silver{{background-image:{SILVER};}}
+.headline.graphite,.big.graphite{{background-image:{GRAPHITE};}}
 .counter{{position:absolute;right:{MARGIN}px;top:{MARGIN + 12}px;font-weight:700;font-size:26px;
   letter-spacing:3px;}}
 .note{{position:absolute;left:{MARGIN}px;right:{MARGIN}px;bottom:44px;font-weight:500;
@@ -103,6 +103,11 @@ body{{font-family:'Inter','Liberation Sans',sans-serif;-webkit-font-smoothing:an
 .tiles .tile{{flex:1;background:{COLORS['tile']};border-radius:20px;padding:20px 0 24px;text-align:center;}}
 .tiles .tile .l{{font-weight:500;font-size:26px;color:{COLORS['muted']};}}
 .tiles .tile .v{{font-weight:700;font-size:46px;color:{COLORS['white']};letter-spacing:-1px;margin-top:6px;}}
+.big{{font-weight:800;letter-spacing:-8px;line-height:1;background-clip:text;
+  -webkit-background-clip:text;color:transparent;}}
+.eyebrow{{font-weight:700;font-size:26px;letter-spacing:6px;text-transform:uppercase;}}
+.sub{{font-weight:500;font-size:34px;letter-spacing:-0.2px;}}
+.hair{{background:rgba(255,255,255,0.12);}}
 .rows{{flex:1;display:flex;flex-direction:column;justify-content:center;margin-bottom:12px;}}
 .rows .row{{display:flex;align-items:center;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.07);}}
 .rows .row:last-child{{border-bottom:none;}}
@@ -123,7 +128,12 @@ def mark(kind: str, position: str) -> str:
     return f'<img class="mark {position}" src="{uri}">'
 
 
+SHOW_COUNTER = True  # pro Story ueber "counter": false abschaltbar
+
+
 def counter(index: int, total: int, theme: str) -> str:
+    if not SHOW_COUNTER:
+        return ""
     color = "rgba(255,255,255,0.30)" if theme == "dark" else "rgba(20,22,26,0.28)"
     return f'<div class="counter" style="color:{color}">{index:02d} / {total:02d}</div>'
 
@@ -280,6 +290,63 @@ def bars(card: dict) -> str:
     return rows
 
 
+def number(slide: dict, index: int, total: int) -> str:
+    """Eine einzige grosse Zahl, sonst nichts."""
+    theme = slide.get("theme", "dark")
+    tone = "silver" if theme == "dark" else "graphite"
+    muted = "rgba(255,255,255,0.42)" if theme == "dark" else "rgba(20,22,26,0.42)"
+    sub_color = "rgba(255,255,255,0.62)" if theme == "dark" else "rgba(20,22,26,0.62)"
+    size = slide.get("size", 300)
+    sub = (
+        f'<div class="sub" style="color:{sub_color};margin-top:44px">{slide["sub"]}</div>'
+        if slide.get("sub")
+        else ""
+    )
+    body = (
+        f'<div style="position:absolute;left:{MARGIN}px;right:{MARGIN}px;top:50%;'
+        'transform:translateY(-54%);text-align:center">'
+        f'<div class="eyebrow" style="color:{muted};margin-bottom:40px">{slide["label"]}</div>'
+        f'<div class="big {tone}" style="font-size:{size}px">{slide["value"]}</div>'
+        f"{sub}</div>"
+    )
+    return (
+        f'<div class="slide {theme}">{body}{mark(theme, "bc")}'
+        f"{counter(index, total, theme)}{note(slide.get('note', ''), theme)}</div>"
+    )
+
+
+def split(slide: dict, index: int, total: int) -> str:
+    """Zwei Zahlen nebeneinander, getrennt von einer Haarlinie."""
+    theme = slide.get("theme", "dark")
+    tone = "silver" if theme == "dark" else "graphite"
+    muted = "rgba(255,255,255,0.42)" if theme == "dark" else "rgba(20,22,26,0.42)"
+    hair = "rgba(255,255,255,0.12)" if theme == "dark" else "rgba(20,22,26,0.12)"
+    cells = ""
+    for i, item in enumerate(slide["items"]):
+        border = f"border-left:1px solid {hair};" if i else ""
+        cells += (
+            f'<div style="flex:1;{border}padding:0 24px;text-align:center">'
+            f'<div class="eyebrow" style="color:{muted};margin-bottom:34px">{item["label"]}</div>'
+            f'<div class="big {tone}" style="font-size:{slide.get("size", 118)}px;'
+            'letter-spacing:-4px">'
+            f'{item["value"]}</div></div>'
+        )
+    foot = (
+        f'<div class="sub" style="color:{muted};text-align:center;margin-top:80px">{slide["foot"]}</div>'
+        if slide.get("foot")
+        else ""
+    )
+    body = (
+        f'<div style="position:absolute;left:{MARGIN - 40}px;right:{MARGIN - 40}px;top:50%;'
+        'transform:translateY(-54%)">'
+        f'<div style="display:flex;align-items:flex-start">{cells}</div>{foot}</div>'
+    )
+    return (
+        f'<div class="slide {theme}">{body}{mark(theme, "bc")}'
+        f"{counter(index, total, theme)}{note(slide.get('note', ''), theme)}</div>"
+    )
+
+
 def metric(slide: dict, index: int, total: int) -> str:
     card = slide["card"]
     head = "<br>".join(slide["headline"])
@@ -316,7 +383,13 @@ def metric(slide: dict, index: int, total: int) -> str:
     )
 
 
-RENDERERS = {"statement": statement, "cta": cta, "metric": metric}
+RENDERERS = {
+    "statement": statement,
+    "cta": cta,
+    "metric": metric,
+    "number": number,
+    "split": split,
+}
 
 
 MAX_LINE = 19  # Zeichen pro Headline-Zeile bei 94px - darueber bricht Chrome um
@@ -381,6 +454,8 @@ def main() -> None:
     args = ap.parse_args()
 
     story = json.loads((STORIES / f"{args.story}.json").read_text())
+    global SHOW_COUNTER
+    SHOW_COUNTER = story.get("counter", True)
     slides = story["slides"]
     out_dir = OUT / story["id"]
     out_dir.mkdir(parents=True, exist_ok=True)

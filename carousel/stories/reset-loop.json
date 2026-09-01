@@ -1,0 +1,50 @@
+{
+  "id": "reset-loop",
+  "title": "The reset loop",
+  "counter": false,
+  "note": "Minimal-Story fuer Prop-Firm-Trader. Kein Produkt-Screenshot, keine Ergebnisversprechen - der Schmerz ist die Reset-Schleife und der dabei geloeschte Track Record. Zahlen sind Beispielrechnung (6 Evaluations a 299 USD = 1.794 USD gegen einen Payout von 412 USD).",
+  "caption": "Six evaluations. One payout. You are net negative to a firm you have never traded a live dollar for.\n\nAnd the worse part isn't the money. Every failed account gets closed, and the trade history goes with it. Two years in, there is no file anywhere that says what your setup actually does over 400 trades — only receipts.\n\nThe account belongs to the firm. The record has to belong to you.\n\nFigures are an illustrative example, not real results.\n\n#propfirm #propfirmtrader #fundedtrader #tradingjournal #tradingdiscipline #riskmanagement",
+  "slides": [
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": ["You've paid them", "more than they've", "ever paid you."]
+    },
+    {
+      "type": "split",
+      "theme": "dark",
+      "items": [
+        {"label": "Paid in fees", "value": "$1,794"},
+        {"label": "Paid out to you", "value": "$412"}
+      ],
+      "foot": "Six evaluations. Two years."
+    },
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": ["And you still", "can't say if the", "strategy works."]
+    },
+    {
+      "type": "number",
+      "theme": "dark",
+      "label": "Trades you can still open",
+      "value": "0",
+      "size": 340,
+      "sub": "Six accounts. All closed. All wiped."
+    },
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": ["Every reset", "deletes the only", "evidence you had."]
+    },
+    {
+      "type": "statement",
+      "theme": "dark",
+      "align": "left",
+      "lines": ["The account", "is theirs.", "The record", "is yours."]
+    }
+  ]
+}
