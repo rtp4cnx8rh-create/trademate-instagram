@@ -1,0 +1,167 @@
+{
+  "id": "fun-trader",
+  "title": "The fun account",
+  "note": "Erfundene Beispielgeschichte (Composite), keine echten Kundenzahlen. Zahlen sind in sich konsistent: 38 Wins / 24 Losses / 6 Breakeven = 61% Win Rate, AvgWin 96 vs AvgLoss 233 -> Profit Factor 0.65 -> Netto -1.944 USD.",
+  "caption": "He was up 38% on the fun account by March. By June it was gone.\n\nThe win rate was never the problem: 38 wins against 24 losses reads 61%. The average win was $96 and the average loss was $233 — a profit factor of 0.65 and a net of -$1,944. Nothing about that shows up in a strategy. It shows up in position size, and only if someone is writing it down.\n\nSame setups, half the size after two losses, 90 days logged: 71 trades, 57%, profit factor 1.41.\n\nComposite example — a story assembled from common patterns, not a real customer. The figures illustrate the feature, not real trader results.\n\nStart your own record — 7 days free, link in bio.\n\n#tradingjournal #riskmanagement #positionsizing #tradingpsychology #daytrading",
+  "slides": [
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": [
+        "He was up 38%",
+        "on the fun account.",
+        "Then he wasn’t."
+      ],
+      "cue": "Swipe"
+    },
+    {
+      "type": "statement",
+      "theme": "dark",
+      "align": "left",
+      "lines": [
+        "Same setups.",
+        "Same broker.",
+        "No record of it."
+      ]
+    },
+    {
+      "type": "metric",
+      "headline": [
+        "The win rate was",
+        "never the problem"
+      ],
+      "card": {
+        "kind": "donut",
+        "title": "Win/Loss Distribution",
+        "center_label": "Win Rate",
+        "center_value": "61%",
+        "green_share": 0.613,
+        "stats": [
+          {
+            "label": "Wins",
+            "value": "38"
+          },
+          {
+            "label": "Breakeven",
+            "value": "6"
+          },
+          {
+            "label": "Losses",
+            "value": "24"
+          }
+        ]
+      },
+      "note": "Product example — figures illustrate the feature, not real trader results."
+    },
+    {
+      "type": "metric",
+      "headline": [
+        "The size was",
+        "the whole story"
+      ],
+      "card": {
+        "kind": "bars",
+        "title": "Average Win vs. Average Loss",
+        "bars": [
+          {
+            "label": "Average Win",
+            "value": "+$96",
+            "share": 0.41,
+            "tone": "green"
+          },
+          {
+            "label": "Average Loss",
+            "value": "-$233",
+            "share": 1.0,
+            "tone": "red"
+          }
+        ],
+        "stats": [
+          {
+            "label": "Profit Factor",
+            "value": "0.65"
+          },
+          {
+            "label": "Trades",
+            "value": "68"
+          },
+          {
+            "label": "Net",
+            "value": "-$1,944",
+            "tone": "red"
+          }
+        ]
+      },
+      "note": "Product example — figures illustrate the feature, not real trader results."
+    },
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": [
+        "He didn’t change",
+        "the strategy.",
+        "Only the size."
+      ]
+    },
+    {
+      "type": "metric",
+      "headline": [
+        "90 days later,",
+        "same setups"
+      ],
+      "card": {
+        "kind": "hero",
+        "label": "Total Performance",
+        "value": "+$2,940.00",
+        "delta": "+$118",
+        "delta_suffix": "Today",
+        "spark": [
+          8,
+          12,
+          10,
+          14,
+          13,
+          16,
+          15,
+          15,
+          18,
+          24,
+          30,
+          29,
+          38,
+          46,
+          52,
+          61,
+          72
+        ],
+        "stats": [
+          {
+            "label": "Win Rate",
+            "value": "57%"
+          },
+          {
+            "label": "Trades",
+            "value": "71"
+          },
+          {
+            "label": "Profit Factor",
+            "value": "1.41"
+          }
+        ]
+      },
+      "note": "Product example — figures illustrate the feature, not real trader results."
+    },
+    {
+      "type": "cta",
+      "theme": "light",
+      "lines": [
+        "Your fun account",
+        "deserves a record."
+      ],
+      "sub": "7 days free · link in bio",
+      "note": "Composite example, not a real customer."
+    }
+  ]
+}
