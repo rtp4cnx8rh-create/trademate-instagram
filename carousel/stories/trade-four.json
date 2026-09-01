@@ -1,0 +1,71 @@
+{
+  "id": "trade-four",
+  "title": "Trade number four",
+  "counter": false,
+  "note": "Minimal-Story. Der Schmerz ist der Trade nach dem Plan: die ersten drei Trades sind regelkonform, der vierte kostet den Tag. Zahlen als Beispielrechnung: +310 auf Trade 1-3, -1.920 ab Trade 4.",
+  "caption": "Trades one, two and three were on the list. They followed the plan and they finished +$310.\n\nTrade four was not on the list. It was opened 40 minutes after the session was supposed to be over, in a setup you would not have taken at 9am, in a size you picked because the day was almost green. It cost -$1,920.\n\nThe strategy was never in the room for that one. The clock was.\n\nYou remember the trade. You have never counted it. Ask yourself how many fourth trades are in the last hundred, what they cost, and what time of day they happen — and notice that you can't answer any of it from memory.\n\nThat is the whole job of a journal. Not the win rate. The fourth trade.\n\nFigures are an illustrative example, not real results.\n\n#daytrading #tradingdiscipline #tradingpsychology #propfirmtrader #tradingjournal #riskmanagement",
+  "slides": [
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": [
+        "Trades one to three",
+        "followed the plan."
+      ]
+    },
+    {
+      "type": "number",
+      "theme": "dark",
+      "label": "The one that took the day",
+      "value": "#4",
+      "size": 300,
+      "sub": "Opened 40 minutes after the plan was done."
+    },
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": [
+        "The plan ended",
+        "at 11:40.",
+        "You didn’t."
+      ]
+    },
+    {
+      "type": "split",
+      "theme": "dark",
+      "items": [
+        {
+          "label": "Trades 1 – 3",
+          "value": "+$310"
+        },
+        {
+          "label": "Trade 4",
+          "value": "-$1,920",
+          "tone": "red"
+        }
+      ],
+      "foot": "Same day. Same account. Same trader."
+    },
+    {
+      "type": "statement",
+      "theme": "light",
+      "align": "left",
+      "lines": [
+        "You remember it.",
+        "You just never",
+        "counted it."
+      ]
+    },
+    {
+      "type": "statement",
+      "theme": "dark",
+      "align": "left",
+      "lines": [
+        "Log the fourth",
+        "trade first."
+      ]
+    }
+  ]
+}

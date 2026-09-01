@@ -324,11 +324,16 @@ def split(slide: dict, index: int, total: int) -> str:
     cells = ""
     for i, item in enumerate(slide["items"]):
         border = f"border-left:1px solid {hair};" if i else ""
+        # tone faerbt eine einzelne Zahl statt des Silberverlaufs.
+        if item.get("tone"):
+            style = f'color:{COLORS[item["tone"]]};-webkit-text-fill-color:{COLORS[item["tone"]]};'
+        else:
+            style = ""
         cells += (
             f'<div style="flex:1;{border}padding:0 24px;text-align:center">'
             f'<div class="eyebrow" style="color:{muted};margin-bottom:34px">{item["label"]}</div>'
             f'<div class="big {tone}" style="font-size:{slide.get("size", 118)}px;'
-            'letter-spacing:-4px">'
+            f'letter-spacing:-4px;{style}">'
             f'{item["value"]}</div></div>'
         )
     foot = (

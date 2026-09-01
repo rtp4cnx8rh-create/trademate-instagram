@@ -15,6 +15,7 @@ pip install pillow
 python3 carousel/render.py fun-trader          # -> carousel/out/fun-trader/01..07.jpg
 python3 carousel/render.py prop-firm           # -> carousel/out/prop-firm/01..07.jpg
 python3 carousel/render.py reset-loop          # -> carousel/out/reset-loop/01..06.jpg
+python3 carousel/render.py trade-four          # -> carousel/out/trade-four/01..06.jpg
 python3 carousel/render.py fun-trader --keep-html   # HTML der Slides mit ausgeben
 CHROME=/pfad/zu/chrome python3 carousel/render.py fun-trader
 ```
@@ -51,7 +52,7 @@ Slide-Typen:
   Zeile darunter (`label`, `value`, `size`, `sub`). Fuer minimale Slides
   ohne Karte.
 - **`split`** - zwei Zahlen nebeneinander, getrennt von einer Haarlinie
-  (`items` mit `label`/`value`, optional `foot`).
+  (`items` mit `label`/`value`, optional `tone` und `foot`).
 - **`cta`** - Abschlussslide mit Headline, gruener Zeile und Wortmarke.
 
 `"counter": false` auf Story-Ebene blendet den `01 / 07`-Zaehler aus - fuer
