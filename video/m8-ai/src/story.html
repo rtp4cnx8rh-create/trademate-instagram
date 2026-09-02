@@ -1,0 +1,463 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Trademate M8 AI — Story</title>
+<style>
+  @font-face{font-family:'ITight';src:local('Inter Tight');}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#000;}
+  body{font-family:'Inter Tight','Inter',sans-serif;}
+
+  #stage{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 18% 6%, #2a2e33 0%, rgba(42,46,51,0) 55%),
+      radial-gradient(100% 60% at 90% 96%, #1b2b23 0%, rgba(27,43,35,0) 60%),
+      linear-gradient(168deg,#191c1f 0%,#111316 42%,#0a0b0d 100%);}
+  #grain{position:absolute;inset:0;opacity:.09;pointer-events:none;mix-blend-mode:overlay;
+    background-image:url('grain.png');background-size:256px 256px;}
+  #vig{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 75% at 50% 42%, rgba(0,0,0,0) 46%, rgba(0,0,0,.42) 100%);}
+
+  /* ---------- persistent brand ---------- */
+  #brand{position:absolute;top:96px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0;}
+  #brand img{width:296px;display:block;}
+
+  /* ---------- headline ---------- */
+  .head{position:absolute;left:88px;right:88px;top:206px;}
+  .eyebrow{font-family:'Inter';font-size:23px;font-weight:600;letter-spacing:.24em;
+    text-transform:uppercase;color:#7e868d;margin-bottom:22px;}
+  .hl{font-family:'Inter Tight';font-weight:800;font-size:96px;line-height:.98;letter-spacing:-.035em;
+    background:linear-gradient(178deg,#ffffff 12%,#b9bfc5 96%);-webkit-background-clip:text;
+    background-clip:text;color:transparent;}
+  .hl .w{display:inline-block;background-image:linear-gradient(178deg,#ffffff 12%,#b9bfc5 96%);
+    background-size:100% calc(var(--ln,1) * 100%);background-position:0 calc(var(--li,0) * -100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;will-change:transform,opacity;}
+  .sub{font-family:'Inter';font-size:31px;font-weight:500;color:#8a9199;margin-top:26px;letter-spacing:-.005em;}
+
+  /* ---------- phone ---------- */
+  #cam{position:absolute;left:50%;top:0;width:0;height:0;}
+  #phone{position:absolute;left:-299px;top:614px;width:598px;height:1296px;
+    border-radius:74px;background:linear-gradient(160deg,#3a3f45,#16181b 45%,#2a2e33);
+    padding:8px;box-shadow:0 60px 120px rgba(0,0,0,.62), 0 0 0 1px rgba(255,255,255,.05);}
+  #screenwrap{position:relative;width:582px;height:1280px;border-radius:66px;overflow:hidden;background:#fff;}
+  #screen{position:absolute;left:0;top:0;width:393px;height:864px;transform-origin:0 0;transform:scale(1.4809);
+    background:#fff;font-family:'Inter';color:#0b0b0c;}
+  #scan{position:absolute;left:0;right:0;height:300px;top:-320px;pointer-events:none;
+    background:linear-gradient(180deg,rgba(31,221,127,0) 0%,rgba(31,221,127,.16) 45%,rgba(31,221,127,.42) 50%,rgba(31,221,127,.16) 55%,rgba(31,221,127,0) 100%);}
+  #scanline{position:absolute;left:0;right:0;height:3px;top:-320px;background:#1FDD7F;box-shadow:0 0 26px 6px rgba(31,221,127,.75);}
+
+  /* screen internals (logical 393x852) */
+  .sbar{display:flex;align-items:center;justify-content:space-between;padding:16px 26px 0;}
+  .sbar .t{font-size:16px;font-weight:600;letter-spacing:-.02em;}
+  .island{width:112px;height:33px;border-radius:20px;background:#000;}
+  .sbar .r{display:flex;align-items:center;gap:5px;}
+  .bars{display:flex;align-items:flex-end;gap:2px;height:11px;}
+  .bars i{width:3px;background:#0b0b0c;border-radius:1px;}
+  .batt{width:26px;height:13px;border-radius:4px;background:#0b0b0c;color:#fff;font-size:9px;
+    font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .avatar{position:absolute;right:22px;top:62px;width:44px;height:44px;border-radius:50%;
+    background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.10);display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .tabs{display:flex;align-items:center;justify-content:center;gap:26px;margin-top:44px;}
+  .tabs .a{font-size:25px;font-weight:700;letter-spacing:-.02em;}
+  .tabs .b{font-size:25px;font-weight:500;color:#b4b7bc;letter-spacing:-.02em;}
+  .tabs .p{font-size:26px;color:#b4b7bc;font-weight:400;}
+  .perf{text-align:center;margin-top:26px;}
+  .perf .lab{font-size:15px;color:#8b9096;font-weight:500;}
+  .perf .big{font-size:52px;font-weight:800;letter-spacing:-.035em;margin-top:4px;font-family:'Inter Tight';}
+  .perf .day{font-size:17px;margin-top:8px;font-weight:500;}
+  .perf .day b{color:#12b76a;font-weight:700;}
+  .perf .day span{color:#8b9096;}
+  .rule{height:2px;background:#111;margin-top:36px;}
+  .tiles{display:flex;gap:11px;padding:0 20px;margin-top:44px;}
+  .tile{flex:1;background:#eeeef1;border-radius:15px;padding:14px 10px 16px;text-align:center;}
+  .tile .k{font-size:12.5px;color:#7c8188;font-weight:500;}
+  .tile .v{font-size:26px;font-weight:800;letter-spacing:-.03em;margin-top:5px;font-family:'Inter Tight';}
+  .m8{margin:22px 20px 0;background:linear-gradient(135deg,#e7e7f6,#e3e6f4);border-radius:17px;padding:15px 16px 16px;}
+  .m8 .r1{display:flex;align-items:center;gap:7px;}
+  .m8 .n{font-size:15px;font-weight:800;letter-spacing:-.02em;}
+  .m8 .beta{font-size:12.5px;color:#6f747b;font-weight:500;}
+  .m8 .dt{margin-left:auto;font-size:12.5px;color:#6f747b;font-weight:500;}
+  .m8 .h{font-size:16.5px;font-weight:700;letter-spacing:-.02em;margin-top:8px;}
+  .m8 .p{font-size:14px;color:#3d4147;margin-top:5px;font-weight:500;}
+  .m8 .more{font-size:12.5px;color:#8288909e;color:#82888f;margin-top:8px;font-weight:500;}
+  .rec{padding:0 20px;margin-top:26px;}
+  .rec .t{font-size:16px;color:#8b9096;font-weight:600;}
+  .row{display:flex;align-items:flex-start;margin-top:16px;}
+  .row .s{font-size:21px;font-weight:700;letter-spacing:-.02em;}
+  .row .m{font-size:13px;color:#8b9096;margin-top:2px;font-weight:500;}
+  .row .v{margin-left:auto;font-size:20px;font-weight:700;color:#12b76a;letter-spacing:-.02em;}
+  .tabbar{position:absolute;left:22px;right:22px;bottom:26px;height:66px;border-radius:33px;
+    background:rgba(255,255,255,.86);backdrop-filter:blur(14px);box-shadow:0 6px 26px rgba(0,0,0,.13);
+    display:flex;align-items:center;}
+  .tb{position:relative;flex:1;text-align:center;font-size:11.5px;font-weight:600;color:#0b0b0c;}
+  .tb .ic{display:block;margin-bottom:3px;line-height:0;}
+  .tb .ic svg{display:inline-block;}
+  .tb.off{color:#9aa0a6;}
+  .tbpill{position:absolute;left:8px;top:8px;width:104px;height:50px;border-radius:25px;background:#eceef0;}
+  .home{position:absolute;left:50%;transform:translateX(-50%);bottom:9px;width:134px;height:5px;border-radius:3px;background:#0b0b0c;}
+
+  /* ---------- analyzing pill ---------- */
+  #pill{position:absolute;left:50%;transform:translateX(-50%);top:1610px;display:flex;align-items:center;gap:15px;
+    padding:22px 38px;border-radius:100px;background:#0e1013;
+    border:1px solid rgba(255,255,255,.11);box-shadow:0 26px 60px rgba(0,0,0,.6);}
+  #pill .d{width:11px;height:11px;border-radius:50%;background:#1FDD7F;}
+  #pill .tx{font-family:'Inter';font-size:26px;font-weight:600;color:#e6e9ec;letter-spacing:-.01em;}
+  #pill .dots{display:flex;gap:6px;}
+  #pill .dots i{width:7px;height:7px;border-radius:50%;background:#7e868d;display:block;}
+
+  /* ---------- insight cards ---------- */
+  #cards{position:absolute;left:76px;right:76px;top:560px;}
+  .card{position:relative;background:linear-gradient(160deg,#17191c,#0e1012);
+    border:1px solid rgba(255,255,255,.075);border-radius:34px;padding:38px 40px 36px;margin-bottom:26px;
+    box-shadow:0 34px 70px rgba(0,0,0,.55);}
+  .card .top{display:flex;align-items:center;gap:16px;}
+  .card .badge{font-family:'Inter';font-size:23px;font-weight:700;letter-spacing:-.01em;color:#0b0c0e;
+    padding:9px 20px;border-radius:100px;background:#dfe3e7;}
+  .card.g .badge{background:#1FDD7F;}
+  .card.r .badge{background:#FF5A5F;color:#140b0c;}
+  .card .val{margin-left:auto;font-family:'Inter Tight';font-size:44px;font-weight:800;letter-spacing:-.03em;}
+  .card.g .val{color:#1FDD7F;} .card.r .val{color:#FF5A5F;}
+  .card .ttl{font-family:'Inter Tight';font-size:47px;font-weight:800;letter-spacing:-.03em;color:#fff;margin-top:26px;}
+  .card .note{font-family:'Inter';font-size:26px;font-weight:500;color:#8d949b;margin-top:12px;letter-spacing:-.005em;}
+  .bar{height:9px;border-radius:6px;background:rgba(255,255,255,.08);margin-top:30px;overflow:hidden;}
+  .bar i{display:block;height:100%;border-radius:6px;width:0%;}
+  .card.g .bar i{background:linear-gradient(90deg,#12995a,#1FDD7F);}
+  .card.r .bar i{background:linear-gradient(90deg,#a83338,#FF5A5F);}
+
+  /* ---------- rule button ---------- */
+  #rulewrap{position:absolute;left:76px;right:76px;top:846px;display:flex;justify-content:center;}
+  #rulebtn{position:relative;display:flex;align-items:center;gap:16px;padding:30px 52px;border-radius:100px;
+    background:#f2f4f6;color:#0b0c0e;font-family:'Inter';font-size:30px;font-weight:700;letter-spacing:-.01em;
+    box-shadow:0 22px 50px rgba(0,0,0,.5);}
+  #ripple{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;
+    border:3px solid rgba(31,221,127,.85);opacity:0;}
+
+  /* ---------- CTA ---------- */
+  #cta{position:absolute;left:0;right:0;top:0;height:1920px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;}
+  #cta .lg{width:344px;margin-bottom:70px;}
+  #cta .m8n{font-family:'Inter Tight';font-size:132px;font-weight:900;letter-spacing:-.05em;
+    background:linear-gradient(178deg,#ffffff 10%,#aeb5bb 95%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  #cta .beta{display:inline-block;margin-top:6px;padding:10px 26px;border-radius:100px;
+    border:1px solid rgba(255,255,255,.16);font-family:'Inter';font-size:24px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:#9aa1a8;}
+  #cta .ln{font-family:'Inter';font-size:36px;font-weight:500;color:#9aa1a8;margin-top:46px;letter-spacing:-.01em;}
+  #cta .go{margin-top:66px;padding:34px 66px;border-radius:100px;background:#1FDD7F;color:#04150c;
+    font-family:'Inter';font-size:33px;font-weight:800;letter-spacing:-.015em;box-shadow:0 26px 60px rgba(31,221,127,.22);}
+
+  #disc{position:absolute;left:50%;transform:translateX(-50%);bottom:66px;text-align:center;font-family:'Inter';
+    font-size:19px;font-weight:500;color:#8a9199;line-height:1.45;letter-spacing:.005em;max-width:880px;
+    padding:13px 26px;border-radius:16px;background:rgba(8,9,11,.66);border:1px solid rgba(255,255,255,.05);}
+</style></head>
+<body>
+<div id="stage">
+
+  <div id="cam">
+    <div id="phone"><div id="screenwrap"><div id="screen">
+      <div class="sbar">
+        <div class="t">14:27</div>
+        <div class="island"></div>
+        <div class="r">
+          <div class="bars"><i style="height:4px"></i><i style="height:6px"></i><i style="height:9px"></i><i style="height:11px"></i></div>
+          <div class="batt">34</div>
+        </div>
+      </div>
+      <div class="avatar"><svg width="21" height="21" viewBox="0 0 24 24" fill="#0b0b0c"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+      <div class="tabs"><div class="a" data-k="tabAll">All</div><div class="b">Account 1</div><div class="p">+</div></div>
+      <div class="perf">
+        <div class="lab" data-k="perfLab">Total Performance</div>
+        <div class="big" id="bigval">$6,579.30</div>
+        <div class="day"><b>+$0</b> <span data-k="today">Today</span></div>
+      </div>
+      <div class="rule"></div>
+      <div class="tiles">
+        <div class="tile"><div class="k" data-k="wr">Win Rate</div><div class="v">55%</div></div>
+        <div class="tile"><div class="k">Trades</div><div class="v">130</div></div>
+        <div class="tile"><div class="k" data-k="pf">Profit Factor</div><div class="v">2.17</div></div>
+      </div>
+      <div class="m8" id="m8card">
+        <div class="r1"><div class="n">M8 AI</div><div class="beta">Beta</div><div class="dt">Aug 11</div></div>
+        <div class="h" data-k="m8h">09:00 hour: 1/5 wins, -368.93 net</div>
+        <div class="p" data-k="m8p">No trade entries at 09:00.</div>
+        <div class="more" data-k="m8more">5 more findings</div>
+      </div>
+      <div class="rec">
+        <div class="t" data-k="recent">Recent Trades</div>
+        <div class="row"><div><div class="s">BTC</div><div class="m" data-k="r1m">Crypto &middot; Long</div></div><div class="v">+$45.43</div></div>
+        <div class="row"><div><div class="s">APPL</div><div class="m" data-k="r2m">Stocks &middot; Long</div></div><div class="v">+$44.51</div></div>
+      </div>
+      <div class="tabbar">
+        <div class="tbpill"></div>
+        <div class="tb"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 10.4 12 3.6l9 6.8V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>Dashboard</div>
+        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg></span>Trades</div>
+        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><span data-k="cal">Calendar</span></div>
+        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9h-9z" opacity=".95"/><path d="M13.6 2.2A9 9 0 0 1 21.8 10.4h-8.2z" opacity=".45"/></svg></span><span data-k="ana">Analytics</span></div>
+      </div>
+      <div class="home"></div>
+      <div id="scan"></div><div id="scanline"></div>
+    </div></div></div>
+  </div>
+
+  <div id="brand"><img src="logo.png" alt="Trademate"></div>
+
+  <div class="head" id="h1">
+    <div class="eyebrow" data-k="eyebrow">Trademate &middot; M8 AI</div>
+    <div class="hl" id="hl1"></div>
+    <div class="sub" id="sub1"></div>
+  </div>
+  <div class="head" id="h2"><div class="hl" id="hl2"></div></div>
+  <div class="head" id="h3"><div class="hl" id="hl3"></div></div>
+  <div class="head" id="h4"><div class="hl" id="hl4"></div></div>
+
+  <div id="pill">
+    <div class="d"></div><div class="tx" data-k="pill">M8 AI is reading 130 trades</div>
+    <div class="dots"><i></i><i></i><i></i></div>
+  </div>
+
+  <div id="cards">
+    <div class="card r" id="c1">
+      <div class="top"><div class="badge">12:00</div><div class="val">-$223.64</div></div>
+      <div class="ttl" data-k="c1t">30% win rate</div>
+      <div class="note" data-k="c1n">This slot deserves a pause.</div>
+      <div class="bar"><i data-w="30"></i></div>
+    </div>
+    <div class="card g" id="c2">
+      <div class="top"><div class="badge">16:00</div><div class="val">+$2,459.06</div></div>
+      <div class="ttl" data-k="c2t">75% win rate</div>
+      <div class="note" data-k="c2n">Your best hour by far.</div>
+      <div class="bar"><i data-w="75"></i></div>
+    </div>
+    <div class="card g" id="c3">
+      <div class="top"><div class="badge">FVG</div><div class="val">+$1,722.99</div></div>
+      <div class="ttl" data-k="c3t">71% win rate</div>
+      <div class="note" data-k="c3n">Your most reliable setup.</div>
+      <div class="bar"><i data-w="71"></i></div>
+    </div>
+  </div>
+
+  <div id="rulewrap"><div id="rulebtn"><span id="ruleicon">+</span><span id="ruletx" data-k="rule">Apply as rule</span><div id="ripple"></div></div></div>
+
+  <div id="cta">
+    <img class="lg" src="logo.png" alt="Trademate">
+    <div class="m8n">M8 AI</div>
+    <div class="beta">Beta</div>
+    <div class="ln" data-k="ctaLn">Your journal, reading itself.</div>
+    <div class="go" data-k="ctaGo">7 days free &mdash; link in bio</div>
+  </div>
+
+  <div id="disc" data-k="disc">Product example. These figures illustrate the feature, not real trader results.</div>
+
+  <div id="vig"></div><div id="grain"></div>
+</div>
+
+<script>
+const COPY = {
+  en: {
+    tabAll:'All', perfLab:'Total Performance', today:'Today', wr:'Win Rate', pf:'Profit Factor',
+    m8h:'09:00 hour: 1/5 wins, -368.93 net', m8p:'No trade entries at 09:00.', m8more:'5 more findings',
+    recent:'Recent Trades', r1m:'Crypto · Long', r2m:'Stocks · Long', cal:'Calendar', ana:'Analytics',
+    eyebrow:'Trademate · M8 AI',
+    hl1:'130 trades\nlogged.', sub1:'Every entry. Every exit. Every note.',
+    hl2:'But which hour\nis bleeding you?',
+    hl3:'M8 AI reads\nthe pattern.',
+    hl4:'One tap.\nIt becomes a rule.',
+    pill:'M8 AI is reading 130 trades',
+    c1t:'30% win rate', c1n:'This slot deserves a pause.',
+    c2t:'75% win rate', c2n:'Your best hour by far.',
+    c3t:'71% win rate', c3n:'Your most reliable setup.',
+    rule:'Apply as rule', ruleDone:'Rule active',
+    ctaLn:'Your journal, reading itself.', ctaGo:'7 days free — link in bio',
+    disc:'Product example. These figures illustrate the feature, not real trader results.'
+  },
+  de: {
+    tabAll:'Alle', perfLab:'Gesamtperformance', today:'Heute', wr:'Gewinnrate', pf:'Profit-Faktor',
+    m8h:'09:00 Uhr: 1/5 Gewinne, -368,93 netto', m8p:'Keine Einträge um 09:00.', m8more:'5 weitere Befunde',
+    recent:'Letzte Trades', r1m:'Krypto · Long', r2m:'Aktien · Long', cal:'Kalender', ana:'Analysen',
+    eyebrow:'Trademate · M8 AI',
+    hl1:'130 Trades\nprotokolliert.', sub1:'Jeder Entry. Jeder Exit. Jede Notiz.',
+    hl2:'Aber welche Stunde\nkostet dich Geld?',
+    hl3:'M8 AI erkennt\ndas Muster.',
+    hl4:'Ein Tipp –\nund es ist eine Regel.',
+    pill:'M8 AI liest 130 Trades',
+    c1t:'30 % Trefferquote', c1n:'Diese Stunde verdient eine Pause.',
+    c2t:'75 % Trefferquote', c2n:'Deine beste Stunde – mit Abstand.',
+    c3t:'71 % Trefferquote', c3n:'Dein zuverlässigstes Setup.',
+    rule:'Als Regel übernehmen', ruleDone:'Regel aktiv',
+    ctaLn:'Dein Journal, das sich selbst liest.', ctaGo:'7 Tage kostenlos — Link in Bio',
+    disc:'Produktbeispiel. Die Zahlen veranschaulichen die Funktion, keine echten Handelsergebnisse.'
+  }
+};
+const LANG = new URLSearchParams(location.search).get('lang') || 'en';
+const C = COPY[LANG];
+document.querySelectorAll('[data-k]').forEach(function(el){ if(C[el.dataset.k]!==undefined) el.textContent = C[el.dataset.k]; });
+
+// split headlines into word spans for staggered reveal
+function setHl(id, txt){
+  const el = document.getElementById(id); el.innerHTML='';
+  txt.split('\n').forEach(function(line,li){
+    if(li) el.appendChild(document.createElement('br'));
+    line.split(' ').forEach(function(w,wi){
+      const s=document.createElement('span'); s.className='w'; s.textContent=w;
+      s.style.setProperty('--li', li); s.style.setProperty('--ln', txt.split('\n').length);
+      el.appendChild(s);
+      if(wi<line.split(' ').length-1) el.appendChild(document.createTextNode(' '));
+    });
+  });
+  return el.querySelectorAll('.w');
+}
+const W1=setHl('hl1',C.hl1), W2=setHl('hl2',C.hl2), W3=setHl('hl3',C.hl3), W4=setHl('hl4',C.hl4);
+document.getElementById('sub1').textContent = C.sub1;
+
+// ---------- animation engine ----------
+const $=function(s){return document.querySelector(s)};
+function cl(v,a,b){return v<a?a:(v>b?b:v)}
+function seg(t,a,b){return cl((t-a)/(b-a),0,1)}
+function oc(u){return 1-Math.pow(1-u,3)}            // ease out cubic
+function oq(u){return 1-Math.pow(1-u,5)}            // ease out quint
+function io(u){return u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2}
+function fade(el,t,a,b,c,d){                        // in a->b, out c->d
+  const o = seg(t,a,b) * (d!==undefined ? 1-seg(t,c,d) : 1);
+  el.style.opacity=o; el.style.display = o<=0.001 ? 'none':'';
+  return o;
+}
+function words(list,t,start,step,dur,outA,outB){
+  list.forEach(function(w,i){
+    const u=oq(seg(t,start+i*step,start+i*step+dur));
+    const o=outA!==undefined?1-seg(t,outA,outB):1;
+    w.style.opacity=(u*o).toFixed(4);
+    w.style.transform='translateY('+((1-u)*46).toFixed(2)+'px)';
+    w.style.filter='blur('+((1-u)*7).toFixed(2)+'px)';
+  });
+}
+function money(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+const T={ s1:[0,3.0], s2:[3.0,5.7], s3:[5.7,10.7], s4:[10.7,12.7], s5:[12.7,15.0] };
+
+function render(t){
+  const brand=$('#brand'), cam=$('#cam'), phone=$('#phone'), cards=$('#cards'),
+        pill=$('#pill'), rw=$('#rulewrap'), cta=$('#cta'), disc=$('#disc'),
+        scan=$('#scan'), scanline=$('#scanline');
+
+  // brand mark: in at 0.15, out at 12.5 (CTA takes over)
+  fade(brand,t,0.15,0.9,12.35,12.75);
+  brand.style.transform='translateX(-50%) translateY('+((1-oc(seg(t,0.15,1.0)))*-24).toFixed(2)+'px)';
+
+  // ---- headlines
+  words(W1,t,0.45,0.085,0.85,2.75,3.05);
+  fade($('#sub1'),t,1.25,1.9,2.75,3.02);
+  fade($('.eyebrow'),t,0.25,0.85,2.75,3.02);
+  $('#h1').style.display = (t<3.15)?'':'none';
+
+  words(W2,t,3.15,0.075,0.8,5.42,5.72);
+  $('#h2').style.display = (t>=3.05&&t<5.8)?'':'none';
+
+  words(W3,t,5.85,0.075,0.8,10.35,10.65);
+  $('#h3').style.display = (t>=5.75&&t<10.75)?'':'none';
+
+  words(W4,t,10.8,0.075,0.8,12.32,12.62);
+  $('#h4').style.display = (t>=10.7&&t<12.7)?'':'none';
+
+  // ---- phone camera
+  let py, pscale, popa=1, pblur=0;
+  if(t<T.s2[0]){                                  // S1: rise from bottom
+    const u=oq(seg(t,0.55,2.2));
+    py = 300 - 300*u; pscale = 0.985+0.015*u;
+  } else if(t<T.s3[0]){                            // S2: push in on the M8 card
+    const u=io(seg(t,3.0,5.0));
+    py = 0 - 210*u; pscale = 1 + 0.13*u;
+  } else if(t<T.s4[0]){                            // S3: fall back, blur, dim
+    const u=io(seg(t,5.7,6.9));
+    py = -210 + 700*u; pscale = 1.13 - 0.30*u;
+    pblur = 9*u; popa = 1-0.74*u;
+  } else {                                         // S4/S5: stay back, drift out
+    py = 490 + 120*seg(t,12.4,15.0); pscale=0.83;
+    pblur=9; popa=(1-0.74)*(1-seg(t,12.35,12.9));
+  }
+  cam.style.transform='translateY('+py.toFixed(2)+'px) scale('+pscale.toFixed(4)+')';
+  phone.style.opacity=cl(popa*oc(seg(t,0.4,1.1)),0,1).toFixed(4);
+  phone.style.filter='blur('+pblur.toFixed(2)+'px)';
+
+  // count-up on total performance
+  const cu=oq(seg(t,1.0,2.6));
+  $('#bigval').textContent=money(6579.30*cu);
+
+  // scan sweep over the screen (twice, during S2)
+  const sv=seg(t,3.25,5.35);
+  if(sv>0&&sv<1){
+    const p=(sv*2)%1, y=-320+p*1500;
+    scan.style.display=''; scanline.style.display='';
+    scan.style.transform='translateY('+y.toFixed(1)+'px)';
+    scanline.style.transform='translateY('+(y+150).toFixed(1)+'px)';
+    const o=Math.sin(Math.min(p,1)*Math.PI);
+    scan.style.opacity=o.toFixed(3); scanline.style.opacity=(o*0.9).toFixed(3);
+  } else { scan.style.display='none'; scanline.style.display='none'; }
+
+  // M8 card highlight pulse in S2
+  const hp=seg(t,3.6,5.4);
+  const m8=$('#m8card');
+  if(hp>0&&hp<1){
+    const g=Math.sin(hp*Math.PI);
+    m8.style.boxShadow='0 0 0 '+(3*g).toFixed(2)+'px rgba(31,190,120,'+(0.85*g).toFixed(3)+')';
+    m8.style.transform='scale('+(1+0.035*g).toFixed(4)+')';
+  } else { m8.style.boxShadow='none'; m8.style.transform='none'; }
+
+  // ---- analyzing pill
+  const po=fade(pill,t,3.35,3.85,5.25,5.6);
+  pill.style.transform='translateX(-50%) translateY('+((1-oc(seg(t,3.35,4.0)))*40).toFixed(2)+'px)';
+  pill.querySelector('.d').style.opacity=(0.35+0.65*Math.abs(Math.sin(t*4.4))).toFixed(3);
+  pill.querySelectorAll('.dots i').forEach(function(d,i){
+    d.style.opacity=(0.22+0.78*Math.abs(Math.sin(t*4.0-i*0.6))).toFixed(3);
+  });
+
+  // ---- insight cards
+  const co=fade(cards,t,6.0,6.2,12.25,12.65);
+  const starts=[6.15,6.75,7.35];
+  ['#c1','#c2','#c3'].forEach(function(sel,i){
+    const el=$(sel), u=oq(seg(t,starts[i],starts[i]+0.85));
+    el.style.opacity=u.toFixed(3);
+    el.style.transform='translateY('+((1-u)*110).toFixed(2)+'px) scale('+(0.955+0.045*u).toFixed(4)+')';
+    const b=el.querySelector('.bar i');
+    b.style.width=(parseFloat(b.dataset.w)*oc(seg(t,starts[i]+0.35,starts[i]+1.5))).toFixed(2)+'%';
+  });
+  // S4: focus the first card, dim the others
+  const f=seg(t,10.75,11.35);
+  $('#c1').style.filter='none';
+  [$('#c2'),$('#c3')].forEach(function(el){
+    el.style.filter='blur('+(6*f).toFixed(2)+'px)';
+    if(f>0) el.style.opacity=(parseFloat(el.style.opacity||1)*(1-0.72*f)).toFixed(3);
+  });
+  cards.style.transform='translateY('+(-105*io(seg(t,10.75,11.5))).toFixed(2)+'px)';
+
+  // ---- rule button + tap
+  const ro=fade(rw,t,11.15,11.55,12.3,12.6);
+  const btn=$('#rulebtn'), rip=$('#ripple');
+  const press=seg(t,11.85,12.0), rel=seg(t,12.0,12.25);
+  btn.style.transform='translateY('+((1-oc(seg(t,11.15,11.7)))*36).toFixed(2)+'px) scale('+(1-0.06*press*(1-rel)).toFixed(4)+')';
+  const rp=seg(t,11.95,12.6);
+  if(rp>0&&rp<1){
+    rip.style.opacity=(1-rp).toFixed(3);
+    rip.style.transform='scale('+(1+rp*10.5).toFixed(3)+')';
+  } else rip.style.opacity=0;
+  if(t>=12.12){
+    btn.style.background='#1FDD7F'; $('#ruleicon').textContent='✓';
+    $('#ruletx').textContent=C.ruleDone;
+  } else {
+    btn.style.background='#f2f4f6'; $('#ruleicon').textContent='+';
+    $('#ruletx').textContent=C.rule;
+  }
+
+  // ---- CTA
+  const cto=fade(cta,t,12.75,13.35);
+  cta.style.transform='scale('+(0.94+0.06*oc(seg(t,12.75,13.8))).toFixed(4)+')';
+  const breathe = 1 + 0.018*Math.sin((t-13.9)*3.0)*seg(t,13.9,14.25);
+  cta.querySelector('.go').style.transform='translateY('+((1-oc(seg(t,13.35,14.0)))*34).toFixed(2)+'px) scale('+breathe.toFixed(4)+')';
+  cta.querySelector('.go').style.boxShadow='0 26px 60px rgba(31,221,127,'+(0.22+0.16*seg(t,13.9,15.0)*(0.5+0.5*Math.sin((t-13.9)*3.0))).toFixed(3)+')';
+  cta.querySelector('.go').style.opacity=oc(seg(t,13.3,13.95)).toFixed(3);
+  cta.querySelector('.ln').style.opacity=oc(seg(t,13.1,13.7)).toFixed(3);
+
+  // ---- disclaimer (visible while numbers are on screen)
+  fade(disc,t,6.4,7.0,14.9,15.0);
+}
+window.render=render;
+render(0);
+</script>
+</body></html>
