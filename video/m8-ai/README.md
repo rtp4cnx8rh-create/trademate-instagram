@@ -23,10 +23,11 @@ the first two scenes and then hands over to the finding cards, so the second
 half runs on type and cards alone.
 
 The dashboard figures (130 trades, 55 %, 2.17, the recent-trade rows) are the
-ones from the reference screens. The three finding cards use rounded
-illustrative amounts — -$1,500 / +$2,400 / +$1,600 — so the contrast between
-the losing and the winning hour reads at story speed. Everything is labelled
-as a product example on screen from 6.4 s onward.
+ones from the reference screens. The findings use rounded illustrative
+amounts — -$1,500 / +$900 / +$800 — and the M8 AI card on the phone teases the
+same 12:00 finding the story then blows up, so no two screens show the same
+hour with different numbers. Everything is labelled as a product example on
+screen from 6.4 s onward.
 
 ## Re-rendering
 
