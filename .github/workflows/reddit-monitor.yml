@@ -1,0 +1,93 @@
+# Ablegen unter: .github/workflows/reddit-monitor.yml
+#
+# Laeuft einmal taeglich und legt ein Briefing unter briefings/ ab, plus
+# optional ein GitHub-Issue. Anders als beim Instagram-Workflow ist die
+# genaue Uhrzeit egal, deshalb nur ein Cron ohne Sommer-/Winterzeit-Trick:
+# 06:00 UTC sind 07:00 (Winter) bzw. 08:00 (Sommer) Berliner Zeit.
+#
+# Der Job hat bei Reddit ausschliesslich Lesezugriff. Kommentiert wird
+# von Hand - das ist Absicht und keine fehlende Ausbaustufe.
+
+name: Reddit Monitor
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Nur anzeigen, nichts schreiben"
+        type: boolean
+        default: false
+      check_only:
+        description: "Nur Reddit-Zugangsdaten pruefen"
+        type: boolean
+        default: false
+      no_draft:
+        description: "Ohne Kommentarentwuerfe (spart API-Kosten)"
+        type: boolean
+        default: false
+
+# briefings/ und answered.json werden zurueck ins Repo geschrieben,
+# issues: write fuer das Tagesbriefing als Issue.
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: reddit-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Anthropic-SDK installieren
+        if: ${{ inputs.no_draft != true }}
+        run: pip install --quiet anthropic
+
+      - name: Threads suchen
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Laenge der Secrets ausgeben, ohne sie preiszugeben.
+          echo "Laenge REDDIT_CLIENT_ID:     ${#REDDIT_CLIENT_ID}"
+          echo "Laenge REDDIT_CLIENT_SECRET: ${#REDDIT_CLIENT_SECRET}"
+          echo "Laenge ANTHROPIC_API_KEY:    ${#ANTHROPIC_API_KEY}"
+
+          ARGS="--issue"
+          if [ "${{ inputs.check_only }}" = "true" ]; then
+            ARGS="--check"
+          else
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              ARGS="--dry-run"
+            fi
+            if [ "${{ inputs.no_draft }}" = "true" ]; then
+              ARGS="$ARGS --no-draft"
+            fi
+          fi
+          python3 reddit_monitor.py $ARGS
+
+      - name: Briefing zurueckschreiben
+        if: ${{ inputs.dry_run != true && inputs.check_only != true }}
+        run: |
+          git config user.name  "trademate-bot"
+          git config user.email "bot@trademate-app.com"
+          git add briefings answered.json
+
+          if git diff --cached --quiet; then
+            echo "Nichts Neues - kein Commit noetig."
+            exit 0
+          fi
+
+          git commit -m "reddit-briefing: $(date -u +%Y-%m-%d)"
+          git push

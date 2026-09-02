@@ -1,0 +1,66 @@
+{
+  "_hinweis": [
+    "Konfiguration fuer reddit_monitor.py.",
+    "Der Monitor LIEST nur. Er postet nichts. Kommentiert wird von Hand.",
+    "Voraussetzung, auf die sich alles hier stuetzt: das Reddit-Profil, mit dem",
+    "du antwortest, nennt in der Bio die Verbindung zu TradeMate. Ohne das",
+    "waeren die Entwuerfe verdeckte Werbung - genau das soll es nicht sein."
+  ],
+
+  "reddit_username": "DEIN_REDDIT_NAME",
+  "profil_offenlegung": "Bio-Text z.B.: 'Trader, baue nebenbei TradeMate (Trading-Journal).'",
+
+  "subreddits": [
+    "Daytrading",
+    "algotrading",
+    "propfirms",
+    "Forex",
+    "FuturesTrading",
+    "Trading"
+  ],
+
+  "_queries": "Je Eintrag eine Reddit-Suche ueber alle Subs oben. Kurz halten - Reddit sucht Volltext.",
+  "queries": [
+    "trading journal",
+    "track my trades",
+    "win rate",
+    "breakeven trades",
+    "daily loss limit",
+    "prop firm rules",
+    "revenge trading",
+    "risk management spreadsheet",
+    "trading stats",
+    "why do I keep losing"
+  ],
+
+  "_keywords": "Nur zur Relevanz-Sortierung, nicht zur Suche. Mehr Treffer = weiter oben im Briefing.",
+  "keywords": [
+    "journal", "journaling", "log", "spreadsheet", "notion", "excel",
+    "win rate", "winrate", "r:r", "risk reward", "expectancy",
+    "breakeven", "drawdown", "daily loss", "loss limit", "max loss",
+    "prop firm", "challenge", "payout", "evaluation",
+    "discipline", "revenge", "overtrading", "rules", "tilt",
+    "backtest", "review", "stats", "metrics", "tracking"
+  ],
+
+  "filter": {
+    "_max_alter_stunden": "Aelter = die Diskussion ist durch, dein Kommentar liest niemand mehr.",
+    "max_alter_stunden": 48,
+    "_min_score": "Filtert Posts ohne jede Resonanz raus.",
+    "min_score": 3,
+    "_max_kommentare": "Zu viele Antworten = du bist Nummer 80 und unsichtbar.",
+    "max_kommentare": 60,
+    "_min_text_zeichen": "Einzeiler und Bild-Posts bieten nichts zum fachlich Antworten.",
+    "min_text_zeichen": 120,
+    "_pro_lauf": "So viele Threads landen maximal im Tagesbriefing.",
+    "pro_lauf": 5
+  },
+
+  "entwurf": {
+    "_hinweis": "Steuert den Kommentarentwurf (nur wenn ANTHROPIC_API_KEY gesetzt ist).",
+    "produkt": "TradeMate",
+    "produkt_beschreibung": "ein Trading-Journal, das Trades automatisch auswertet - Win-Rate inklusive Breakeven-Trades, Regelbrueche, Drawdown-Phasen",
+    "sprache": "English",
+    "max_woerter": 120
+  }
+}
