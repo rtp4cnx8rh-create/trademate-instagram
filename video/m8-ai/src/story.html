@@ -90,6 +90,7 @@
   .row .s{font-size:21px;font-weight:700;letter-spacing:-.02em;}
   .row .m{font-size:13px;color:#8b9096;margin-top:2px;font-weight:500;}
   .row .v{margin-left:auto;font-size:20px;font-weight:700;color:#12b76a;letter-spacing:-.02em;}
+  .row .v.neg{color:#C62A30;}
   .tabbar{position:absolute;left:22px;right:22px;bottom:26px;height:66px;border-radius:33px;
     background:rgba(255,255,255,.86);backdrop-filter:blur(14px);box-shadow:0 6px 26px rgba(0,0,0,.13);
     display:flex;align-items:center;}
@@ -110,7 +111,7 @@
   #pill .dots i{width:7px;height:7px;border-radius:50%;background:#7e868d;display:block;}
 
   /* ---------- insight cards ---------- */
-  #cards{position:absolute;left:76px;right:76px;top:560px;}
+  #cards{position:absolute;left:76px;right:76px;top:640px;}
   .card{position:relative;background:linear-gradient(160deg,#17191c,#0e1012);
     border:1px solid rgba(255,255,255,.075);border-radius:34px;padding:38px 40px 36px;margin-bottom:26px;
     box-shadow:0 34px 70px rgba(0,0,0,.55);}
@@ -118,15 +119,15 @@
   .card .badge{font-family:'Inter';font-size:23px;font-weight:700;letter-spacing:-.01em;color:#0b0c0e;
     padding:9px 20px;border-radius:100px;background:#dfe3e7;}
   .card.g .badge{background:#1FDD7F;}
-  .card.r .badge{background:#FF5A5F;color:#140b0c;}
+  .card.r .badge{background:#C62A30;color:#fff;}
   .card .val{margin-left:auto;font-family:'Inter Tight';font-size:44px;font-weight:800;letter-spacing:-.03em;}
-  .card.g .val{color:#1FDD7F;} .card.r .val{color:#FF5A5F;}
+  .card.g .val{color:#1FDD7F;} .card.r .val{color:#DC3A40;}
   .card .ttl{font-family:'Inter Tight';font-size:47px;font-weight:800;letter-spacing:-.03em;color:#fff;margin-top:26px;}
   .card .note{font-family:'Inter';font-size:26px;font-weight:500;color:#8d949b;margin-top:12px;letter-spacing:-.005em;}
   .bar{height:9px;border-radius:6px;background:rgba(255,255,255,.08);margin-top:30px;overflow:hidden;}
   .bar i{display:block;height:100%;border-radius:6px;width:0%;}
   .card.g .bar i{background:linear-gradient(90deg,#12995a,#1FDD7F);}
-  .card.r .bar i{background:linear-gradient(90deg,#a83338,#FF5A5F);}
+  .card.r .bar i{background:linear-gradient(90deg,#7d1c20,#C62A30);}
 
   /* ---------- rule button ---------- */
   #rulewrap{position:absolute;left:76px;right:76px;top:846px;display:flex;justify-content:center;}
@@ -150,8 +151,7 @@
     font-family:'Inter';font-size:33px;font-weight:800;letter-spacing:-.015em;box-shadow:0 26px 60px rgba(31,221,127,.22);}
 
   #disc{position:absolute;left:50%;transform:translateX(-50%);bottom:66px;text-align:center;font-family:'Inter';
-    font-size:19px;font-weight:500;color:#8a9199;line-height:1.45;letter-spacing:.005em;max-width:880px;
-    padding:13px 26px;border-radius:16px;background:rgba(8,9,11,.66);border:1px solid rgba(255,255,255,.05);}
+    font-size:19px;font-weight:500;color:#8a9199;line-height:1.45;letter-spacing:.005em;max-width:880px;}
 </style></head>
 <body>
 <div id="stage">
@@ -166,7 +166,7 @@
           <div class="batt">34</div>
         </div>
       </div>
-      <div class="avatar"><svg width="21" height="21" viewBox="0 0 24 24" fill="#0b0b0c"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+      <div class="avatar"><svg width="21" height="21" viewBox="0 0 24 24" fill="#0b0b0c"><circle cx="12" cy="8.1" r="3.9"/><path d="M12 13.4c4.3 0 7.7 2.7 7.7 6.1 0 .8-.6 1.4-1.4 1.4H5.7c-.8 0-1.4-.6-1.4-1.4 0-3.4 3.4-6.1 7.7-6.1z"/></svg></div>
       <div class="tabs"><div class="a" data-k="tabAll">All</div><div class="b">Account 1</div><div class="p">+</div></div>
       <div class="perf">
         <div class="lab" data-k="perfLab">Total Performance</div>
@@ -180,7 +180,7 @@
         <div class="tile"><div class="k" data-k="pf">Profit Factor</div><div class="v">2.17</div></div>
       </div>
       <div class="m8" id="m8card">
-        <div class="r1"><div class="n">M8 AI</div><div class="beta">Beta</div><div class="dt">Aug 11</div></div>
+        <div class="r1"><div class="n">M8 AI</div><div class="beta">Beta</div><div class="dt" data-k="m8dt">Aug 11</div></div>
         <div class="h" data-k="m8h">09:00 hour: 1/5 wins, -368.93 net</div>
         <div class="p" data-k="m8p">No trade entries at 09:00.</div>
         <div class="more" data-k="m8more">5 more findings</div>
@@ -189,13 +189,14 @@
         <div class="t" data-k="recent">Recent Trades</div>
         <div class="row"><div><div class="s">BTC</div><div class="m" data-k="r1m">Crypto &middot; Long</div></div><div class="v">+$45.43</div></div>
         <div class="row"><div><div class="s">APPL</div><div class="m" data-k="r2m">Stocks &middot; Long</div></div><div class="v">+$44.51</div></div>
+        <div class="row"><div><div class="s">GBPUSD</div><div class="m" data-k="r3m">Forex &middot; Short</div></div><div class="v neg">-$121.13</div></div>
       </div>
       <div class="tabbar">
         <div class="tbpill"></div>
-        <div class="tb"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 10.4 12 3.6l9 6.8V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>Dashboard</div>
-        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg></span>Trades</div>
-        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><span data-k="cal">Calendar</span></div>
-        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9h-9z" opacity=".95"/><path d="M13.6 2.2A9 9 0 0 1 21.8 10.4h-8.2z" opacity=".45"/></svg></span><span data-k="ana">Analytics</span></div>
+        <div class="tb"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 10.3 12 4l8.4 6.3V19a1.7 1.7 0 0 1-1.7 1.7h-3.2v-5.2H8.5v5.2H5.3A1.7 1.7 0 0 1 3.6 19z"/></svg></span>Dashboard</div>
+        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9.4 6.4h9.8M9.4 12h9.8M9.4 17.6h9.8"/><circle cx="4.9" cy="6.4" r="1.15" fill="currentColor" stroke="none"/><circle cx="4.9" cy="12" r="1.15" fill="currentColor" stroke="none"/><circle cx="4.9" cy="17.6" r="1.15" fill="currentColor" stroke="none"/></svg></span>Trades</div>
+        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3.3" y="5.3" width="17.4" height="15.4" rx="3.2"/><path d="M3.3 9.9h17.4M8.1 3.5v3.4M15.9 3.5v3.4"/><circle cx="8.3" cy="13.7" r=".95" fill="currentColor" stroke="none"/><circle cx="12" cy="13.7" r=".95" fill="currentColor" stroke="none"/><circle cx="15.7" cy="13.7" r=".95" fill="currentColor" stroke="none"/><circle cx="8.3" cy="17.3" r=".95" fill="currentColor" stroke="none"/><circle cx="12" cy="17.3" r=".95" fill="currentColor" stroke="none"/></svg></span><span data-k="cal">Calendar</span></div>
+        <div class="tb off"><span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M11.1 3.05A9 9 0 1 0 20.95 12.9H11.1z"/><path d="M12.9 3.05A9 9 0 0 1 20.95 11.1H12.9z" opacity=".4"/></svg></span><span data-k="ana">Analytics</span></div>
       </div>
       <div class="home"></div>
       <div id="scan"></div><div id="scanline"></div>
@@ -220,19 +221,19 @@
 
   <div id="cards">
     <div class="card r" id="c1">
-      <div class="top"><div class="badge">12:00</div><div class="val">-$223.64</div></div>
+      <div class="top"><div class="badge">12:00</div><div class="val">-$1,500</div></div>
       <div class="ttl" data-k="c1t">30% win rate</div>
       <div class="note" data-k="c1n">This slot deserves a pause.</div>
       <div class="bar"><i data-w="30"></i></div>
     </div>
     <div class="card g" id="c2">
-      <div class="top"><div class="badge">16:00</div><div class="val">+$2,459.06</div></div>
+      <div class="top"><div class="badge">16:00</div><div class="val">+$2,400</div></div>
       <div class="ttl" data-k="c2t">75% win rate</div>
       <div class="note" data-k="c2n">Your best hour by far.</div>
       <div class="bar"><i data-w="75"></i></div>
     </div>
     <div class="card g" id="c3">
-      <div class="top"><div class="badge">FVG</div><div class="val">+$1,722.99</div></div>
+      <div class="top"><div class="badge">FVG</div><div class="val">+$1,600</div></div>
       <div class="ttl" data-k="c3t">71% win rate</div>
       <div class="note" data-k="c3n">Your most reliable setup.</div>
       <div class="bar"><i data-w="71"></i></div>
@@ -258,8 +259,8 @@
 const COPY = {
   en: {
     tabAll:'All', perfLab:'Total Performance', today:'Today', wr:'Win Rate', pf:'Profit Factor',
-    m8h:'09:00 hour: 1/5 wins, -368.93 net', m8p:'No trade entries at 09:00.', m8more:'5 more findings',
-    recent:'Recent Trades', r1m:'Crypto · Long', r2m:'Stocks · Long', cal:'Calendar', ana:'Analytics',
+    m8dt:'Aug 11', m8h:'09:00 hour: 1/5 wins, -368.93 net', m8p:'No trade entries at 09:00.', m8more:'5 more findings',
+    recent:'Recent Trades', r1m:'Crypto · Long', r2m:'Stocks · Long', r3m:'Forex · Short', cal:'Calendar', ana:'Analytics',
     eyebrow:'Trademate · M8 AI',
     hl1:'130 trades\nlogged.', sub1:'Every entry. Every exit. Every note.',
     hl2:'But which hour\nis bleeding you?',
@@ -275,8 +276,8 @@ const COPY = {
   },
   de: {
     tabAll:'Alle', perfLab:'Gesamtperformance', today:'Heute', wr:'Gewinnrate', pf:'Profit-Faktor',
-    m8h:'09:00 Uhr: 1/5 Gewinne, -368,93 netto', m8p:'Keine Einträge um 09:00.', m8more:'5 weitere Befunde',
-    recent:'Letzte Trades', r1m:'Krypto · Long', r2m:'Aktien · Long', cal:'Kalender', ana:'Analysen',
+    m8dt:'11. Aug.', m8h:'09:00 Uhr: 1/5 Gewinne, -368,93 netto', m8p:'Keine Einträge um 09:00.', m8more:'5 weitere Befunde',
+    recent:'Letzte Trades', r1m:'Krypto · Long', r2m:'Aktien · Long', r3m:'Forex · Short', cal:'Kalender', ana:'Analysen',
     eyebrow:'Trademate · M8 AI',
     hl1:'130 Trades\nprotokolliert.', sub1:'Jeder Entry. Jeder Exit. Jede Notiz.',
     hl2:'Aber welche Stunde\nkostet dich Geld?',
@@ -369,16 +370,15 @@ function render(t){
   } else if(t<T.s3[0]){                            // S2: push in on the M8 card
     const u=io(seg(t,3.0,5.0));
     py = 0 - 210*u; pscale = 1 + 0.13*u;
-  } else if(t<T.s4[0]){                            // S3: fall back, blur, dim
-    const u=io(seg(t,5.7,6.9));
-    py = -210 + 700*u; pscale = 1.13 - 0.30*u;
-    pblur = 9*u; popa = 1-0.74*u;
-  } else {                                         // S4/S5: stay back, drift out
-    py = 490 + 120*seg(t,12.4,15.0); pscale=0.83;
-    pblur=9; popa=(1-0.74)*(1-seg(t,12.35,12.9));
+  } else {                                         // S3+: the phone hands over to the cards
+    const u=io(seg(t,5.55,6.6));
+    py = -210 + 640*u; pscale = 1.13 - 0.22*u;
+    pblur = 12*u; popa = 1-u;
   }
   cam.style.transform='translateY('+py.toFixed(2)+'px) scale('+pscale.toFixed(4)+')';
-  phone.style.opacity=cl(popa*oc(seg(t,0.4,1.1)),0,1).toFixed(4);
+  const pop=cl(popa*oc(seg(t,0.4,1.1)),0,1);
+  phone.style.opacity=pop.toFixed(4);
+  phone.style.display = pop<=0.004 ? 'none' : '';
   phone.style.filter='blur('+pblur.toFixed(2)+'px)';
 
   // count-up on total performance

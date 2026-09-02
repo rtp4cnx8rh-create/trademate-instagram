@@ -15,14 +15,18 @@ with new numbers, new copy or a new language without touching a design tool.
 
 Same system as the daily feed posts: charcoal gradient ground, the Trademate
 lockup at the top, headline in Inter Tight 800 with a white→grey vertical
-ramp, dark cards with a hairline border, `#1FDD7F` green and `#FF5A5F` red for
-result values. The phone screen is a code rebuild of the app's dashboard and
-of the M8 AI findings sheet — the same layout, numbers and wording as the
-in-app screens, rendered at 1080 px wide instead of screen-recorded.
+ramp, dark cards with a hairline border, `#1FDD7F` green and a classic
+`#C62A30` / `#DC3A40` red for result values. The phone screen is a code
+rebuild of the app's dashboard — same layout, wording and trade rows as the
+in-app screen, rendered at 1080 px wide instead of screen-recorded. It carries
+the first two scenes and then hands over to the finding cards, so the second
+half runs on type and cards alone.
 
-Every number shown (130 trades, 55 %, 2.17, the 12:00 / 16:00 / FVG findings)
-comes from the reference screens and is labelled as a product example on
-screen from 6.4 s onward.
+The dashboard figures (130 trades, 55 %, 2.17, the recent-trade rows) are the
+ones from the reference screens. The three finding cards use rounded
+illustrative amounts — -$1,500 / +$2,400 / +$1,600 — so the contrast between
+the losing and the winning hour reads at story speed. Everything is labelled
+as a product example on screen from 6.4 s onward.
 
 ## Re-rendering
 
