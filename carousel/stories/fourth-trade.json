@@ -2,8 +2,8 @@
   "id": "fourth-trade",
   "title": "The fourth trade",
   "counter": false,
-  "note": "Story mit App-Karten als Beweisfuehrung: Slide 2 der Tag (Trade-Liste), Slide 4 der Monat (Kalender), Slide 5 das Muster (Win Rate nach Trade-Nummer). Zahlen konsistent: Tag 9. = +120 -60 +250 -1.920 = -1.610; Monat = +2.260 gruen, -4.810 rot = -2.550; 6 rote Tage, 5 davon mit viertem Trade.",
-  "caption": "Trades one, two and three were on the list. They followed the plan and they finished +$310. Trade four was opened at 12:20 — 40 minutes after the session was supposed to be over — and it cost -$1,920. The day closed at -$1,610.\n\nThat part every trader remembers. The next part is the one nobody has: the month. Six red days. Five of them had a fourth trade. The green days almost never did.\n\nAcross 214 trades the first three of a session win 64% of the time. From the fourth on, it drops to 31%. Same trader, same setups, same account — a different hour and a decision that was already made.\n\nThe strategy was never the variable. The trade count was. And you cannot see that in a broker statement, only in a record that knows which trade of the day it was.\n\nProduct example — figures illustrate the feature, not real trader results.\n\n#daytrading #tradingjournal #tradingdiscipline #tradingpsychology #propfirmtrader #riskmanagement",
+  "note": "Story mit App-Karten als Beweisfuehrung: Slide 2 der Tag (Trade-Liste), Slide 4 der Monat (Kalender), Slide 5 das Muster (Win Rate nach Trade-Nummer). Risiko pro Trade bleibt in derselben Groessenordnung wie die anderen Trades. Zahlen konsistent: Tag 9. = +120 -60 +250 -860 = -550; Monat = +2.260 gruen, -3.750 rot = -1.490; 6 rote Tage, 5 davon mit viertem Trade.",
+  "caption": "Trades one, two and three were on the list. They followed the plan and they finished +$310. Trade four was opened at 12:20 — 40 minutes after the session was supposed to be over — and it cost -$860. The day closed at -$550.\n\nThat part every trader remembers. The next part is the one nobody has: the month. Six red days. Five of them had a fourth trade. The green days almost never did.\n\nAcross 214 trades the first three of a session win 64% of the time. From the fourth on, it drops to 31%. Same trader, same setups, same risk — a different hour and a decision that was already made.\n\nThe strategy was never the variable. The trade count was. And you cannot see that in a broker statement, only in a record that knows which trade of the day it was.\n\nProduct example — figures illustrate the feature, not real trader results.\n\n#daytrading #tradingjournal #tradingdiscipline #tradingpsychology #propfirmtrader #riskmanagement",
   "slides": [
     {
       "type": "statement",
@@ -44,7 +44,7 @@
           {
             "name": "NQ · long",
             "chip": "12:20",
-            "amount": "-$1,920",
+            "amount": "-$860",
             "highlight": true
           }
         ],
@@ -56,12 +56,12 @@
           },
           {
             "label": "Trade 4",
-            "value": "-$1,920",
+            "value": "-$860",
             "tone": "red"
           },
           {
             "label": "Day",
-            "value": "-$1,610",
+            "value": "-$550",
             "tone": "red"
           }
         ]
@@ -88,7 +88,7 @@
         "kind": "calendar",
         "kpis": [
           {
-            "value": "-$2,550",
+            "value": "-$1,490",
             "label": "P&L",
             "tone": "red"
           },
@@ -142,7 +142,7 @@
           },
           {
             "n": 9,
-            "amount": "-$1,920",
+            "amount": "-$860",
             "highlight": true
           },
           {
