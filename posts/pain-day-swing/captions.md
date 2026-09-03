@@ -34,11 +34,11 @@ Sieh deine Session als laufenden P&L — 7 Tage kostenlos, Link in Bio.
 
 EN
 Three stops in a row is the setup doing what setups do. What happened on the
-fourth trade is the part that costs money: out early at +0.4R on a trade
-that was planned for +2R, then a stop moved on the fifth that turned −1R into
-−1.4R. The setup did not change. The trader did. Two off-plan exits cost more
-than the three stops combined, and the month still reads +1.3R — which is
-exactly why nobody notices. Product example: these figures illustrate the
+fourth trade is the part that costs money: out early at +0.5R on a trade
+planned for +3R, then a stop moved on the fifth that turned −1R into −1.8R.
+The setup did not change. The trader did. On plan, the month closes +1.4R.
+As traded, it closes −1.9R. The two deviations cost 3.3R — more than the
+three stops combined. Product example: these figures illustrate the
 feature, not real trader results.
 
 Tag every off-plan exit — Trademate, link in bio.
@@ -47,11 +47,11 @@ Tag every off-plan exit — Trademate, link in bio.
 
 DE
 Drei Stops in Folge sind das Setup, das tut, was Setups tun. Was beim vierten
-Trade passiert, ist der Teil, der Geld kostet: raus bei +0,4R in einem Trade,
-der auf +2R geplant war, dann beim fünften ein verschobener Stop, der aus −1R
-−1,4R macht. Das Setup war dasselbe. Der Trader nicht. Zwei Exits gegen den
-Plan kosteten mehr als die drei Stops zusammen, und der Monat steht trotzdem
-bei +1,3R — genau deshalb fällt es niemandem auf. Produktbeispiel: Die Zahlen
+Trade passiert, ist der Teil, der Geld kostet: raus bei +0,5R in einem Trade,
+der auf +3R geplant war, dann beim fünften ein verschobener Stop, der aus −1R
+−1,8R macht. Das Setup war dasselbe. Der Trader nicht. Nach Plan schließt der
+Monat bei +1,4R. So gehandelt bei −1,9R. Die zwei Abweichungen kosteten 3,3R —
+mehr als die drei Stops zusammen. Produktbeispiel: Die Zahlen
 veranschaulichen die Funktion, keine echten Handelsergebnisse.
 
 Tagge jeden Exit gegen den Plan — Trademate, Link in Bio.
