@@ -1,19 +1,26 @@
 # Ablegen unter: .github/workflows/publish.yml
 #
-# Der Cron feuert zweimal taeglich, 16:00 und 17:00 UTC. Das ist Absicht:
-# 18:00 Berliner Zeit sind im Sommer 16:00 UTC und im Winter 17:00 UTC.
-# publish.py prueft selbst, ob es in Berlin gerade 18 Uhr ist, und der
-# jeweils falsche Lauf beendet sich ohne etwas zu tun.
+# Zieltermin ist 18:00 Berliner Zeit: im Sommer 16:00 UTC, im Winter 17:00 UTC.
 #
-# GitHub-Cron ist nicht puenktlich - unter Last sind 5 bis 15 Minuten
-# Verspaetung normal. Fuer einen Feed-Post ist das egal.
+# GitHub-Cron ist in der Praxis deutlich unpuenktlicher als dokumentiert -
+# gemessen wurden hier 2 bis 4,5 Stunden Verspaetung. Deshalb zwei Dinge:
+#   1. publish.py prueft "Stunde >= Zielstunde am selben Tag", nicht mehr
+#      auf die exakte Stunde. Sonst verschluckt ein verspaeteter Lauf den Post.
+#   2. Zusaetzliche Cron-Zeiten als Netz. Der erste Lauf, der es schafft,
+#      postet; alle spaeteren finden den Tag in published.json und tun nichts.
+# Nach 21:00 UTC wird nicht mehr gestartet - danach ist in Berlin bereits
+# der Folgetag, und das Datum wuerde nicht mehr passen.
 
 name: Instagram Daily Post
 
 on:
   schedule:
-    - cron: "0 16 * * *"   # 18:00 Berlin (Sommerzeit)
-    - cron: "0 17 * * *"   # 18:00 Berlin (Winterzeit)
+    - cron: "0 16 * * *"   # 18:00 Berlin (Sommerzeit) - Zieltermin
+    - cron: "0 17 * * *"   # 18:00 Berlin (Winterzeit) - Zieltermin
+    - cron: "0 18 * * *"   # Netz, falls die Zieltermine verspaetet ausfallen
+    - cron: "0 19 * * *"   # Netz
+    - cron: "0 20 * * *"   # Netz
+    - cron: "0 21 * * *"   # Netz, letzter Versuch vor Mitternacht Berlin
   workflow_dispatch:        # erlaubt manuelles Ausloesen per Knopf
     inputs:
       force_date:

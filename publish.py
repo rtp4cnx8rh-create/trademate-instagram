@@ -140,7 +140,12 @@ def main():
             if p["date"] == args.force:
                 faellig = p
                 break
-        elif p["date"] == jetzt.date().isoformat() and p["hour"] == jetzt.hour:
+        # Nicht auf die exakte Stunde pruefen: GitHub-Cron ist regelmaessig
+        # zwei bis vier Stunden verspaetet, dann waere die Zielstunde laengst
+        # vorbei und der Tag fiele still aus. Stattdessen: alles ab der
+        # Zielstunde am selben Tag zaehlt als faellig. Gegen Doppelposts
+        # schuetzt published.json weiter unten, nicht das Zeitfenster.
+        elif p["date"] == jetzt.date().isoformat() and jetzt.hour >= p["hour"]:
             faellig = p
             break
 
@@ -156,7 +161,10 @@ def main():
         for p in plan["posts"]:
             print(f"    {p['date']} {p['hour']:02d}:00  {Path(p['file']).name}")
         if not args.force:
-            print("  Hinweis: ohne --force wird nur die exakte Stunde getroffen.")
+            print(
+                "  Hinweis: ohne --force zaehlt ein Termin erst ab seiner "
+                "Zielstunde am selben Kalendertag."
+            )
         return
 
     key = f"{plan['week']}:{faellig['date']}"
