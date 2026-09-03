@@ -3,67 +3,64 @@
 Two independent 1080×1080 posts in the daily-post format, EN and DE. Neither
 mentions a feature or the poll. Every number in a caption is on the card.
 
-## pain_day — "Up $490 at 10:00. Up $35 at the close."
+## pain_day — "Up $1,240 at 10:30. Down $860 at the close."
 
-Card: running P&L of one session. Open at $0, high +$490 at 10:00, low −$135
-at 13:00, close +$35. Give-back 10:00→13:00 = $625.
+Card: cumulative P&L of one session (Tue, Aug 12), 13 trades, one dot per
+trade. Open $0, high +$1,240 at 10:30, first loss at 11:00, close −$860.
+Given back: $2,100. Entries after the first loss: 10, of which 2 on the plan.
 
 EN
-Up $490 one hour into the session. Up $35 at the close. The chart of that
-day is not a chart of the market — it is a chart of one trader chasing the
-first red trade. Between 10:00 and 13:00 the account gave back $625, and not
-one of those entries was on the plan. The afternoon clawed some of it back.
-It usually does, which is exactly why the give-back never shows up in the
-win rate. Product example: these figures illustrate the feature, not real
+Up $1,240 by 10:30. Down $860 at the close. Three trades made the morning.
+Ten trades gave it back, and eight of those ten were never on the plan —
+they were attempts to get back to +$1,240. The best hour of the month turned
+into its worst day, and it did not happen on a bad idea. It happened on the
+first loss. Product example: these figures illustrate the feature, not real
 trader results.
 
-See your session as a running P&L — 7-day trial, link in bio.
+See every session as one curve — 7-day trial, link in bio.
 
 #daytrading #tradingpsychology #tradingjournal #riskmanagement #tradingedge
 
 DE
-Eine Stunde nach Open +$490. Zum Close +$35. Der Chart dieses Tages ist kein
-Chart vom Markt — er ist der Chart eines Traders, der dem ersten roten Trade
-hinterherläuft. Zwischen 10:00 und 13:00 hat das Konto $625 zurückgegeben,
-und kein einziger dieser Entries war nach Plan. Der Nachmittag hat einen
-Teil davon zurückgeholt. Das tut er meistens, und genau deshalb taucht das
-Zurückgeben in der Trefferquote nie auf. Produktbeispiel: Die Zahlen
-veranschaulichen die Funktion, keine echten Handelsergebnisse.
+Um 10:30 bei +$1.240. Zum Close bei −$860. Drei Trades haben den Morgen
+gemacht. Zehn Trades haben ihn zurückgegeben, und acht dieser zehn waren nie
+nach Plan — sie waren Versuche, zurück auf +$1.240 zu kommen. Die beste Stunde
+des Monats wurde sein schlechtester Tag, und das lag nicht an einer schlechten
+Idee. Es lag am ersten Verlust. Produktbeispiel: Die Zahlen veranschaulichen
+die Funktion, keine echten Handelsergebnisse.
 
-Sieh deine Session als laufenden P&L — 7 Tage kostenlos, Link in Bio.
+Sieh jede Session als eine Kurve — 7 Tage kostenlos, Link in Bio.
 
 #daytrading #tradingpsychologie #tradingjournal #riskmanagement #tradingedge
 
-## pain_swing — "Three stops. Then you changed the rules."
+## pain_swing — "Your plan: +$2,750. You: −$1,250."
 
-Card: six swing trades. Three stops on plan (−1.0R each), XAUUSD exited
-early at +0.5R on a trade that ran to +3.0R, AAPL stop moved from −1.0R to
-−1.8R, MSFT on plan +2.4R. As traded −1.9R, on plan +1.4R. The two
-deviations cost 3.3R, the three stops 3.0R.
+Card: six swing trades, 1R = $500. EURUSD −1.0R on plan · NVDA cut early at
++0.6R, ran to +4.0R · GBPJPY stop ignored, −4.5R against a −1.0R plan ·
+XAUUSD +2.6R on plan · AAPL stop moved, −2.1R against −1.0R · MSFT +1.9R on
+plan. As traded −2.5R = −$1,250. On plan +5.5R = +$2,750. Gap $4,000.
 
 EN
-Three stops in a row is the setup doing what setups do. What happened on the
-fourth trade is the part that costs money: out at +0.5R on a trade that went
-on to +3.0R, then a stop moved on the fifth that turned −1.0R into −1.8R. The
-setup did not change. The trader did. On plan, the month closes +1.4R. As
-traded, it closes −1.9R. The two deviations cost 3.3R — more than the three
-stops combined. Product example: these figures illustrate the feature, not
-real trader results.
+Same six signals. On plan they make $2,750 this month. As traded they lose
+$1,250. The difference is not the market: one runner cut at +0.6R that went
+on to +4R, one stop ignored into the weekend that turned −1R into −4.5R, one
+stop moved. Three decisions, $4,000. The setup did its job. The trader did
+not. Product example: these figures illustrate the feature, not real trader
+results.
 
-Tag every off-plan exit — Trademate, link in bio.
+See your month against your plan — Trademate, link in bio.
 
 #swingtrading #tradingdiscipline #tradingjournal #riskmanagement #tradingpsychology
 
 DE
-Drei Stops in Folge sind das Setup, das tut, was Setups tun. Was beim vierten
-Trade passiert, ist der Teil, der Geld kostet: raus bei +0,5R in einem Trade,
-der danach bis +3,0R lief, dann beim fünften ein verschobener Stop, der aus
-−1,0R −1,8R macht. Das Setup war dasselbe. Der Trader nicht. Nach Plan
-schließt der Monat bei +1,4R. So gehandelt bei −1,9R. Die zwei Abweichungen
-kosteten 3,3R — mehr als die drei Stops zusammen. Produktbeispiel: Die Zahlen
-veranschaulichen die Funktion, keine echten Handelsergebnisse.
+Dieselben sechs Signale. Nach Plan machen sie diesen Monat $2.750. So
+gehandelt verlieren sie $1.250. Der Unterschied ist nicht der Markt: ein
+Runner bei +0,6R gekappt, der bis +4R lief, ein Stop übers Wochenende
+ignoriert, der aus −1R −4,5R machte, ein Stop verschoben. Drei Entscheidungen,
+$4.000. Das Setup hat seinen Job gemacht. Der Trader nicht. Produktbeispiel:
+Die Zahlen veranschaulichen die Funktion, keine echten Handelsergebnisse.
 
-Tagge jeden Exit gegen den Plan — Trademate, Link in Bio.
+Sieh deinen Monat gegen deinen Plan — Trademate, Link in Bio.
 
 #swingtrading #tradingdisziplin #tradingjournal #riskmanagement #tradingpsychologie
 

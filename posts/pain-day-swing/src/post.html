@@ -120,9 +120,16 @@
   .rows .net span{font-size:27px;color:#fff;} .rows .net b{font-size:44px;}
   .rows .net.alt{padding-top:4px;margin-top:0;border-top:none;} .rows .net.alt span{font-size:22px;color:#8a9199;} .rows .net.alt b{font-size:30px;}
   .rows.one>div em i{font-style:normal;color:#8a9199;font-weight:500;}
-  body[data-slide="day"] .hl, body[data-slide="swing"] .hl{font-size:80px;}
+  
   body[data-slide="day"] .sub, body[data-slide="swing"] .sub{font-size:30px;max-width:880px;}
-  body[data-slide="swing"] .sub{font-size:28px;margin-top:20px;}
+  body[data-slide="swing"] .sub, body[data-slide="day"] .sub{font-size:27px;margin-top:18px;}
+  .ylab{font-family:'Inter';font-size:16px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5d646b;margin-top:10px;}
+  .kpis{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:20px;margin-top:14px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);}
+  .kpis b{display:block;font-size:34px;font-weight:800;letter-spacing:-.03em;color:#fff;} .kpis div:first-child b{color:#DC3A40;}
+  .kpis span{display:block;font-family:'Inter';font-size:19px;font-weight:500;color:#8a9199;margin-top:2px;line-height:1.25;}
+  .rows .net em{font-style:normal;font-family:'Inter Tight';font-size:26px;font-weight:700;color:#8a9199;flex:1;text-align:right;padding-right:26px;letter-spacing:-.02em;}
+  .rows .net.alt em{font-size:22px;}
+  body[data-slide="day"] .hl, body[data-slide="swing"] .hl{font-size:76px;}
   .disc{position:absolute;left:88px;right:88px;bottom:70px;text-align:center;font-family:'Inter';font-size:19px;font-weight:500;color:#5d646b;line-height:1.45;}
 </style></head>
 <body>
@@ -156,10 +163,11 @@ en:{
   stB:'Auto charts', stBd:'Every trade gets its chart attached automatically. Entry, exit, stop, target.',
   vote:'Vote below', zoneA:'Poll sticker goes here', zoneB:'Options: Backtesting · Auto charts',
   disc:'Product concept. Features shown are planned, not final.',
-  dayH:'Up $490 at 10:00.<br>Up $35 at the close.', dayS:'Everything after the first red trade was an attempt to get it back. $625 given back in three hours, none of it on the plan.',
-  dayM:'Running P&L · one session', dayF:'Product example', dayHi:'High', dayCl:'Close',
-  swH:'Three stops. Then you changed the rules.', swS:'The setup did not change. The trader did. Two off-plan exits turned +1.4R into −1.9R — a bigger hit than the three stops.',
-  swM:'This month · 6 swing trades', swN:'Net', swP:'Net if on plan', swF:'Product example', plan:'On plan', early:'Exited early', earlyN:'ran to', moved:'Stop moved', movedN:'planned'
+  dayH:'Up $1,240 at 10:30.<br>Down $860 at the close.', dayS:'One good hour, then ten entries to get it back. $2,100 given back, two of them on the plan.',
+  dayM:'Tue, Aug 12 · one session · 13 trades', dayY:'Cumulative P&L', dayF:'Product example', dayHi:'High', dayCl:'Close', dayFL:'First loss',
+  dayK:[['$2,100','given back'],['10','entries after the first loss'],['2','on the plan']],
+  swH:'Your plan: +$2,750.<br>You: −$1,250.', swS:'Same six trades. One runner cut at +0.6R that went to +4R. One stop ignored into the weekend. One stop moved. Between the plan and the trader: $4,000.',
+  swM:'This month · 6 swing trades · 1R = $500', swN:'As traded', swP:'On plan', swF:'Product example', plan:'On plan', early:'Cut early', earlyN:'ran to', ignored:'Stop ignored', ignoredN:'planned', moved:'Stop moved', movedN:'planned'
 },
 de:{
   swipe:'Wischen →', brand:'Trademate', concept:'Konzept, kein finales UI', of:'von',
@@ -185,10 +193,11 @@ de:{
   stB:'Auto-Charts', stBd:'Jeder Trade bekommt seinen Chart automatisch angehängt. Entry, Exit, Stop, Ziel.',
   vote:'Stimm unten ab', zoneA:'Umfrage-Sticker hier platzieren', zoneB:'Optionen: Backtesting · Auto-Charts',
   disc:'Produktkonzept. Gezeigte Funktionen sind geplant, nicht final.',
-  dayH:'Um 10:00 bei +$490.<br>Zum Close bei +$35.', dayS:'Alles nach dem ersten roten Trade war der Versuch, es zurückzuholen. $625 in drei Stunden zurückgegeben, nichts davon nach Plan.',
-  dayM:'Laufender P&L · eine Session', dayF:'Produktbeispiel', dayHi:'Hoch', dayCl:'Close',
-  swH:'Drei Stops. Dann hast du die Regeln geändert.', swS:'Das Setup war dasselbe. Der Trader nicht. Zwei Exits gegen den Plan machten aus +1,4R −1,9R – teurer als die drei Stops.',
-  swM:'Dieser Monat · 6 Swing-Trades', swN:'Netto', swP:'Netto nach Plan', swF:'Produktbeispiel', plan:'Nach Plan', early:'Zu früh raus', earlyN:'lief bis', moved:'Stop verschoben', movedN:'geplant'
+  dayH:'Um 10:30 bei +$1.240.<br>Zum Close bei −$860.', dayS:'Eine gute Stunde, dann zehn Entries, um es zurückzuholen. $2.100 zurückgegeben, zwei davon nach Plan.',
+  dayM:'Di., 12. Aug. · eine Session · 13 Trades', dayY:'Kumulierter P&L', dayF:'Produktbeispiel', dayHi:'Hoch', dayCl:'Close', dayFL:'Erster Verlust',
+  dayK:[['$2.100','zurückgegeben'],['10','Entries nach dem ersten Verlust'],['2','nach Plan']],
+  swH:'Dein Plan: +$2.750.<br>Du: −$1.250.', swS:'Dieselben sechs Trades. Ein Runner bei +0,6R gekappt, der bis +4R lief. Ein Stop übers Wochenende ignoriert, einer verschoben. Zwischen Plan und Trader: $4.000.',
+  swM:'Dieser Monat · 6 Swing-Trades · 1R = $500', swN:'So gehandelt', swP:'Nach Plan', swF:'Produktbeispiel', plan:'Nach Plan', early:'Zu früh raus', earlyN:'lief bis', ignored:'Stop ignoriert', ignoredN:'geplant', moved:'Stop verschoben', movedN:'geplant'
 }}[LANG];
 
 function candles(){ // deterministic little 5m chart for slide 6
@@ -212,23 +221,35 @@ function candles(){ // deterministic little 5m chart for slide 6
 const logo='<img class="logo" src="logo.png" alt="Trademate">';
 const foot=(n)=>'<div class="foot"><span>'+C.brand+'</span><span>'+(n<7?C.swipe:'')+'</span><span>'+n+' / 7</span></div>';
 function runningPnl(){
-  const pts=[['09:00',0],['10:00',490],['11:00',370],['12:00',-40],['13:00',-135],['14:00',-75],['15:00',120],['16:00',35]];
-  const W=800,H=330,padL=44,padR=70,top=54,bot=54,min=-230,max=560;
-  const x=i=>padL+i*(W-padL-padR)/(pts.length-1), y=v=>top+(max-v)/(max-min)*(H-top-bot);
-  let d=pts.map((p,i)=>(i?'L':'M')+x(i)+' '+y(p[1])).join(' ');
+  const pts=[['09:30',0],['10:00',720],['10:30',1240],['11:00',980],['11:30',410],['12:00',-120],['12:30',-540],['13:00',-310],['13:30',-690],['14:00',-450],['14:30',-700],['15:00',-520],['15:30',-640],['16:00',-860]];
+  const W=800,H=290,padL=36,padR=70,top=56,bot=46,min=-1150,max=1500;
+  const n=pts.length, x=i=>padL+i*(W-padL-padR)/(n-1), y=v=>top+(max-v)/(max-min)*(H-top-bot);
+  const dol=v=>(v>=0?'+':'−')+'$'+Math.abs(v).toLocaleString(LANG==='de'?'de-DE':'en-US');
+  const d=pts.map((p,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ');
   let s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
-  s+='<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1FDD7F" stop-opacity=".22"/><stop offset="1" stop-color="#1FDD7F" stop-opacity="0"/></linearGradient></defs>';
-  s+='<line x1="0" x2="'+W+'" y1="'+y(0)+'" y2="'+y(0)+'" stroke="rgba(255,255,255,.16)" stroke-dasharray="4 6"/>';
-  s+='<path d="'+d+' L'+x(pts.length-1)+' '+y(0)+' L'+x(0)+' '+y(0)+'Z" fill="url(#gA)"/>';
+  s+='<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1FDD7F" stop-opacity=".22"/><stop offset="1" stop-color="#1FDD7F" stop-opacity="0"/></linearGradient>'
+   +'<linearGradient id="gR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DC3A40" stop-opacity="0"/><stop offset="1" stop-color="#DC3A40" stop-opacity=".22"/></linearGradient>'
+   +'<clipPath id="cUp"><rect x="0" y="0" width="'+W+'" height="'+y(0)+'"/></clipPath><clipPath id="cDn"><rect x="0" y="'+y(0)+'" width="'+W+'" height="'+(H-y(0))+'"/></clipPath></defs>';
+  s+='<line x1="'+padL+'" x2="'+(W-padR+30)+'" y1="'+y(0)+'" y2="'+y(0)+'" stroke="rgba(255,255,255,.18)" stroke-dasharray="4 6"/>';
+  s+='<text x="'+(padL-4)+'" y="'+(y(0)+22)+'" font-family="Inter" font-size="16" font-weight="600" fill="#5d646b">$0</text>';
+  const area='M'+x(0)+' '+y(0)+' '+pts.map((p,i)=>'L'+x(i)+' '+y(p[1])).join(' ')+' L'+x(n-1)+' '+y(0)+'Z';
+  s+='<path d="'+area+'" fill="url(#gA)" clip-path="url(#cUp)"/><path d="'+area+'" fill="url(#gR)" clip-path="url(#cDn)"/>';
   s+='<path d="'+d+'" fill="none" stroke="#e6e9ec" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
-  // give-back segment in red
-  s+='<path d="M'+x(1)+' '+y(490)+' L'+x(2)+' '+y(370)+' L'+x(3)+' '+y(-40)+' L'+x(4)+' '+y(-135)+'" fill="none" stroke="#DC3A40" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
-  pts.forEach((p,i)=>s+='<text x="'+x(i)+'" y="'+(H-14)+'" text-anchor="middle" font-family="Inter" font-size="20" font-weight="600" fill="#7e868d">'+p[0]+'</text>');
-  const mark=(i,v,l,col,dy,side)=>{s+='<circle cx="'+x(i)+'" cy="'+y(v)+'" r="9" fill="'+col+'" stroke="#0e1012" stroke-width="4"/>';
-    if(side){s+='<text x="'+(x(i)+18)+'" y="'+(y(v)+10)+'" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'−')+'$'+Math.abs(v)+'</text>';return;}
-    s+='<text x="'+x(i)+'" y="'+(y(v)+dy)+'" text-anchor="middle" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'−')+'$'+Math.abs(v)+'</text>';
-    s+='<text x="'+x(i)+'" y="'+(y(v)+dy+(dy<0?-28:26))+'" text-anchor="middle" font-family="Inter" font-size="18" font-weight="600" fill="#7e868d" letter-spacing="1">'+l.toUpperCase()+'</text>';};
-  mark(1,490,C.dayHi,'#1FDD7F',-22); mark(4,-135,'','#DC3A40',0,true); mark(7,35,C.dayCl,'#e6e9ec',-22);
+  // everything after the high, in red
+  s+='<path d="'+pts.slice(2).map((p,i)=>(i?'L':'M')+x(i+2).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ')+'" fill="none" stroke="#DC3A40" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
+  // one dot per trade
+  pts.forEach((p,i)=>{ if(i===0) return; const col=i<=2?'#1FDD7F':'#DC3A40'; s+='<circle cx="'+x(i)+'" cy="'+y(p[1])+'" r="5.5" fill="'+col+'" stroke="#0e1012" stroke-width="2.5"/>'; });
+  // hour ticks
+  pts.forEach((p,i)=>{ if(i%2===0) return; s+='<text x="'+x(i)+'" y="'+(H-8)+'" text-anchor="middle" font-family="Inter" font-size="19" font-weight="600" fill="#7e868d">'+p[0]+'</text>'; });
+  const big=(i,v,l,col,above)=>{s+='<circle cx="'+x(i)+'" cy="'+y(v)+'" r="9" fill="'+col+'" stroke="#0e1012" stroke-width="4"/>';
+    const ty=above?y(v)-20:y(v)+36, ly=above?ty-26:ty+24;
+    s+='<text x="'+x(i)+'" y="'+ty+'" text-anchor="middle" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+dol(v)+'</text>';
+    s+='<text x="'+x(i)+'" y="'+ly+'" text-anchor="middle" font-family="Inter" font-size="16" font-weight="700" fill="#7e868d" letter-spacing="1.5">'+l.toUpperCase()+'</text>';};
+  big(2,1240,C.dayHi,'#1FDD7F',true);
+  big(13,-860,C.dayCl,'#DC3A40',true);
+  // first loss marker
+  s+='<circle cx="'+x(3)+'" cy="'+y(980)+'" r="9" fill="none" stroke="#DC3A40" stroke-width="2.5"/>';
+  s+='<text x="'+(x(3)+18)+'" y="'+(y(980)-8)+'" font-family="Inter" font-size="16" font-weight="700" fill="#8a9199" letter-spacing="1.5">'+C.dayFL.toUpperCase()+'</text>';
   return s+'</svg>';
 }
 function hourBars(){
@@ -242,16 +263,18 @@ function hourBars(){
     s+='<text x="'+(x+bw/2)+'" y="'+(H-6)+'" text-anchor="middle" font-family="Inter" font-size="21" font-weight="600" fill="#7e868d">'+h+':00</text>';});
   return s+'</svg>';
 }
-const swingRows=[['EURUSD',-1.0,'plan',null],['NVDA',-1.0,'plan',null],['GBPJPY',-1.0,'plan',null],['XAUUSD',0.5,'early',3.0],['AAPL',-1.8,'moved',-1.0],['MSFT',2.4,'plan',null]];
+const swingRows=[['EURUSD',-1.0,'plan',null],['NVDA',0.6,'early',4.0],['GBPJPY',-4.5,'ignored',-1.0],['XAUUSD',2.6,'plan',null],['AAPL',-2.1,'moved',-1.0],['MSFT',1.9,'plan',null]];
+const fmtD=r=>(r>=0?'+':'−')+'$'+Math.abs(Math.round(r*500)).toLocaleString(LANG==='de'?'de-DE':'en-US');
 const fmtR=v=>(v>=0?'+':'−')+Math.abs(v).toFixed(1).replace('.',LANG==='de'?',':'.')+'R';
 const S={
  day:()=>logo+'<div class="hl" style="margin-top:78px">'+C.dayH+'</div><div class="sub">'+C.dayS+'</div>'
-   +'<div class="card" style="margin-top:40px;padding:30px 44px 18px"><div class="hdr"><div class="t">'+C.dayM+'</div><div class="m">'+C.dayF+'</div></div><div style="margin-top:4px">'+runningPnl()+'</div></div>'
+   +'<div class="card" style="margin-top:36px;padding:28px 44px 24px"><div class="hdr"><div class="t">'+C.dayM+'</div><div class="m">'+C.dayF+'</div></div><div class="ylab">'+C.dayY+'</div><div style="margin-top:2px">'+runningPnl()+'</div>'
+   +'<div class="kpis">'+C.dayK.map(([v,l])=>'<div><b>'+v+'</b><span>'+l+'</span></div>').join('')+'</div></div>'
 ,
  swing:()=>logo+'<div class="hl" style="margin-top:78px">'+C.swH+'</div><div class="sub">'+C.swS+'</div>'
-   +'<div class="card" style="margin-top:34px;padding:28px 44px 22px"><div class="hdr"><div class="t">'+C.swM+'</div><div class="m">'+C.swF+'</div></div>'
+   +'<div class="card" style="margin-top:30px;padding:26px 44px 20px"><div class="hdr"><div class="t">'+C.swM+'</div><div class="m">'+C.swF+'</div></div>'
    +'<div class="rows one">'+swingRows.map(([a,b,n,pl])=>'<div'+(n!=='plan'?' class="off"':'')+'><span>'+a+'</span><em>'+C[n]+(pl!==null?' <i>· '+C[n+'N']+' '+fmtR(pl)+'</i>':'')+'</em><b class="'+(b>=0?'g':'r')+'">'+fmtR(b)+'</b></div>').join('')
-   +'<div class="net"><span>'+C.swN+'</span><b class="r">'+fmtR(-1.9)+'</b></div><div class="net alt"><span>'+C.swP+'</span><b class="g">'+fmtR(1.4)+'</b></div></div></div>',
+   +'<div class="net"><span>'+C.swN+'</span><em>'+fmtR(-2.5)+'</em><b class="r">'+fmtD(-2.5)+'</b></div><div class="net alt"><span>'+C.swP+'</span><em>'+fmtR(5.5)+'</em><b class="g">'+fmtD(5.5)+'</b></div></div></div>',
  1:()=>logo+'<div class="eyebrow">'+C.s1e+'</div><div class="hl">'+C.s1h+'</div><div class="sub">'+C.s1s+'</div>'+foot(1),
  2:()=>logo+'<div class="hl" style="margin-top:70px">'+C.s2h+'</div><div class="cols"><div class="col"><h3>'+C.day+'</h3><ul>'+C.d.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div class="col s"><h3>'+C.swing+'</h3><ul>'+C.s.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div>'+foot(2),
  3:()=>logo+'<div class="hl" style="margin-top:70px;font-size:74px">'+C.s3h+'</div><div class="sub">'+C.s3s+'</div>'
