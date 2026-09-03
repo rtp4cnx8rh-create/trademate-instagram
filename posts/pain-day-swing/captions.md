@@ -5,16 +5,17 @@ mentions a feature or the poll. Every number in a caption is on the card.
 
 ## pain_day — "Up $1,240 at 10:30. Down $860 at the close."
 
-Card: cumulative P&L of one session (Tue, Aug 12), 13 trades, one dot per
-trade. Open $0, high +$1,240 at 10:30, first loss at 11:00, close −$860.
-Given back: $2,100. Entries after the first loss: 10, of which 2 on the plan.
+Card: cumulative P&L of one session (Tue, Aug 12), 5 trades, one dot per
+trade. Open $0, two wins to +$1,240 at 10:30, first loss at 11:15 (−$620),
+then −$800 at 13:00 and −$680 at 15:30, close −$860. Given back: $2,100.
+Entries after the first loss: 2, neither on the plan.
 
 EN
-Up $1,240 by 10:30. Down $860 at the close. Three trades made the morning.
-Ten trades gave it back, and eight of those ten were never on the plan —
-they were attempts to get back to +$1,240. The best hour of the month turned
-into its worst day, and it did not happen on a bad idea. It happened on the
-first loss. Product example: these figures illustrate the feature, not real
+Up $1,240 by 10:30. Down $860 at the close. Two trades made the morning. One
+loss took a third of it, and the two entries that followed were not setups —
+they were attempts to get back to +$1,240, sized to get there fast. Three
+losing trades, $2,100 gone, and the day did not turn on a bad idea. It turned
+on the first loss. Product example: these figures illustrate the feature, not real
 trader results.
 
 See every session as one curve — 7-day trial, link in bio.
@@ -22,11 +23,12 @@ See every session as one curve — 7-day trial, link in bio.
 #daytrading #tradingpsychology #tradingjournal #riskmanagement #tradingedge
 
 DE
-Um 10:30 bei +$1.240. Zum Close bei −$860. Drei Trades haben den Morgen
-gemacht. Zehn Trades haben ihn zurückgegeben, und acht dieser zehn waren nie
-nach Plan — sie waren Versuche, zurück auf +$1.240 zu kommen. Die beste Stunde
-des Monats wurde sein schlechtester Tag, und das lag nicht an einer schlechten
-Idee. Es lag am ersten Verlust. Produktbeispiel: Die Zahlen veranschaulichen
+Um 10:30 bei +$1.240. Zum Close bei −$860. Zwei Trades haben den Morgen
+gemacht. Ein Verlust hat ein Drittel davon genommen, und die zwei Entries
+danach waren keine Setups — sie waren Versuche, zurück auf +$1.240 zu kommen,
+groß genug, um schnell dort zu sein. Drei Verlust-Trades, $2.100 weg, und der
+Tag ist nicht an einer schlechten Idee gekippt. Er ist am ersten Verlust
+gekippt. Produktbeispiel: Die Zahlen veranschaulichen
 die Funktion, keine echten Handelsergebnisse.
 
 Sieh jede Session als eine Kurve — 7 Tage kostenlos, Link in Bio.
