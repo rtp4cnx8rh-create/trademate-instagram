@@ -106,6 +106,16 @@
   body[data-slide="7"] .opt .l{width:104px;height:104px;font-size:50px;}
   body.st .opt{padding:54px 48px;} body.st .opt h3{font-size:52px;} body.st .opt p{font-size:29px;} body.st .opt .l{width:104px;height:104px;font-size:50px;}
   body[data-lang="de"][data-slide="3"] .hl, body[data-lang="de"][data-slide="4"] .hl{font-size:68px !important;}
+  .rows{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:14px;}
+  .rows>div{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+  .rows>div span{font-family:'Inter';font-size:25px;font-weight:600;color:#c8ced4;}
+  .rows>div b{font-size:34px;font-weight:800;letter-spacing:-.03em;}
+  .rows>div.hi{background:linear-gradient(90deg,rgba(31,221,127,.12),rgba(31,221,127,0));margin:0 -14px;padding-left:14px;padding-right:14px;border-radius:12px;border-bottom-color:transparent;}
+  .rows .net{grid-column:1/-1;border-bottom:none;padding-top:18px;margin-top:4px;border-top:1px solid rgba(255,255,255,.14);}
+  .rows .net span{font-size:27px;color:#fff;} .rows .net b{font-size:44px;}
+  body[data-slide="day"] .hl, body[data-slide="swing"] .hl{font-size:88px;}
+  body[data-slide="day"] .sub, body[data-slide="swing"] .sub{font-size:30px;max-width:880px;}
+  body[data-lang="de"][data-slide="swing"] .sub{font-size:28px;margin-top:20px;}
   .disc{position:absolute;left:88px;right:88px;bottom:70px;text-align:center;font-family:'Inter';font-size:19px;font-weight:500;color:#5d646b;line-height:1.45;}
 </style></head>
 <body>
@@ -138,7 +148,11 @@ en:{
   stA:'Backtesting', stAd:'Run your tagged setup across years of price history before you risk a cent.',
   stB:'Auto charts', stBd:'Every trade gets its chart attached automatically. Entry, exit, stop, target.',
   vote:'Vote below', zoneA:'Poll sticker goes here', zoneB:'Options: Backtesting · Auto charts',
-  disc:'Product concept. Features shown are planned, not final.'
+  disc:'Product concept. Features shown are planned, not final.',
+  dayH:'Your 12:00 is eating your 09:00.', dayS:'Green open, red lunch, green close. The day nets out flat and nobody knows why.',
+  dayM:'P&L by entry hour', dayF:'Product example',
+  swH:'One trade carried the month.', swS:'Six swings. Five of them nearly cancelled out. The month is up 1.7R and you cannot tell yet if that was the setup or luck.',
+  swM:'This month · 6 swing trades', swN:'Net', swF:'Product example'
 },
 de:{
   swipe:'Wischen →', brand:'Trademate', concept:'Konzept, kein finales UI', of:'von',
@@ -163,7 +177,11 @@ de:{
   stA:'Backtesting', stAd:'Lass dein getaggtes Setup über Jahre Kurshistorie laufen, bevor du einen Cent riskierst.',
   stB:'Auto-Charts', stBd:'Jeder Trade bekommt seinen Chart automatisch angehängt. Entry, Exit, Stop, Ziel.',
   vote:'Stimm unten ab', zoneA:'Umfrage-Sticker hier platzieren', zoneB:'Optionen: Backtesting · Auto-Charts',
-  disc:'Produktkonzept. Gezeigte Funktionen sind geplant, nicht final.'
+  disc:'Produktkonzept. Gezeigte Funktionen sind geplant, nicht final.',
+  dayH:'Deine 12:00 frisst deine 09:00.', dayS:'Grüner Open, rote Mittagszeit, grüner Close. Der Tag geht auf null aus, und keiner weiß warum.',
+  dayM:'P&L nach Entry-Stunde', dayF:'Produktbeispiel',
+  swH:'Ein Trade hat den Monat getragen.', swS:'Sechs Swings. Fünf davon haben sich fast aufgehoben. Der Monat steht bei +1,7R, und ob das Setup oder Glück war, weißt du noch nicht.',
+  swM:'Dieser Monat · 6 Swing-Trades', swN:'Netto', swF:'Produktbeispiel'
 }}[LANG];
 
 function candles(){ // deterministic little 5m chart for slide 6
@@ -186,7 +204,27 @@ function candles(){ // deterministic little 5m chart for slide 6
 
 const logo='<img class="logo" src="logo.png" alt="Trademate">';
 const foot=(n)=>'<div class="foot"><span>'+C.brand+'</span><span>'+(n<7?C.swipe:'')+'</span><span>'+n+' / 7</span></div>';
+function hourBars(){
+  const d=[['09',310],['10',180],['11',-120],['12',-410],['13',-95],['14',60],['15',520],['16',640]];
+  const W=880,H=350,base=190,sc=0.22,bw=64,gap=(W-8*bw)/8;
+  let s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+  s+='<line x1="0" x2="'+W+'" y1="'+base+'" y2="'+base+'" stroke="rgba(255,255,255,.14)"/>';
+  d.forEach(([h,v],i)=>{const x=gap/2+i*(bw+gap),hh=Math.abs(v)*sc,y=v>0?base-hh:base,col=v>0?'#1FDD7F':'#DC3A40';
+    s+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+hh+'" rx="6" fill="'+col+'" opacity="'+(h==='12'||h==='16'?1:.55)+'"/>';
+    s+='<text x="'+(x+bw/2)+'" y="'+(v>0?y-14:y+hh+30)+'" text-anchor="middle" font-family="Inter Tight" font-size="24" font-weight="800" fill="'+col+'">'+(v>0?'+':'-')+'$'+Math.abs(v)+'</text>';
+    s+='<text x="'+(x+bw/2)+'" y="'+(H-6)+'" text-anchor="middle" font-family="Inter" font-size="21" font-weight="600" fill="#7e868d">'+h+':00</text>';});
+  return s+'</svg>';
+}
+const swingRows=[['AAPL','+1.2R'],['EURUSD','-1.0R'],['NVDA','-1.0R'],['XAUUSD','+0.4R'],['GBPJPY','-1.0R'],['MSFT','+3.1R']];
 const S={
+ day:()=>logo+'<div class="hl" style="margin-top:78px">'+C.dayH+'</div><div class="sub">'+C.dayS+'</div>'
+   +'<div class="card" style="margin-top:46px;padding:30px 44px 22px"><div class="hdr"><div class="t">'+C.dayM+'</div><div class="m">'+C.dayF+'</div></div><div style="margin-top:8px">'+hourBars()+'</div></div>'
+   +'<div class="foot"><span>'+C.brand+'</span><span></span><span></span></div>',
+ swing:()=>logo+'<div class="hl" style="margin-top:78px">'+C.swH+'</div><div class="sub">'+C.swS+'</div>'
+   +'<div class="card" style="margin-top:40px;padding:30px 44px 26px"><div class="hdr"><div class="t">'+C.swM+'</div><div class="m">'+C.swF+'</div></div>'
+   +'<div class="rows">'+swingRows.map(([a,b],i)=>'<div'+(i===5?' class="hi"':'')+'><span>'+a+'</span><b class="'+(b[0]==='+'?'g':'r')+'">'+b+'</b></div>').join('')
+   +'<div class="net"><span>'+C.swN+'</span><b class="g">+1.7R</b></div></div></div>'
+   +'<div class="foot"><span>'+C.brand+'</span><span></span><span></span></div>',
  1:()=>logo+'<div class="eyebrow">'+C.s1e+'</div><div class="hl">'+C.s1h+'</div><div class="sub">'+C.s1s+'</div>'+foot(1),
  2:()=>logo+'<div class="hl" style="margin-top:70px">'+C.s2h+'</div><div class="cols"><div class="col"><h3>'+C.day+'</h3><ul>'+C.d.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div class="col s"><h3>'+C.swing+'</h3><ul>'+C.s.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div>'+foot(2),
  3:()=>logo+'<div class="hl" style="margin-top:70px;font-size:74px">'+C.s3h+'</div><div class="sub">'+C.s3s+'</div>'
