@@ -151,15 +151,15 @@ en:{
   s6m:'EURUSD · 5m · attached automatically', ent:'Entry', ex:'Exit',
   s7h:'Which ships first?', s7s:'Both are on the roadmap. One of them is next — and you decide which.',
   oA:'Backtesting', oAd:'Comment A', oB:'Auto charts', oBd:'Comment B', s7f:'or vote in today’s story',
-  ste:'Major update · you decide', sth:'Backtesting or auto charts?', sts:'One of them ships next. Which one?',
+  ste:'Major update · you decide', sth:'Backtesting or<br>auto charts?', sts:'One of them ships next. Which one?',
   stA:'Backtesting', stAd:'Run your tagged setup across years of price history before you risk a cent.',
   stB:'Auto charts', stBd:'Every trade gets its chart attached automatically. Entry, exit, stop, target.',
   vote:'Vote below', zoneA:'Poll sticker goes here', zoneB:'Options: Backtesting · Auto charts',
   disc:'Product concept. Features shown are planned, not final.',
-  dayH:'Up $490 at 10:00. Flat at the close.', dayS:'Everything after the first red trade was an attempt to get it back. Six entries, none of them on the plan.',
+  dayH:'Up $490 at 10:00.<br>Up $35 at the close.', dayS:'Everything after the first red trade was an attempt to get it back. $625 given back in three hours, none of it on the plan.',
   dayM:'Running P&L · one session', dayF:'Product example', dayHi:'High', dayCl:'Close',
-  swH:'Three stops. Then you changed the rules.', swS:'The setup did not change. The trader did. Two off-plan exits turned a +1.4R month into -1.9R — more than the three stops cost.',
-  swM:'This month · 6 swing trades', swN:'Net', swP:'Net if on plan', swF:'Product example', plan:'On plan', early:'Exited early', moved:'Stop moved', planned:'plan'
+  swH:'Three stops. Then you changed the rules.', swS:'The setup did not change. The trader did. Two off-plan exits turned +1.4R into −1.9R — a bigger hit than the three stops.',
+  swM:'This month · 6 swing trades', swN:'Net', swP:'Net if on plan', swF:'Product example', plan:'On plan', early:'Exited early', earlyN:'ran to', moved:'Stop moved', movedN:'planned'
 },
 de:{
   swipe:'Wischen →', brand:'Trademate', concept:'Konzept, kein finales UI', of:'von',
@@ -180,15 +180,15 @@ de:{
   s6m:'EURUSD · 5m · automatisch angehängt', ent:'Entry', ex:'Exit',
   s7h:'Was kommt zuerst?', s7s:'Beides steht auf der Roadmap. Eins davon ist das Nächste – und du entscheidest, welches.',
   oA:'Backtesting', oAd:'Kommentar A', oB:'Auto-Charts', oBd:'Kommentar B', s7f:'oder stimm in der heutigen Story ab',
-  ste:'Major Update · du entscheidest', sth:'Backtesting oder Auto-Charts?', sts:'Eins davon kommt als Nächstes. Welches?',
+  ste:'Major Update · du entscheidest', sth:'Backtesting oder<br>Auto-Charts?', sts:'Eins davon kommt als Nächstes. Welches?',
   stA:'Backtesting', stAd:'Lass dein getaggtes Setup über Jahre Kurshistorie laufen, bevor du einen Cent riskierst.',
   stB:'Auto-Charts', stBd:'Jeder Trade bekommt seinen Chart automatisch angehängt. Entry, Exit, Stop, Ziel.',
   vote:'Stimm unten ab', zoneA:'Umfrage-Sticker hier platzieren', zoneB:'Optionen: Backtesting · Auto-Charts',
   disc:'Produktkonzept. Gezeigte Funktionen sind geplant, nicht final.',
-  dayH:'Um 10:00 bei +$490. Zum Close auf null.', dayS:'Alles nach dem ersten roten Trade war der Versuch, es zurückzuholen. Sechs Entries, keiner davon nach Plan.',
+  dayH:'Um 10:00 bei +$490.<br>Zum Close bei +$35.', dayS:'Alles nach dem ersten roten Trade war der Versuch, es zurückzuholen. $625 in drei Stunden zurückgegeben, nichts davon nach Plan.',
   dayM:'Laufender P&L · eine Session', dayF:'Produktbeispiel', dayHi:'Hoch', dayCl:'Close',
-  swH:'Drei Stops. Dann hast du die Regeln geändert.', swS:'Das Setup war dasselbe. Der Trader nicht. Zwei Exits gegen den Plan machten aus +1,4R im Monat -1,9R – mehr, als die drei Stops gekostet haben.',
-  swM:'Dieser Monat · 6 Swing-Trades', swN:'Netto', swP:'Netto nach Plan', swF:'Produktbeispiel', plan:'Nach Plan', early:'Zu früh raus', moved:'Stop verschoben', planned:'Plan'
+  swH:'Drei Stops. Dann hast du die Regeln geändert.', swS:'Das Setup war dasselbe. Der Trader nicht. Zwei Exits gegen den Plan machten aus +1,4R −1,9R – teurer als die drei Stops.',
+  swM:'Dieser Monat · 6 Swing-Trades', swN:'Netto', swP:'Netto nach Plan', swF:'Produktbeispiel', plan:'Nach Plan', early:'Zu früh raus', earlyN:'lief bis', moved:'Stop verschoben', movedN:'geplant'
 }}[LANG];
 
 function candles(){ // deterministic little 5m chart for slide 6
@@ -212,7 +212,7 @@ function candles(){ // deterministic little 5m chart for slide 6
 const logo='<img class="logo" src="logo.png" alt="Trademate">';
 const foot=(n)=>'<div class="foot"><span>'+C.brand+'</span><span>'+(n<7?C.swipe:'')+'</span><span>'+n+' / 7</span></div>';
 function runningPnl(){
-  const pts=[['09:00',310],['10:00',490],['11:00',370],['12:00',-40],['13:00',-135],['14:00',-75],['15:00',120],['16:00',35]];
+  const pts=[['09:00',0],['10:00',490],['11:00',370],['12:00',-40],['13:00',-135],['14:00',-75],['15:00',120],['16:00',35]];
   const W=800,H=330,padL=44,padR=70,top=54,bot=54,min=-230,max=560;
   const x=i=>padL+i*(W-padL-padR)/(pts.length-1), y=v=>top+(max-v)/(max-min)*(H-top-bot);
   let d=pts.map((p,i)=>(i?'L':'M')+x(i)+' '+y(p[1])).join(' ');
@@ -225,8 +225,8 @@ function runningPnl(){
   s+='<path d="M'+x(1)+' '+y(490)+' L'+x(2)+' '+y(370)+' L'+x(3)+' '+y(-40)+' L'+x(4)+' '+y(-135)+'" fill="none" stroke="#DC3A40" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
   pts.forEach((p,i)=>s+='<text x="'+x(i)+'" y="'+(H-14)+'" text-anchor="middle" font-family="Inter" font-size="20" font-weight="600" fill="#7e868d">'+p[0]+'</text>');
   const mark=(i,v,l,col,dy,side)=>{s+='<circle cx="'+x(i)+'" cy="'+y(v)+'" r="9" fill="'+col+'" stroke="#0e1012" stroke-width="4"/>';
-    if(side){s+='<text x="'+(x(i)+18)+'" y="'+(y(v)+10)+'" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'-')+'$'+Math.abs(v)+'</text>';return;}
-    s+='<text x="'+x(i)+'" y="'+(y(v)+dy)+'" text-anchor="middle" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'-')+'$'+Math.abs(v)+'</text>';
+    if(side){s+='<text x="'+(x(i)+18)+'" y="'+(y(v)+10)+'" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'−')+'$'+Math.abs(v)+'</text>';return;}
+    s+='<text x="'+x(i)+'" y="'+(y(v)+dy)+'" text-anchor="middle" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'−')+'$'+Math.abs(v)+'</text>';
     s+='<text x="'+x(i)+'" y="'+(y(v)+dy+(dy<0?-28:26))+'" text-anchor="middle" font-family="Inter" font-size="18" font-weight="600" fill="#7e868d" letter-spacing="1">'+l.toUpperCase()+'</text>';};
   mark(1,490,C.dayHi,'#1FDD7F',-22); mark(4,-135,'','#DC3A40',0,true); mark(7,35,C.dayCl,'#e6e9ec',-22);
   return s+'</svg>';
@@ -242,15 +242,16 @@ function hourBars(){
     s+='<text x="'+(x+bw/2)+'" y="'+(H-6)+'" text-anchor="middle" font-family="Inter" font-size="21" font-weight="600" fill="#7e868d">'+h+':00</text>';});
   return s+'</svg>';
 }
-const swingRows=[['EURUSD','-1.0R','plan',''],['NVDA','-1.0R','plan',''],['GBPJPY','-1.0R','plan',''],['XAUUSD','+0.5R','early','+3.0R'],['AAPL','-1.8R','moved','-1.0R'],['MSFT','+2.4R','plan','']];
+const swingRows=[['EURUSD',-1.0,'plan',null],['NVDA',-1.0,'plan',null],['GBPJPY',-1.0,'plan',null],['XAUUSD',0.5,'early',3.0],['AAPL',-1.8,'moved',-1.0],['MSFT',2.4,'plan',null]];
+const fmtR=v=>(v>=0?'+':'−')+Math.abs(v).toFixed(1).replace('.',LANG==='de'?',':'.')+'R';
 const S={
  day:()=>logo+'<div class="hl" style="margin-top:78px">'+C.dayH+'</div><div class="sub">'+C.dayS+'</div>'
    +'<div class="card" style="margin-top:40px;padding:30px 44px 18px"><div class="hdr"><div class="t">'+C.dayM+'</div><div class="m">'+C.dayF+'</div></div><div style="margin-top:4px">'+runningPnl()+'</div></div>'
 ,
  swing:()=>logo+'<div class="hl" style="margin-top:78px">'+C.swH+'</div><div class="sub">'+C.swS+'</div>'
    +'<div class="card" style="margin-top:34px;padding:28px 44px 22px"><div class="hdr"><div class="t">'+C.swM+'</div><div class="m">'+C.swF+'</div></div>'
-   +'<div class="rows one">'+swingRows.map(([a,b,n,pl])=>'<div'+(n!=='plan'?' class="off"':'')+'><span>'+a+'</span><em>'+C[n]+(pl?' <i>· '+C.planned+' '+pl+'</i>':'')+'</em><b class="'+(b[0]==='+'?'g':'r')+'">'+b+'</b></div>').join('')
-   +'<div class="net"><span>'+C.swN+'</span><b class="r">-1.9R</b></div><div class="net alt"><span>'+C.swP+'</span><b class="g">+1.4R</b></div></div></div>',
+   +'<div class="rows one">'+swingRows.map(([a,b,n,pl])=>'<div'+(n!=='plan'?' class="off"':'')+'><span>'+a+'</span><em>'+C[n]+(pl!==null?' <i>· '+C[n+'N']+' '+fmtR(pl)+'</i>':'')+'</em><b class="'+(b>=0?'g':'r')+'">'+fmtR(b)+'</b></div>').join('')
+   +'<div class="net"><span>'+C.swN+'</span><b class="r">'+fmtR(-1.9)+'</b></div><div class="net alt"><span>'+C.swP+'</span><b class="g">'+fmtR(1.4)+'</b></div></div></div>',
  1:()=>logo+'<div class="eyebrow">'+C.s1e+'</div><div class="hl">'+C.s1h+'</div><div class="sub">'+C.s1s+'</div>'+foot(1),
  2:()=>logo+'<div class="hl" style="margin-top:70px">'+C.s2h+'</div><div class="cols"><div class="col"><h3>'+C.day+'</h3><ul>'+C.d.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div class="col s"><h3>'+C.swing+'</h3><ul>'+C.s.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div>'+foot(2),
  3:()=>logo+'<div class="hl" style="margin-top:70px;font-size:74px">'+C.s3h+'</div><div class="sub">'+C.s3s+'</div>'
