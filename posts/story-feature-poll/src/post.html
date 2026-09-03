@@ -163,9 +163,9 @@ en:{
   stB:'Auto charts', stBd:'Every trade gets its chart attached automatically. Entry, exit, stop, target.',
   vote:'Vote below', zoneA:'Poll sticker goes here', zoneB:'Options: Backtesting · Auto charts',
   disc:'Product concept. Features shown are planned, not final.',
-  dayH:'Up $1,240 at 10:30.<br>Down $860 at the close.', dayS:'Two good trades, then one loss and two entries to get it back. $2,100 given back, neither of them on the plan.',
-  dayM:'Tue, Aug 12 · one session · 5 trades', dayY:'Cumulative P&L', dayF:'Product example', dayHi:'High', dayCl:'Close', dayFL:'First loss',
-  dayK:[['$2,100','given back'],['2','entries after the first loss'],['0','on the plan']],
+  dayH:'Up $1,240 at 10:30.<br>Down $860 at the close.', dayS:'One good trade. Then one entry against the rules, and one to get it back. $2,100 given back in two trades.',
+  dayM:'Tue, Aug 12 · one session · 3 trades', dayY:'Cumulative P&L', dayF:'Product example', dayHi:'High', dayCl:'Close', dayFL:'Rule broken', dayRV:'Revenge',
+  dayK:[['$2,100','given back'],['1','rule broken'],['1','revenge trade']],
   swH:'Your plan: +$2,750.<br>You: −$1,250.', swS:'Same six trades. One runner cut at +0.6R that went to +4R. One stop ignored into the weekend. One stop moved. Between the plan and the trader: $4,000.',
   swM:'This month · 6 swing trades · 1R = $500', swN:'As traded', swP:'On plan', swF:'Product example', plan:'On plan', early:'Cut early', earlyN:'ran to', ignored:'Stop ignored', ignoredN:'planned', moved:'Stop moved', movedN:'planned'
 },
@@ -193,9 +193,9 @@ de:{
   stB:'Auto-Charts', stBd:'Jeder Trade bekommt seinen Chart automatisch angehängt. Entry, Exit, Stop, Ziel.',
   vote:'Stimm unten ab', zoneA:'Umfrage-Sticker hier platzieren', zoneB:'Optionen: Backtesting · Auto-Charts',
   disc:'Produktkonzept. Gezeigte Funktionen sind geplant, nicht final.',
-  dayH:'Um 10:30 bei +$1.240.<br>Zum Close bei −$860.', dayS:'Zwei gute Trades, dann ein Verlust und zwei Entries, um es zurückzuholen. $2.100 zurückgegeben, keiner davon nach Plan.',
-  dayM:'Di., 12. Aug. · eine Session · 5 Trades', dayY:'Kumulierter P&L', dayF:'Produktbeispiel', dayHi:'Hoch', dayCl:'Close', dayFL:'Erster Verlust',
-  dayK:[['$2.100','zurückgegeben'],['2','Entries nach dem ersten Verlust'],['0','nach Plan']],
+  dayH:'Um 10:30 bei +$1.240.<br>Zum Close bei −$860.', dayS:'Ein guter Trade. Dann ein Entry gegen die Regeln und einer, um es zurückzuholen. $2.100 in zwei Trades zurückgegeben.',
+  dayM:'Di., 12. Aug. · eine Session · 3 Trades', dayY:'Kumulierter P&L', dayF:'Produktbeispiel', dayHi:'Hoch', dayCl:'Close', dayFL:'Regel gebrochen', dayRV:'Revanche',
+  dayK:[['$2.100','zurückgegeben'],['1','Regel gebrochen'],['1','Revanche-Trade']],
   swH:'Dein Plan: +$2.750.<br>Du: −$1.250.', swS:'Dieselben sechs Trades. Ein Runner bei +0,6R gekappt, der bis +4R lief. Ein Stop übers Wochenende ignoriert, einer verschoben. Zwischen Plan und Trader: $4.000.',
   swM:'Dieser Monat · 6 Swing-Trades · 1R = $500', swN:'So gehandelt', swP:'Nach Plan', swF:'Produktbeispiel', plan:'Nach Plan', early:'Zu früh raus', earlyN:'lief bis', ignored:'Stop ignoriert', ignoredN:'geplant', moved:'Stop verschoben', movedN:'geplant'
 }}[LANG];
@@ -222,7 +222,7 @@ const logo='<img class="logo" src="logo.png" alt="Trademate">';
 const foot=(n)=>'<div class="foot"><span>'+C.brand+'</span><span>'+(n<7?C.swipe:'')+'</span><span>'+n+' / 7</span></div>';
 function runningPnl(){
   // [minutes since 09:30, cumulative P&L, is a trade close]
-  const pts=[[0,0,false],[15,640,true],[60,1240,true],[105,620,true],[210,-180,true],[360,-860,true],[390,-860,false]];
+  const pts=[[0,0,false],[60,1240,true],[165,140,true],[315,-860,true],[390,-860,false]];
   const W=800,H=290,padL=36,padR=70,top=56,bot=46,min=-1150,max=1500,T=390;
   const x=m=>padL+m*(W-padL-padR)/T, y=v=>top+(max-v)/(max-min)*(H-top-bot);
   const dol=v=>(v>=0?'+':'−')+'$'+Math.abs(v).toLocaleString(LANG==='de'?'de-DE':'en-US');
@@ -236,16 +236,19 @@ function runningPnl(){
   const area='M'+x(0)+' '+y(0)+' '+pts.map(p=>'L'+x(p[0])+' '+y(p[1])).join(' ')+' L'+x(T)+' '+y(0)+'Z';
   s+='<path d="'+area+'" fill="url(#gA)" clip-path="url(#cUp)"/><path d="'+area+'" fill="url(#gR)" clip-path="url(#cDn)"/>';
   s+='<path d="'+d+'" fill="none" stroke="#e6e9ec" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
-  s+='<path d="'+pts.slice(2).map((p,i)=>(i?'L':'M')+x(p[0]).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ')+'" fill="none" stroke="#DC3A40" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
-  pts.forEach((p,i)=>{ if(!p[2]) return; const col=i<=2?'#1FDD7F':'#DC3A40'; s+='<circle cx="'+x(p[0])+'" cy="'+y(p[1])+'" r="6.5" fill="'+col+'" stroke="#0e1012" stroke-width="2.5"/>'; });
+  s+='<path d="'+pts.slice(1).map((p,i)=>(i?'L':'M')+x(p[0]).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ')+'" fill="none" stroke="#DC3A40" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
+  pts.forEach((p,i)=>{ if(!p[2]) return; const col=i<=1?'#1FDD7F':'#DC3A40'; s+='<circle cx="'+x(p[0])+'" cy="'+y(p[1])+'" r="6.5" fill="'+col+'" stroke="#0e1012" stroke-width="2.5"/>'; });
   for(let h=10;h<=16;h++){ const m=(h-9)*60-30; s+='<text x="'+x(m)+'" y="'+(H-8)+'" text-anchor="middle" font-family="Inter" font-size="19" font-weight="600" fill="#7e868d">'+h+':00</text>'; }
   const big=(m,v,l,col)=>{s+='<circle cx="'+x(m)+'" cy="'+y(v)+'" r="9" fill="'+col+'" stroke="#0e1012" stroke-width="4"/>';
     const ty=y(v)-20, ly=ty-26;
     s+='<text x="'+x(m)+'" y="'+ty+'" text-anchor="middle" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+dol(v)+'</text>';
     s+='<text x="'+x(m)+'" y="'+ly+'" text-anchor="middle" font-family="Inter" font-size="16" font-weight="700" fill="#7e868d" letter-spacing="1.5">'+l.toUpperCase()+'</text>';};
   big(60,1240,C.dayHi,'#1FDD7F'); big(390,-860,C.dayCl,'#DC3A40');
-  s+='<circle cx="'+x(105)+'" cy="'+y(620)+'" r="10" fill="none" stroke="#DC3A40" stroke-width="2.5"/>';
-  s+='<text x="'+(x(105)+20)+'" y="'+(y(620)-6)+'" font-family="Inter" font-size="16" font-weight="700" fill="#8a9199" letter-spacing="1.5">'+C.dayFL.toUpperCase()+'</text>';
+  const tag=(m,v,l,pnl,right,lift)=>{s+='<circle cx="'+x(m)+'" cy="'+y(v)+'" r="10" fill="none" stroke="#DC3A40" stroke-width="2.5"/>';
+    const tx=right?x(m)+20:x(m)-26, an=right?'start':'end';
+    s+='<text x="'+tx+'" y="'+(y(v)-lift-24)+'" text-anchor="'+an+'" font-family="Inter" font-size="16" font-weight="700" fill="#8a9199" letter-spacing="1.5">'+l.toUpperCase()+'</text>';
+    s+='<text x="'+tx+'" y="'+(y(v)-lift)+'" text-anchor="'+an+'" font-family="Inter Tight" font-size="24" font-weight="800" fill="#DC3A40">'+dol(pnl)+'</text>';};
+  tag(165,140,C.dayFL,-1100,true,6); tag(315,-860,C.dayRV,-1000,false,46);
   return s+'</svg>';
 }
 function hourBars(){

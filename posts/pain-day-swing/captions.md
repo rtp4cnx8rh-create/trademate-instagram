@@ -5,17 +5,16 @@ mentions a feature or the poll. Every number in a caption is on the card.
 
 ## pain_day — "Up $1,240 at 10:30. Down $860 at the close."
 
-Card: cumulative P&L of one session (Tue, Aug 12), 5 trades, one dot per
-trade. Open $0, two wins to +$1,240 at 10:30, first loss at 11:15 (−$620),
-then −$800 at 13:00 and −$680 at 15:30, close −$860. Given back: $2,100.
-Entries after the first loss: 2, neither on the plan.
+Card: cumulative P&L of one session (Tue, Aug 12), 3 trades. Trade 1 at
+10:30 +$1,240 (high). Trade 2 at 12:15 against the rules, −$1,100. Trade 3
+at 14:45 the revenge trade, −$1,000. Close −$860. Given back: $2,100.
 
 EN
-Up $1,240 by 10:30. Down $860 at the close. Two trades made the morning. One
-loss took a third of it, and the two entries that followed were not setups —
-they were attempts to get back to +$1,240, sized to get there fast. Three
-losing trades, $2,100 gone, and the day did not turn on a bad idea. It turned
-on the first loss. Product example: these figures illustrate the feature, not real
+Up $1,240 by 10:30 on one clean trade. Then the second entry, taken against
+the rules because the morning felt easy: −$1,100. Then the third, taken to get
+the morning back: −$1,000. Down $860 at the close. Three trades, one of them
+a setup. The day did not turn on a bad idea. It turned on the first rule you
+skipped. Product example: these figures illustrate the feature, not real
 trader results.
 
 See every session as one curve — 7-day trial, link in bio.
@@ -23,12 +22,11 @@ See every session as one curve — 7-day trial, link in bio.
 #daytrading #tradingpsychology #tradingjournal #riskmanagement #tradingedge
 
 DE
-Um 10:30 bei +$1.240. Zum Close bei −$860. Zwei Trades haben den Morgen
-gemacht. Ein Verlust hat ein Drittel davon genommen, und die zwei Entries
-danach waren keine Setups — sie waren Versuche, zurück auf +$1.240 zu kommen,
-groß genug, um schnell dort zu sein. Drei Verlust-Trades, $2.100 weg, und der
-Tag ist nicht an einer schlechten Idee gekippt. Er ist am ersten Verlust
-gekippt. Produktbeispiel: Die Zahlen veranschaulichen
+Um 10:30 bei +$1.240, mit einem sauberen Trade. Dann der zweite Entry, gegen
+die Regeln, weil der Morgen sich leicht anfühlte: −$1.100. Dann der dritte, um
+den Morgen zurückzuholen: −$1.000. Zum Close bei −$860. Drei Trades, einer
+davon ein Setup. Der Tag ist nicht an einer schlechten Idee gekippt. Er ist an
+der ersten Regel gekippt, die du übersprungen hast. Produktbeispiel: Die Zahlen veranschaulichen
 die Funktion, keine echten Handelsergebnisse.
 
 Sieh jede Session als eine Kurve — 7 Tage kostenlos, Link in Bio.
