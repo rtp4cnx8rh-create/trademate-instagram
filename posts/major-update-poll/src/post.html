@@ -1,0 +1,216 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Trademate — Major update poll</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{background:#000;overflow:hidden;}
+  body{font-family:'Inter Tight','Inter',sans-serif;color:#fff;}
+  #stage{position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 18% 6%, #2a2e33 0%, rgba(42,46,51,0) 55%),
+      radial-gradient(100% 60% at 90% 96%, #1b2b23 0%, rgba(27,43,35,0) 60%),
+      linear-gradient(168deg,#191c1f 0%,#111316 42%,#0a0b0d 100%);}
+  body.sq #stage{width:1080px;height:1080px;padding:92px 96px;}
+  body.st #stage{width:1080px;height:1920px;padding:120px 88px;}
+  #grain{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;background:url('grain.png');background-size:256px;pointer-events:none;}
+  #vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 75% at 50% 42%, rgba(0,0,0,0) 46%, rgba(0,0,0,.42) 100%);}
+
+  .logo{display:block;width:300px;}
+  body.st .logo{margin:0 auto;}
+  .eyebrow{font-family:'Inter';font-size:22px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#7e868d;margin-top:70px;}
+  body.st .eyebrow{text-align:center;margin-top:110px;}
+  .hl{font-weight:800;font-size:82px;line-height:1.0;letter-spacing:-.035em;margin-top:22px;
+    background:linear-gradient(178deg,#ffffff 12%,#b9bfc5 96%);-webkit-background-clip:text;background-clip:text;color:transparent;
+    padding-bottom:.12em;margin-bottom:-.12em;}
+  body.st .hl{font-size:98px;text-align:center;}
+  .sub{font-family:'Inter';font-size:29px;font-weight:500;color:#8a9199;line-height:1.4;margin-top:26px;letter-spacing:-.005em;max-width:860px;}
+  body.st .sub{text-align:center;margin:26px auto 0;font-size:32px;}
+
+  .card{background:linear-gradient(160deg,#17191c,#0e1012);border:1px solid rgba(255,255,255,.075);border-radius:32px;
+    box-shadow:0 34px 70px rgba(0,0,0,.5);padding:40px 44px;}
+  .tag{display:inline-flex;align-items:center;gap:12px;font-family:'Inter';font-size:23px;font-weight:700;letter-spacing:-.01em;
+    padding:12px 22px;border-radius:100px;background:#1FDD7F;color:#04150c;}
+  .tag.b{background:#dfe3e7;color:#0b0c0e;}
+  .tag.r{background:#C62A30;color:#fff;}
+  .foot{position:absolute;left:96px;right:96px;bottom:70px;display:flex;align-items:center;justify-content:space-between;
+    font-family:'Inter';font-size:22px;font-weight:600;color:#5d646b;letter-spacing:.02em;}
+  .g{color:#1FDD7F;} .r{color:#DC3A40;}
+
+  /* two-column compare */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:52px;}
+  .col{padding:8px 40px 4px 0;}
+  .col+.col{border-left:1px solid rgba(255,255,255,.08);padding-left:40px;padding-right:0;}
+  .col h3{font-size:40px;font-weight:800;letter-spacing:-.03em;margin-bottom:22px;}
+  .col li{list-style:none;font-family:'Inter';font-size:25px;font-weight:500;color:#aab1b8;line-height:1.35;padding:13px 0 13px 34px;position:relative;
+    border-top:1px solid rgba(255,255,255,.06);}
+  .col li:before{content:'';position:absolute;left:0;top:26px;width:12px;height:12px;border-radius:50%;background:#1FDD7F;}
+  .col.s li:before{background:#8ea0ff;}
+
+  /* bars */
+  .stat{margin-top:6px;}
+  .stat+.stat{margin-top:30px;}
+  .stat .k{display:flex;justify-content:space-between;font-family:'Inter';font-size:25px;font-weight:600;color:#c8ced4;}
+  .stat .k b{font-family:'Inter Tight';font-size:36px;font-weight:800;letter-spacing:-.03em;color:#fff;}
+  .bar{height:10px;border-radius:6px;background:rgba(255,255,255,.08);margin-top:14px;overflow:hidden;}
+  .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#12995a,#1FDD7F);}
+  .bar.r i{background:linear-gradient(90deg,#7d1c20,#C62A30);}
+
+  .big{font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:1;color:#fff;}
+  .big small{font-size:44px;letter-spacing:-.02em;color:#8a9199;font-weight:700;margin-left:14px;}
+
+  /* result table */
+  .tbl{display:grid;grid-template-columns:1fr 1fr;gap:18px 40px;margin-top:26px;}
+  .tbl div{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(255,255,255,.07);padding:14px 0;}
+  .tbl span{font-family:'Inter';font-size:23px;color:#8a9199;font-weight:500;}
+  .tbl b{font-size:36px;font-weight:800;letter-spacing:-.03em;}
+  .hdr{display:flex;align-items:center;justify-content:space-between;}
+  .hdr .t{font-family:'Inter';font-size:25px;font-weight:600;color:#c8ced4;}
+  .hdr .m{font-family:'Inter';font-size:20px;font-weight:600;color:#5d646b;letter-spacing:.08em;text-transform:uppercase;}
+
+  /* options */
+  .opt{display:flex;align-items:center;gap:30px;padding:42px 44px;}
+  .opt+.opt{margin-top:26px;}
+  .opt .l{width:92px;height:92px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-size:44px;font-weight:800;letter-spacing:-.03em;background:#1FDD7F;color:#04150c;}
+  .opt.b .l{background:#8ea0ff;color:#0b0e1c;}
+  .opt h3{font-size:46px;font-weight:800;letter-spacing:-.03em;}
+  .opt p{font-family:'Inter';font-size:26px;font-weight:500;color:#8a9199;line-height:1.35;margin-top:8px;}
+
+  /* story poll zone */
+  .zone{position:absolute;left:88px;right:88px;bottom:150px;height:330px;border-radius:32px;}
+  .zone.guide{border:3px dashed rgba(255,255,255,.22);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+  .zone.guide .a{font-family:'Inter';font-size:26px;font-weight:700;color:#8a9199;letter-spacing:.12em;text-transform:uppercase;}
+  .zone.guide .b{font-family:'Inter';font-size:24px;font-weight:500;color:#5d646b;}
+  .vote{position:absolute;left:0;right:0;bottom:510px;text-align:center;font-family:'Inter';font-size:30px;font-weight:700;color:#e6e9ec;letter-spacing:-.01em;}
+  .vote span{display:block;font-size:44px;margin-top:6px;color:#1FDD7F;}
+
+  /* fill the square: larger type and taller cards on the text-heavy slides */
+  body[data-slide="1"] .hl{font-size:118px;margin-top:150px;}
+  body[data-slide="1"] .sub{font-size:36px;margin-top:40px;max-width:820px;}
+  body[data-slide="1"] .eyebrow{margin-top:150px;}
+  body[data-slide="1"] .hl{margin-top:24px;}
+  body[data-slide="2"] .cols{margin-top:66px;}
+  body[data-slide="2"] .col h3{font-size:50px;margin-bottom:26px;}
+  body[data-slide="2"] .col li{font-size:29px;padding:20px 0 20px 38px;}
+  body[data-slide="2"] .col li:before{top:33px;width:13px;height:13px;}
+  body[data-slide="3"] .card{margin-top:44px !important;padding:42px 48px 38px;}
+  body[data-slide="3"] .stat+.stat{margin-top:40px;}
+  body[data-slide="3"] .bar{height:13px;margin-top:18px;}
+  body[data-slide="3"] .stat .k{font-size:27px;} body[data-slide="3"] .stat .k b{font-size:40px;}
+  body[data-slide="4"] .card{margin-top:44px !important;padding:56px 56px;}
+  body[data-slide="4"] .big{font-size:190px;}
+  body[data-slide="4"] .big small{font-size:52px;}
+  body[data-slide="4"] .card .sub{font-size:30px !important;max-width:360px !important;}
+  body[data-slide="5"] .card{margin-top:52px !important;}
+  body[data-slide="5"] .tbl div{padding:20px 0;} body[data-slide="5"] .tbl b{font-size:42px;} body[data-slide="5"] .tbl span{font-size:25px;}
+  body[data-slide="7"] .opt{padding:44px 48px;} body[data-slide="7"] .opt h3{font-size:52px;} body[data-slide="7"] .opt p{font-size:28px;}
+  body[data-slide="7"] .opt .l{width:104px;height:104px;font-size:50px;}
+  body.st .opt{padding:54px 48px;} body.st .opt h3{font-size:52px;} body.st .opt p{font-size:29px;} body.st .opt .l{width:104px;height:104px;font-size:50px;}
+  body[data-lang="de"][data-slide="3"] .hl, body[data-lang="de"][data-slide="4"] .hl{font-size:68px !important;}
+  .disc{position:absolute;left:88px;right:88px;bottom:70px;text-align:center;font-family:'Inter';font-size:19px;font-weight:500;color:#5d646b;line-height:1.45;}
+</style></head>
+<body>
+<div id="stage"><div id="content"></div><div id="vig"></div><div id="grain"></div></div>
+
+<script>
+const Q=new URLSearchParams(location.search);
+const LANG=Q.get('lang')||'en', SLIDE=Q.get('slide')||'1', GUIDE=Q.get('guide')==='1';
+const C={
+en:{
+  swipe:'Swipe →', brand:'Trademate', concept:'Concept, not final UI', of:'of',
+  s1e:'Deep dive', s1h:'Day trading vs. swing trading.', s1s:'Same journal. Different questions. And a major update that has to serve both.',
+  s2h:'The clock decides what matters.',
+  day:'Day', swing:'Swing',
+  d:['20–40 trades a week','Held for minutes to hours','Edge sits in time-of-day and execution','Review happens the same evening'],
+  s:['3–8 trades a month','Held for days to weeks','Edge sits in setup selection and sizing','Review happens over quarters'],
+  s3h:'Day trading: the data piles up fast.',
+  s3s:'Thirty entries a day are thirty charts nobody screenshots. The pattern lives in the hours, but the visual record is missing.',
+  s3k1:'Screenshot coverage', s3k2:'Notes coverage', s3m:'M8 AI finding', s3t:'What would help: auto charts',
+  s4h:'Swing trading: the sample comes slow.',
+  s4s:'Six trades a month is seventy-two a year. A setup needs about a hundred before its win rate means anything.',
+  s4b:'17', s4bu:'months', s4c:'to reach 100 trades at swing pace', s4t:'What would help: backtesting',
+  s5e:'Option A', s5h:'Backtesting.', s5s:'Take a setup you already tag — FVG, 16:00 entries, whatever you log — and run it across years of price history. Before real money.',
+  s5m:'FVG · 15m · 2019–2026', tr:'Trades', wr:'Win rate', pf:'Profit factor', dd:'Max drawdown',
+  s6e:'Option B', s6h:'Auto charts.', s6s:'Every trade gets its chart attached the moment it closes. Entry, exit, stop and target marked on the timeframe you trade.',
+  s6m:'EURUSD · 5m · attached automatically', ent:'Entry', ex:'Exit',
+  s7h:'Which ships first?', s7s:'Both are on the roadmap. One of them is next — and you decide which.',
+  oA:'Backtesting', oAd:'Comment A', oB:'Auto charts', oBd:'Comment B', s7f:'or vote in today’s story',
+  ste:'Major update · you decide', sth:'Backtesting or auto charts?', sts:'One of them ships next. Which one?',
+  stA:'Backtesting', stAd:'Run your tagged setup across years of price history before you risk a cent.',
+  stB:'Auto charts', stBd:'Every trade gets its chart attached automatically. Entry, exit, stop, target.',
+  vote:'Vote below', zoneA:'Poll sticker goes here', zoneB:'Options: Backtesting · Auto charts',
+  disc:'Product concept. Features shown are planned, not final.'
+},
+de:{
+  swipe:'Wischen →', brand:'Trademate', concept:'Konzept, kein finales UI', of:'von',
+  s1e:'Deep Dive', s1h:'Daytrading vs. Swingtrading.', s1s:'Gleiches Journal. Andere Fragen. Und ein Major Update, das beiden dienen muss.',
+  s2h:'Die Uhr entscheidet, was zählt.',
+  day:'Day', swing:'Swing',
+  d:['20–40 Trades pro Woche','Haltedauer Minuten bis Stunden','Edge liegt in Tageszeit und Ausführung','Review noch am selben Abend'],
+  s:['3–8 Trades pro Monat','Haltedauer Tage bis Wochen','Edge liegt in Setup-Auswahl und Sizing','Review über Quartale'],
+  s3h:'Daytrading: die Daten stapeln sich.',
+  s3s:'Dreißig Entries am Tag sind dreißig Charts, die niemand screenshottet. Das Muster steckt in den Stunden, aber das Bild dazu fehlt.',
+  s3k1:'Screenshot-Abdeckung', s3k2:'Notizen-Abdeckung', s3m:'M8 AI Befund', s3t:'Was helfen würde: Auto-Charts',
+  s4h:'Swingtrading: die Daten kommen langsam.',
+  s4s:'Sechs Trades im Monat sind zweiundsiebzig im Jahr. Ein Setup braucht rund hundert, bevor seine Trefferquote etwas bedeutet.',
+  s4b:'17', s4bu:'Monate', s4c:'bis 100 Trades im Swing-Tempo', s4t:'Was helfen würde: Backtesting',
+  s5e:'Option A', s5h:'Backtesting.', s5s:'Nimm ein Setup, das du ohnehin taggst — FVG, 16:00-Entries, was auch immer — und lass es über Jahre Kurshistorie laufen. Vor echtem Geld.',
+  s5m:'FVG · 15m · 2019–2026', tr:'Trades', wr:'Trefferquote', pf:'Profit-Faktor', dd:'Max. Drawdown',
+  s6e:'Option B', s6h:'Auto-Charts.', s6s:'Jeder Trade bekommt seinen Chart in dem Moment angehängt, in dem er schließt. Entry, Exit, Stop und Ziel markiert – in deinem Zeitrahmen.',
+  s6m:'EURUSD · 5m · automatisch angehängt', ent:'Entry', ex:'Exit',
+  s7h:'Was kommt zuerst?', s7s:'Beides steht auf der Roadmap. Eins davon ist das Nächste – und du entscheidest, welches.',
+  oA:'Backtesting', oAd:'Kommentar A', oB:'Auto-Charts', oBd:'Kommentar B', s7f:'oder stimm in der heutigen Story ab',
+  ste:'Major Update · du entscheidest', sth:'Backtesting oder Auto-Charts?', sts:'Eins davon kommt als Nächstes. Welches?',
+  stA:'Backtesting', stAd:'Lass dein getaggtes Setup über Jahre Kurshistorie laufen, bevor du einen Cent riskierst.',
+  stB:'Auto-Charts', stBd:'Jeder Trade bekommt seinen Chart automatisch angehängt. Entry, Exit, Stop, Ziel.',
+  vote:'Stimm unten ab', zoneA:'Umfrage-Sticker hier platzieren', zoneB:'Optionen: Backtesting · Auto-Charts',
+  disc:'Produktkonzept. Gezeigte Funktionen sind geplant, nicht final.'
+}}[LANG];
+
+function candles(){ // deterministic little 5m chart for slide 6
+  let x=0,p=1.0850,out=[],seed=7;
+  const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+  for(let i=0;i<34;i++){const o=p;const c=o+(rnd()-0.47)*0.0012+(i>12&&i<26?0.00035:0);const h=Math.max(o,c)+rnd()*0.0006;const l=Math.min(o,c)-rnd()*0.0006;out.push({o,c,h,l});p=c;}
+  const min=Math.min(...out.map(k=>k.l)),max=Math.max(...out.map(k=>k.h));
+  const W=880,H=300,pad=10,sx=W/out.length,y=v=>pad+(max-v)/(max-min)*(H-2*pad);
+  let s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+  [0.25,0.5,0.75].forEach(f=>s+='<line x1="0" x2="'+W+'" y1="'+(H*f)+'" y2="'+(H*f)+'" stroke="rgba(255,255,255,.06)"/>');
+  out.forEach((k,i)=>{const cx=i*sx+sx/2,up=k.c>=k.o,col=up?'#1FDD7F':'#DC3A40';
+    s+='<line x1="'+cx+'" x2="'+cx+'" y1="'+y(k.h)+'" y2="'+y(k.l)+'" stroke="'+col+'" stroke-width="2"/>';
+    s+='<rect x="'+(cx-sx*0.32)+'" y="'+Math.min(y(k.o),y(k.c))+'" width="'+(sx*0.64)+'" height="'+Math.max(2,Math.abs(y(k.o)-y(k.c)))+'" rx="1.5" fill="'+col+'"/>';});
+  const ei=12,xi=25, ex=ei*sx+sx/2, xx=xi*sx+sx/2, ey=y(out[ei].c), xy=y(out[xi].c);
+  s+='<line x1="'+ex+'" x2="'+xx+'" y1="'+ey+'" y2="'+ey+'" stroke="#8ea0ff" stroke-dasharray="6 6" stroke-width="2"/>';
+  [[ex,ey,C.ent],[xx,xy,C.ex]].forEach(([px,py,l])=>{s+='<circle cx="'+px+'" cy="'+py+'" r="10" fill="#8ea0ff" stroke="#0e1012" stroke-width="4"/>';
+    s+='<text x="'+(px+16)+'" y="'+(py-16)+'" font-family="Inter" font-size="20" font-weight="700" fill="#c8ced4">'+l+'</text>';});
+  return s+'</svg>';
+}
+
+const logo='<img class="logo" src="logo.png" alt="Trademate">';
+const foot=(n)=>'<div class="foot"><span>'+C.brand+'</span><span>'+(n<7?C.swipe:'')+'</span><span>'+n+' / 7</span></div>';
+const S={
+ 1:()=>logo+'<div class="eyebrow">'+C.s1e+'</div><div class="hl">'+C.s1h+'</div><div class="sub">'+C.s1s+'</div>'+foot(1),
+ 2:()=>logo+'<div class="hl" style="margin-top:70px">'+C.s2h+'</div><div class="cols"><div class="col"><h3>'+C.day+'</h3><ul>'+C.d.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div class="col s"><h3>'+C.swing+'</h3><ul>'+C.s.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div>'+foot(2),
+ 3:()=>logo+'<div class="hl" style="margin-top:70px;font-size:74px">'+C.s3h+'</div><div class="sub">'+C.s3s+'</div>'
+   +'<div class="card" style="margin-top:44px"><div class="hdr"><div class="t">'+C.s3m+'</div><div class="m">Aug 11</div></div>'
+   +'<div class="stat" style="margin-top:26px"><div class="k"><span>'+C.s3k1+'</span><b class="r">0.77%</b></div><div class="bar r"><i style="width:1.2%"></i></div></div>'
+   +'<div class="stat"><div class="k"><span>'+C.s3k2+'</span><b>63.08%</b></div><div class="bar"><i style="width:63%"></i></div></div></div>'
+   +'<div style="margin-top:34px"><span class="tag">'+C.s3t+'</span></div>'+foot(3),
+ 4:()=>logo+'<div class="hl" style="margin-top:70px;font-size:74px">'+C.s4h+'</div><div class="sub">'+C.s4s+'</div>'
+   +'<div class="card" style="margin-top:44px;display:flex;align-items:center;gap:40px"><div class="big">'+C.s4b+'<small>'+C.s4bu+'</small></div><div class="sub" style="margin:0;font-size:26px;max-width:340px">'+C.s4c+'</div></div>'
+   +'<div style="margin-top:34px"><span class="tag" style="background:#8ea0ff;color:#0b0e1c">'+C.s4t+'</span></div>'+foot(4),
+ 5:()=>logo+'<div class="eyebrow">'+C.s5e+'</div><div class="hl">'+C.s5h+'</div><div class="sub">'+C.s5s+'</div>'
+   +'<div class="card" style="margin-top:40px;padding:34px 44px 22px"><div class="hdr"><div class="t">'+C.s5m+'</div><div class="m">'+C.concept+'</div></div>'
+   +'<div class="tbl"><div><span>'+C.tr+'</span><b>412</b></div><div><span>'+C.wr+'</span><b class="g">58%</b></div><div><span>'+C.pf+'</span><b>1.71</b></div><div><span>'+C.dd+'</span><b class="r">-8.4%</b></div></div></div>'+foot(5),
+ 6:()=>logo+'<div class="eyebrow">'+C.s6e+'</div><div class="hl">'+C.s6h+'</div><div class="sub">'+C.s6s+'</div>'
+   +'<div class="card" style="margin-top:40px;padding:30px 44px 26px"><div class="hdr"><div class="t">'+C.s6m+'</div><div class="m">'+C.concept+'</div></div><div style="margin-top:14px">'+candles()+'</div></div>'+foot(6),
+ 7:()=>logo+'<div class="hl" style="margin-top:70px">'+C.s7h+'</div><div class="sub">'+C.s7s+'</div>'
+   +'<div style="margin-top:48px"><div class="card opt"><div class="l">A</div><div><h3>'+C.oA+'</h3><p>'+C.oAd+'</p></div></div><div class="card opt b"><div class="l">B</div><div><h3>'+C.oB+'</h3><p>'+C.oBd+'</p></div></div></div>'
+   +'<div class="sub" style="margin-top:30px;font-size:26px">'+C.s7f+'</div>'+foot(7),
+ story:()=>logo+'<div class="eyebrow">'+C.ste+'</div><div class="hl">'+C.sth+'</div><div class="sub">'+C.sts+'</div>'
+   +'<div style="margin-top:150px"><div class="card opt"><div class="l">A</div><div><h3>'+C.stA+'</h3><p>'+C.stAd+'</p></div></div><div class="card opt b"><div class="l">B</div><div><h3>'+C.stB+'</h3><p>'+C.stBd+'</p></div></div></div>'
+   +'<div class="vote">'+C.vote+'<span>↓</span></div><div class="zone'+(GUIDE?' guide':'')+'">'+(GUIDE?'<div class="a">'+C.zoneA+'</div><div class="b">'+C.zoneB+'</div>':'')+'</div>'
+   +'<div class="disc">'+C.disc+'</div>'
+};
+document.body.className = SLIDE==='story' ? 'st' : 'sq'; document.body.dataset.slide=SLIDE; document.body.dataset.lang=LANG;
+document.getElementById('content').innerHTML = S[SLIDE]();
+</script>
+</body></html>
