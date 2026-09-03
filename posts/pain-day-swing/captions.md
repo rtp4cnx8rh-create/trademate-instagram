@@ -3,54 +3,59 @@
 Two independent 1080×1080 posts in the daily-post format, EN and DE. Neither
 mentions a feature or the poll.
 
-## pain_day — "Your 12:00 is eating your 09:00."
+## pain_day — "Up $490 at 10:00. Flat at the close."
 
 EN
-The open was green, the close was green, and the day still finished flat.
-The hours in between did that. Three losing entries around lunch took back
-what the first two hours made, and by 16:00 you were trading to get even, not
-to get paid. Product example: these figures illustrate the feature, not real
-trader results.
+Up $490 an hour into the session. Flat at the bell. The chart of that day is
+not a chart of the market — it is a chart of one trader chasing the first
+red trade. Six entries after 11:00, none of them on the plan, every one of
+them an attempt to get back to +$490. The give-back is the most expensive
+hour of the day, and it never shows up in the win rate. Product example:
+these figures illustrate the feature, not real trader results.
 
-See your own day by the hour — 7-day trial, link in bio.
+See your session as a running P&L — 7-day trial, link in bio.
 
-#daytrading #tradingjournal #tradinganalytics #tradingpsychology #tradingedge
+#daytrading #tradingpsychology #tradingjournal #riskmanagement #tradingedge
 
 DE
-Der Open war grün, der Close war grün, und der Tag ging trotzdem auf null
-aus. Die Stunden dazwischen haben das erledigt. Drei Verlust-Entries um die
-Mittagszeit haben zurückgeholt, was die ersten zwei Stunden verdient hatten,
-und ab 16:00 hast du gehandelt, um quitt zu werden, nicht um zu verdienen.
+Eine Stunde nach Open +$490. Zum Close auf null. Der Chart dieses Tages ist
+kein Chart vom Markt — er ist der Chart eines Traders, der dem ersten roten
+Trade hinterherläuft. Sechs Entries nach 11:00, keiner davon nach Plan, jeder
+ein Versuch, zurück auf +$490 zu kommen. Das Zurückgeben ist die teuerste
+Stunde des Tages, und in der Trefferquote taucht sie nie auf.
 Produktbeispiel: Die Zahlen veranschaulichen die Funktion, keine echten
 Handelsergebnisse.
 
-Sieh deinen eigenen Tag nach Stunden — 7 Tage kostenlos, Link in Bio.
+Sieh deine Session als laufenden P&L — 7 Tage kostenlos, Link in Bio.
 
-#daytrading #tradingjournal #tradinganalytics #tradingpsychologie #tradingedge
+#daytrading #tradingpsychologie #tradingjournal #riskmanagement #tradingedge
 
-## pain_swing — "One trade carried the month."
+## pain_swing — "Three stops. Then you changed the rules."
 
 EN
-Six swing trades. Three stopped out at −1R, one scratched, one small win, and
-one runner at +3.1R that made the whole month. Up 1.7R on paper — and no way
-to tell yet whether that runner is the setup working or one good week. At six
-trades a month, that answer takes another year. Product example: these
-figures illustrate the feature, not real trader results.
+Three stops in a row is the setup doing what setups do. What happened on the
+fourth trade is the part that costs money: out early at +0.4R on a trade
+that was planned for +2R, then a stop moved on the fifth that turned −1R into
+−1.4R. The setup did not change. The trader did. Two off-plan exits cost more
+than the three stops combined, and the month still reads +1.3R — which is
+exactly why nobody notices. Product example: these figures illustrate the
+feature, not real trader results.
 
-Track your setups in R — Trademate, link in bio.
+Tag every off-plan exit — Trademate, link in bio.
 
-#swingtrading #tradingjournal #riskmanagement #tradingedge #tradingdata
+#swingtrading #tradingdiscipline #tradingjournal #riskmanagement #tradingpsychology
 
 DE
-Sechs Swing-Trades. Drei bei −1R ausgestoppt, einer knapp im Plus, ein kleiner
-Gewinn und ein Runner mit +3,1R, der den ganzen Monat gemacht hat. Auf dem
-Papier +1,7R — und keine Möglichkeit zu sagen, ob dieser Runner das Setup war
-oder eine gute Woche. Bei sechs Trades im Monat dauert diese Antwort noch ein
-Jahr. Produktbeispiel: Die Zahlen veranschaulichen die Funktion, keine echten
-Handelsergebnisse.
+Drei Stops in Folge sind das Setup, das tut, was Setups tun. Was beim vierten
+Trade passiert, ist der Teil, der Geld kostet: raus bei +0,4R in einem Trade,
+der auf +2R geplant war, dann beim fünften ein verschobener Stop, der aus −1R
+−1,4R macht. Das Setup war dasselbe. Der Trader nicht. Zwei Exits gegen den
+Plan kosteten mehr als die drei Stops zusammen, und der Monat steht trotzdem
+bei +1,3R — genau deshalb fällt es niemandem auf. Produktbeispiel: Die Zahlen
+veranschaulichen die Funktion, keine echten Handelsergebnisse.
 
-Tracke deine Setups in R — Trademate, Link in Bio.
+Tagge jeden Exit gegen den Plan — Trademate, Link in Bio.
 
-#swingtrading #tradingjournal #riskmanagement #tradingedge #tradingdata
+#swingtrading #tradingdisziplin #tradingjournal #riskmanagement #tradingpsychologie
 
 Re-render: `node src/render.js pain` (needs the toolchain from `video/m8-ai`).

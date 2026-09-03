@@ -111,11 +111,15 @@
   .rows>div span{font-family:'Inter';font-size:25px;font-weight:600;color:#c8ced4;}
   .rows>div b{font-size:34px;font-weight:800;letter-spacing:-.03em;}
   .rows>div.hi{background:linear-gradient(90deg,rgba(31,221,127,.12),rgba(31,221,127,0));margin:0 -14px;padding-left:14px;padding-right:14px;border-radius:12px;border-bottom-color:transparent;}
-  .rows .net{grid-column:1/-1;border-bottom:none;padding-top:18px;margin-top:4px;border-top:1px solid rgba(255,255,255,.14);}
+  .rows.one{grid-template-columns:1fr;gap:0;}
+  .rows.one>div{padding:8px 0;} .rows.one>div span{width:190px;font-size:24px;} .rows.one>div b{font-size:30px;width:130px;text-align:right;}
+  .rows.one>div em{font-style:normal;font-family:'Inter';font-size:22px;font-weight:600;color:#5d646b;flex:1;padding-left:20px;}
+  .rows.one>div.off em{color:#DC3A40;} .rows.one>div.off span{color:#fff;}
+  .rows .net{grid-column:1/-1;border-bottom:none;padding-top:14px;margin-top:2px;border-top:1px solid rgba(255,255,255,.14);}
   .rows .net span{font-size:27px;color:#fff;} .rows .net b{font-size:44px;}
-  body[data-slide="day"] .hl, body[data-slide="swing"] .hl{font-size:88px;}
+  body[data-slide="day"] .hl, body[data-slide="swing"] .hl{font-size:80px;}
   body[data-slide="day"] .sub, body[data-slide="swing"] .sub{font-size:30px;max-width:880px;}
-  body[data-lang="de"][data-slide="swing"] .sub{font-size:28px;margin-top:20px;}
+  body[data-slide="swing"] .sub{font-size:28px;margin-top:20px;}
   .disc{position:absolute;left:88px;right:88px;bottom:70px;text-align:center;font-family:'Inter';font-size:19px;font-weight:500;color:#5d646b;line-height:1.45;}
 </style></head>
 <body>
@@ -149,10 +153,10 @@ en:{
   stB:'Auto charts', stBd:'Every trade gets its chart attached automatically. Entry, exit, stop, target.',
   vote:'Vote below', zoneA:'Poll sticker goes here', zoneB:'Options: Backtesting · Auto charts',
   disc:'Product concept. Features shown are planned, not final.',
-  dayH:'Your 12:00 is eating your 09:00.', dayS:'Green open, red lunch, green close. The day nets out flat and nobody knows why.',
-  dayM:'P&L by entry hour', dayF:'Product example',
-  swH:'One trade carried the month.', swS:'Six swings. Five of them nearly cancelled out. The month is up 1.7R and you cannot tell yet if that was the setup or luck.',
-  swM:'This month · 6 swing trades', swN:'Net', swF:'Product example'
+  dayH:'Up $490 at 10:00. Flat at the close.', dayS:'Everything after the first red trade was an attempt to get it back. Six entries, none of them on the plan.',
+  dayM:'Running P&L · one session', dayF:'Product example', dayHi:'High', dayCl:'Close',
+  swH:'Three stops. Then you changed the rules.', swS:'The setup did not change. The trader did. Two of six exits were off plan, and they cost more than the stops.',
+  swM:'This month · 6 swing trades', swN:'Net', swF:'Product example', plan:'On plan', early:'Exited early', moved:'Stop moved'
 },
 de:{
   swipe:'Wischen →', brand:'Trademate', concept:'Konzept, kein finales UI', of:'von',
@@ -178,10 +182,10 @@ de:{
   stB:'Auto-Charts', stBd:'Jeder Trade bekommt seinen Chart automatisch angehängt. Entry, Exit, Stop, Ziel.',
   vote:'Stimm unten ab', zoneA:'Umfrage-Sticker hier platzieren', zoneB:'Optionen: Backtesting · Auto-Charts',
   disc:'Produktkonzept. Gezeigte Funktionen sind geplant, nicht final.',
-  dayH:'Deine 12:00 frisst deine 09:00.', dayS:'Grüner Open, rote Mittagszeit, grüner Close. Der Tag geht auf null aus, und keiner weiß warum.',
-  dayM:'P&L nach Entry-Stunde', dayF:'Produktbeispiel',
-  swH:'Ein Trade hat den Monat getragen.', swS:'Sechs Swings. Fünf davon haben sich fast aufgehoben. Der Monat steht bei +1,7R, und ob das Setup oder Glück war, weißt du noch nicht.',
-  swM:'Dieser Monat · 6 Swing-Trades', swN:'Netto', swF:'Produktbeispiel'
+  dayH:'Um 10:00 bei +$490. Zum Close auf null.', dayS:'Alles nach dem ersten roten Trade war der Versuch, es zurückzuholen. Sechs Entries, keiner davon nach Plan.',
+  dayM:'Laufender P&L · eine Session', dayF:'Produktbeispiel', dayHi:'Hoch', dayCl:'Close',
+  swH:'Drei Stops. Dann hast du die Regeln geändert.', swS:'Das Setup war dasselbe. Der Trader nicht. Zwei von sechs Exits liefen nicht nach Plan – und kosteten mehr als die Stops.',
+  swM:'Dieser Monat · 6 Swing-Trades', swN:'Netto', swF:'Produktbeispiel', plan:'Nach Plan', early:'Zu früh raus', moved:'Stop verschoben'
 }}[LANG];
 
 function candles(){ // deterministic little 5m chart for slide 6
@@ -204,6 +208,26 @@ function candles(){ // deterministic little 5m chart for slide 6
 
 const logo='<img class="logo" src="logo.png" alt="Trademate">';
 const foot=(n)=>'<div class="foot"><span>'+C.brand+'</span><span>'+(n<7?C.swipe:'')+'</span><span>'+n+' / 7</span></div>';
+function runningPnl(){
+  const pts=[['09:00',310],['10:00',490],['11:00',370],['12:00',-40],['13:00',-135],['14:00',-75],['15:00',120],['16:00',35]];
+  const W=880,H=330,padL=44,padR=70,top=54,bot=54,min=-230,max=560;
+  const x=i=>padL+i*(W-padL-padR)/(pts.length-1), y=v=>top+(max-v)/(max-min)*(H-top-bot);
+  let d=pts.map((p,i)=>(i?'L':'M')+x(i)+' '+y(p[1])).join(' ');
+  let s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+  s+='<defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1FDD7F" stop-opacity=".22"/><stop offset="1" stop-color="#1FDD7F" stop-opacity="0"/></linearGradient></defs>';
+  s+='<line x1="0" x2="'+W+'" y1="'+y(0)+'" y2="'+y(0)+'" stroke="rgba(255,255,255,.16)" stroke-dasharray="4 6"/>';
+  s+='<path d="'+d+' L'+x(pts.length-1)+' '+y(0)+' L'+x(0)+' '+y(0)+'Z" fill="url(#gA)"/>';
+  s+='<path d="'+d+'" fill="none" stroke="#e6e9ec" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
+  // give-back segment in red
+  s+='<path d="M'+x(1)+' '+y(490)+' L'+x(2)+' '+y(370)+' L'+x(3)+' '+y(-40)+' L'+x(4)+' '+y(-135)+'" fill="none" stroke="#DC3A40" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
+  pts.forEach((p,i)=>s+='<text x="'+x(i)+'" y="'+(H-14)+'" text-anchor="middle" font-family="Inter" font-size="20" font-weight="600" fill="#7e868d">'+p[0]+'</text>');
+  const mark=(i,v,l,col,dy,side)=>{s+='<circle cx="'+x(i)+'" cy="'+y(v)+'" r="9" fill="'+col+'" stroke="#0e1012" stroke-width="4"/>';
+    if(side){s+='<text x="'+(x(i)+18)+'" y="'+(y(v)+10)+'" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'-')+'$'+Math.abs(v)+'</text>';return;}
+    s+='<text x="'+x(i)+'" y="'+(y(v)+dy)+'" text-anchor="middle" font-family="Inter Tight" font-size="27" font-weight="800" fill="'+col+'">'+(v>=0?'+':'-')+'$'+Math.abs(v)+'</text>';
+    s+='<text x="'+x(i)+'" y="'+(y(v)+dy+(dy<0?-28:26))+'" text-anchor="middle" font-family="Inter" font-size="18" font-weight="600" fill="#7e868d" letter-spacing="1">'+l.toUpperCase()+'</text>';};
+  mark(1,490,C.dayHi,'#1FDD7F',-22); mark(4,-135,'','#DC3A40',0,true); mark(7,35,C.dayCl,'#e6e9ec',-22);
+  return s+'</svg>';
+}
 function hourBars(){
   const d=[['09',310],['10',180],['11',-120],['12',-410],['13',-95],['14',60],['15',520],['16',640]];
   const W=880,H=350,base=190,sc=0.22,bw=64,gap=(W-8*bw)/8;
@@ -215,15 +239,15 @@ function hourBars(){
     s+='<text x="'+(x+bw/2)+'" y="'+(H-6)+'" text-anchor="middle" font-family="Inter" font-size="21" font-weight="600" fill="#7e868d">'+h+':00</text>';});
   return s+'</svg>';
 }
-const swingRows=[['AAPL','+1.2R'],['EURUSD','-1.0R'],['NVDA','-1.0R'],['XAUUSD','+0.4R'],['GBPJPY','-1.0R'],['MSFT','+3.1R']];
+const swingRows=[['AAPL','+1.2R','plan'],['EURUSD','-1.0R','plan'],['NVDA','-1.0R','plan'],['XAUUSD','+0.4R','early'],['GBPJPY','-1.4R','moved'],['MSFT','+3.1R','plan']];
 const S={
  day:()=>logo+'<div class="hl" style="margin-top:78px">'+C.dayH+'</div><div class="sub">'+C.dayS+'</div>'
-   +'<div class="card" style="margin-top:46px;padding:30px 44px 22px"><div class="hdr"><div class="t">'+C.dayM+'</div><div class="m">'+C.dayF+'</div></div><div style="margin-top:8px">'+hourBars()+'</div></div>'
+   +'<div class="card" style="margin-top:40px;padding:30px 44px 18px"><div class="hdr"><div class="t">'+C.dayM+'</div><div class="m">'+C.dayF+'</div></div><div style="margin-top:4px">'+runningPnl()+'</div></div>'
    +'<div class="foot"><span>'+C.brand+'</span><span></span><span></span></div>',
  swing:()=>logo+'<div class="hl" style="margin-top:78px">'+C.swH+'</div><div class="sub">'+C.swS+'</div>'
-   +'<div class="card" style="margin-top:40px;padding:30px 44px 26px"><div class="hdr"><div class="t">'+C.swM+'</div><div class="m">'+C.swF+'</div></div>'
-   +'<div class="rows">'+swingRows.map(([a,b],i)=>'<div'+(i===5?' class="hi"':'')+'><span>'+a+'</span><b class="'+(b[0]==='+'?'g':'r')+'">'+b+'</b></div>').join('')
-   +'<div class="net"><span>'+C.swN+'</span><b class="g">+1.7R</b></div></div></div>'
+   +'<div class="card" style="margin-top:34px;padding:28px 44px 22px"><div class="hdr"><div class="t">'+C.swM+'</div><div class="m">'+C.swF+'</div></div>'
+   +'<div class="rows one">'+swingRows.map(([a,b,n])=>'<div'+(n!=='plan'?' class="off"':'')+'><span>'+a+'</span><em>'+C[n]+'</em><b class="'+(b[0]==='+'?'g':'r')+'">'+b+'</b></div>').join('')
+   +'<div class="net"><span>'+C.swN+'</span><b class="g">+1.3R</b></div></div></div>'
    +'<div class="foot"><span>'+C.brand+'</span><span></span><span></span></div>',
  1:()=>logo+'<div class="eyebrow">'+C.s1e+'</div><div class="hl">'+C.s1h+'</div><div class="sub">'+C.s1s+'</div>'+foot(1),
  2:()=>logo+'<div class="hl" style="margin-top:70px">'+C.s2h+'</div><div class="cols"><div class="col"><h3>'+C.day+'</h3><ul>'+C.d.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div class="col s"><h3>'+C.swing+'</h3><ul>'+C.s.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div>'+foot(2),
