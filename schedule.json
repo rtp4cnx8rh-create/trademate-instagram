@@ -78,6 +78,15 @@
       "image_url": "https://rtp4cnx8rh-create.github.io/trademate-instagram/images/stories/2026-09-07.jpg",
       "caption": "One weekday is eating your week — Teaser zum Feed-Post am selben Tag. Instagram zeigt bei Stories keine Caption an, dieses Feld ist nur Notiz.",
       "source": "templates/story.html"
+    },
+    {
+      "date": "2026-09-08",
+      "hour": 12,
+      "week": "2026-KW37",
+      "file": "images/stories/2026-09-08-umfrage.jpg",
+      "image_url": "https://rtp4cnx8rh-create.github.io/trademate-instagram/images/stories/2026-09-08-umfrage.jpg",
+      "caption": "Broker-Umfrage: Welchen Import als naechstes? Antworten kommen als Story-Replies rein. Hinweis: Poll- und Frage-Sticker lassen sich ueber die Content-Publishing-API nicht setzen - wer einen echten Sticker will, muss diese Story von Hand hochladen.",
+      "source": "templates/story-umfrage.html"
     }
   ]
 }
