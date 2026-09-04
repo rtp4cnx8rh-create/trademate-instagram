@@ -1,47 +1,50 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>Trademate Story – Broker-Umfrage</title>
+<title>Trademate Story – Broker-Frage</title>
 <link rel="stylesheet" href="_base.css">
 <style>
   /* 1080x1920. Oben und unten bleiben rund 250 px frei, damit weder der
      Instagram-Header noch die Antwortleiste ueber den Inhalt laufen.
-     Die Antwortleiste sitzt ganz unten - der Hinweis darueber zeigt darauf. */
+     Das Eingabefeld unten zeigt bewusst auf die echte Antwortleiste. */
   .buehne { width: 1080px; height: 1920px; }
   .logo { position: absolute; left: 96px; top: 296px; width: 320px; }
 
   .augenbraue {
-    position: absolute; left: 100px; top: 420px;
+    position: absolute; left: 100px; top: 424px;
     color: var(--gruen); font-size: 30px; font-weight: 700;
     letter-spacing: 0.16em; text-transform: uppercase;
   }
-  .headline { position: absolute; left: 92px; top: 476px; width: 900px; font-size: 104px; }
+  .headline { position: absolute; left: 92px; top: 480px; width: 900px; font-size: 112px; }
 
-  .liste { position: absolute; left: 96px; top: 872px; width: 888px; }
-  .zeile {
-    display: flex; align-items: center; gap: 28px;
-    height: 112px; padding: 0 36px; margin-bottom: 22px;
-    border-radius: 26px;
+  .unterzeile {
+    position: absolute; left: 100px; top: 900px; width: 840px;
+    color: var(--grau-hell); font-size: 46px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.35;
+  }
+
+  /* Angedeutetes Eingabefeld: macht ohne Poll-Sticker klar, dass geantwortet
+     werden soll. Der Strich darunter wirkt wie eine blinkende Schreibmarke. */
+  .feld {
+    position: absolute; left: 96px; top: 1160px; width: 888px;
+    display: flex; align-items: center;
+    height: 128px; padding: 0 40px;
+    border-radius: 30px;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 42px; font-weight: 600; letter-spacing: -0.02em; color: #eef0f3;
+    border: 2px dashed rgba(255, 255, 255, 0.18);
+    color: #6f747c; font-size: 42px; font-weight: 500; letter-spacing: -0.02em;
   }
-  /* Der leere Kreis liest sich wie ein Auswahlfeld - ohne einen echten
-     Poll-Sticker vorzutaeuschen, den die API nicht setzen kann. */
-  .kreis {
-    width: 34px; height: 34px; flex: none;
-    border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.35);
+  .marke {
+    width: 3px; height: 48px; margin-left: 6px;
+    background: var(--gruen);
   }
-  .zeile.offen {
-    background: rgba(0, 230, 115, 0.08);
-    border-color: rgba(0, 230, 115, 0.4);
-    color: #d9fbe9;
-  }
-  .zeile.offen .kreis { border-color: var(--gruen); }
-  .zeile.offen b { color: var(--gruen); font-weight: 700; }
 
+  .pfeil {
+    position: absolute; left: 100px; top: 1352px;
+    color: var(--gruen); font-size: 54px; font-weight: 700; line-height: 1;
+  }
   .hinweis {
-    position: absolute; left: 100px; top: 1596px; width: 880px;
-    color: #8b9098; font-size: 32px; font-weight: 500; letter-spacing: -0.01em;
+    position: absolute; left: 100px; top: 1432px; width: 880px;
+    color: #8b9098; font-size: 34px; font-weight: 500; letter-spacing: -0.01em;
     line-height: 1.3;
   }
   .hinweis b { color: #eef0f3; font-weight: 600; }
@@ -50,17 +53,14 @@
   <img class="logo" src="../images/brand/logo.png" alt="Trademate">
 
   <div class="augenbraue">Your call</div>
-  <div class="headline">Which broker<br>should we<br>import next?</div>
+  <div class="headline">Which broker<br>are we<br>missing?</div>
 
-  <div class="liste">
-    <div class="zeile"><span class="kreis"></span>Interactive Brokers</div>
-    <div class="zeile"><span class="kreis"></span>MetaTrader 5</div>
-    <div class="zeile"><span class="kreis"></span>Trade Republic</div>
-    <div class="zeile"><span class="kreis"></span>Tradovate</div>
-    <div class="zeile offen"><span class="kreis"></span><span><b>Not listed?</b> Name it</span></div>
-  </div>
+  <div class="unterzeile">Write us the ones you'd want to import into Trademate.</div>
 
+  <div class="feld">Your broker&hellip;<span class="marke"></span></div>
+
+  <div class="pfeil">&darr;</div>
   <div class="hinweis">
-    Reply to this story with your pick &mdash; <b>the most-named one goes to the top of the list.</b>
+    Reply to this story &mdash; <b>the most-named one goes to the top of the list.</b>
   </div>
 </div>
