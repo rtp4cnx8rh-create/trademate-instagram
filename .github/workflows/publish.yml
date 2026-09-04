@@ -10,11 +10,17 @@
 #      postet; alle spaeteren finden den Tag in published.json und tun nichts.
 # Nach 21:00 UTC wird nicht mehr gestartet - danach ist in Berlin bereits
 # der Folgetag, und das Datum wuerde nicht mehr passen.
+#
+# Stories stehen frueher am Tag an (12:00 Berlin) und haben deshalb zwei
+# eigene Cron-Zeiten. Verpasst der Lauf sie, holen die spaeteren Laeufe die
+# Story nach - faellig ist alles ab der Zielstunde am selben Tag.
 
 name: Instagram Daily Post
 
 on:
   schedule:
+    - cron: "0 10 * * *"   # 12:00 Berlin (Sommerzeit) - Story-Termin
+    - cron: "0 11 * * *"   # 12:00 Berlin (Winterzeit) - Story-Termin
     - cron: "0 16 * * *"   # 18:00 Berlin (Sommerzeit) - Zieltermin
     - cron: "0 17 * * *"   # 18:00 Berlin (Winterzeit) - Zieltermin
     - cron: "0 18 * * *"   # Netz, falls die Zieltermine verspaetet ausfallen

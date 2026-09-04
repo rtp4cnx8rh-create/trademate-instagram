@@ -58,6 +58,26 @@
       "image_url": "https://rtp4cnx8rh-create.github.io/trademate-instagram/images/KW-36/07-So.jpg",
       "caption": "Target and invalidation, decided before the fill. Afterwards there is a position on the screen and every level starts looking negotiable. Ninety seconds of writing removes the negotiation.\n\nPlan the exit in Trademate — link in bio.\n\n#tradingplan #tradingjournal #tradingdiscipline #swingtrading #tradingroutine",
       "source": "KW-36/07-So.png"
+    },
+    {
+      "date": "2026-09-07",
+      "hour": 18,
+      "week": "2026-KW37",
+      "file": "images/KW-37/01-Mo.jpg",
+      "image_url": "https://rtp4cnx8rh-create.github.io/trademate-instagram/images/KW-37/01-Mo.jpg",
+      "caption": "+$840 on Monday, −$960 on Friday. Same trader, same setups, same account — the week just doesn't run at one speed. Most journals never split it by weekday, so the pattern stays invisible and Friday keeps quietly paying for Monday. Product example: these figures illustrate the feature, not real trader results.\n\nSee your own week — 7-day trial, link in bio.\n\n#tradingjournal #daytrading #tradinganalytics #tradingedge #tradereview",
+      "source": "templates/post.html"
+    }
+  ],
+  "stories": [
+    {
+      "date": "2026-09-07",
+      "hour": 12,
+      "week": "2026-KW37",
+      "file": "images/stories/2026-09-07.jpg",
+      "image_url": "https://rtp4cnx8rh-create.github.io/trademate-instagram/images/stories/2026-09-07.jpg",
+      "caption": "One weekday is eating your week — Teaser zum Feed-Post am selben Tag. Instagram zeigt bei Stories keine Caption an, dieses Feld ist nur Notiz.",
+      "source": "templates/story.html"
     }
   ]
 }

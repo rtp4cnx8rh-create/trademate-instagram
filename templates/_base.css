@@ -1,0 +1,75 @@
+/* Trademate Instagram – gemeinsame Marken-Styles fuer Feed und Story.
+   Farben und Abstaende sind aus den bestehenden Wochenbildern abgeleitet. */
+:root {
+  --gruen: #00e673;
+  --rot: #e55d69;
+  --karte: #050506;
+  --rand: rgba(255, 255, 255, 0.07);
+  --grau: #8b9098;
+  --grau-hell: #b9bec6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Inter Display", "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #0b0c0e;
+  color: #fff;
+  overflow: hidden;
+}
+
+.buehne {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 12% 4%, #2a2e34 0%, #1a1d21 38%, #101215 68%, #0a0b0d 100%);
+}
+
+/* Das Logo liegt als weisses PNG mit Alphakanal vor. */
+.logo { display: block; }
+
+.headline {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  background: linear-gradient(180deg, #ffffff 0%, #cfd3d9 55%, #a3a9b1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.karte {
+  background: var(--karte);
+  border: 1px solid var(--rand);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+}
+
+.karte-kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--grau-hell);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.chevron { color: #4c5158; font-weight: 500; }
+
+/* Balkendiagramm: Nulllinie in der Mitte, Vorzeichen bestimmt Richtung und Farbe. */
+.balken-feld { position: relative; display: flex; justify-content: space-between; }
+.spalte { position: relative; display: flex; flex-direction: column; }
+.plot { position: relative; }
+.balken { position: absolute; left: 50%; transform: translateX(-50%); }
+.balken.plus { background: linear-gradient(180deg, #00e673 0%, #00b85c 100%); }
+.balken.minus { background: linear-gradient(180deg, #c9434f 0%, #e55d69 100%); }
+.tag { color: var(--grau); font-weight: 600; text-align: center; }
+.wert { position: absolute; left: 0; right: 0; text-align: center; font-weight: 700; letter-spacing: -0.02em; }
+.wert.plus { color: var(--gruen); }
+.wert.minus { color: var(--rot); }
+
+
+.cta {
+  color: var(--grau);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}

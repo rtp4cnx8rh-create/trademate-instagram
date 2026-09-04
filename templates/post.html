@@ -1,0 +1,93 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Trademate Feed Post</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .buehne { width: 1080px; height: 1080px; }
+  .logo { position: absolute; left: 96px; top: 94px; width: 344px; }
+  .headline { position: absolute; left: 92px; top: 210px; width: 860px; font-size: 100px; }
+  .karte {
+    position: absolute; left: 114px; top: 468px; width: 852px; height: 516px;
+    border-radius: 30px; padding: 34px 38px 30px;
+  }
+  .karte-kopf { font-size: 34px; }
+  /* Plotflaeche 250 px: Nulllinie 119 px unter der Oberkante, damit +840
+     und -960 mit demselben Massstab (0,101 px je Dollar) hineinpassen. */
+  .balken-feld { margin-top: 40px; }
+  .spalte { width: 145px; }
+  .plot { height: 250px; }
+  .balken { width: 72px; }
+  .balken.plus { border-radius: 8px 8px 2px 2px; }
+  .balken.minus { border-radius: 2px 2px 8px 8px; }
+  .wert { font-size: 26px; line-height: 28px; }
+  .nulllinie {
+    position: absolute; left: 0; right: 0; top: 119px; height: 2px;
+    background: rgba(255, 255, 255, 0.13);
+  }
+  .tag { font-size: 26px; margin-top: 24px; }
+  .fuss {
+    position: absolute; left: 38px; right: 38px; bottom: 30px;
+    display: flex; justify-content: space-between;
+    color: #6f747c; font-size: 25px; font-weight: 500; letter-spacing: -0.01em;
+  }
+  .fuss b { color: #b9bec6; font-weight: 600; }
+</style>
+<div class="buehne">
+  <img class="logo" src="../images/brand/logo.png" alt="Trademate">
+
+  <div class="headline">Your worst day<br>has a name</div>
+
+  <div class="karte">
+    <div class="karte-kopf"><span>Net P&amp;L by Weekday</span><span class="chevron">&rsaquo;</span></div>
+
+    <div class="balken-feld">
+      <div class="nulllinie"></div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="wert plus" style="bottom:222px">+$840</div>
+          <div class="balken plus" style="bottom:131px; height:85px"></div>
+        </div>
+        <div class="tag">Mon</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="wert plus" style="bottom:159px">+$215</div>
+          <div class="balken plus" style="bottom:131px; height:22px"></div>
+        </div>
+        <div class="tag">Tue</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="balken minus" style="top:119px; height:12px"></div>
+          <div class="wert minus" style="top:137px">&minus;$120</div>
+        </div>
+        <div class="tag">Wed</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="wert plus" style="bottom:188px">+$505</div>
+          <div class="balken plus" style="bottom:131px; height:51px"></div>
+        </div>
+        <div class="tag">Thu</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="balken minus" style="top:119px; height:97px"></div>
+          <div class="wert minus" style="top:222px">&minus;$960</div>
+        </div>
+        <div class="tag">Fri</div>
+      </div>
+    </div>
+
+    <div class="fuss">
+      <span>Trades <b>63</b></span>
+      <span>Best <b>Monday</b></span>
+      <span>Worst <b>Friday</b></span>
+    </div>
+  </div>
+</div>

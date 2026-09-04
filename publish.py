@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
-Veroeffentlicht den faelligen Trademate-Instagram-Post ueber die Graph API.
+Veroeffentlicht die faelligen Trademate-Instagram-Beitraege ueber die Graph API.
+
+Verarbeitet werden Feed-Posts (schedule.json -> "posts") und Stories
+(schedule.json -> "stories"). Beides laeuft ueber denselben Zweischritt aus
+Media-Container und media_publish, Stories brauchen zusaetzlich
+media_type=STORIES.
 
 Laeuft in GitHub Actions, taeglich. Das Skript entscheidet selbst, ob gerade
 etwas ansteht - der Cron feuert bewusst zweimal (Sommer-/Winterzeit), und nur
@@ -80,6 +85,83 @@ def save_state(done: set):
     )
 
 
+# Stories laufen ueber denselben Endpunkt wie Feed-Posts, brauchen aber
+# media_type=STORIES. Eine Story-Caption zeigt Instagram nicht an, deshalb
+# wird sie beim Container gar nicht erst mitgeschickt.
+def alle_eintraege(plan: dict) -> list:
+    """Alle geplanten Termine als (art, eintrag), Stories vor Feed-Posts."""
+    eintraege = []
+    for art, schluessel in (("story", "stories"), ("post", "posts")):
+        for e in plan.get(schluessel, []):
+            eintraege.append((art, e))
+    return sorted(eintraege, key=lambda ae: (ae[1]["date"], ae[1]["hour"]))
+
+
+def faellige_eintraege(plan: dict, jetzt: datetime, force: str | None) -> list:
+    treffer = []
+    for art, e in alle_eintraege(plan):
+        if force:
+            if e["date"] == force:
+                treffer.append((art, e))
+        # Nicht auf die exakte Stunde pruefen: GitHub-Cron ist regelmaessig
+        # zwei bis vier Stunden verspaetet, dann waere die Zielstunde laengst
+        # vorbei und der Termin fiele still aus. Stattdessen: alles ab der
+        # Zielstunde am selben Tag zaehlt als faellig. Gegen Doppelposts
+        # schuetzt published.json weiter unten, nicht das Zeitfenster.
+        elif e["date"] == jetzt.date().isoformat() and jetzt.hour >= e["hour"]:
+            treffer.append((art, e))
+    return treffer
+
+
+def zustands_schluessel(plan: dict, art: str, eintrag: dict) -> str:
+    """Schluessel fuer published.json.
+
+    Feed-Posts behalten ihr altes Format "<Woche>:<Datum>", damit bereits
+    veroeffentlichte Tage nicht erneut gepostet werden. Ein Eintrag darf mit
+    "week" eine abweichende Woche setzen - so laesst sich ein einzelner Termin
+    der Folgewoche an den laufenden Plan haengen.
+    """
+    woche = eintrag.get("week", plan["week"])
+    if art == "story":
+        return f"{woche}:story:{eintrag['date']}"
+    return f"{woche}:{eintrag['date']}"
+
+
+def veroeffentliche(user_id: str, token: str, art: str, eintrag: dict) -> str:
+    params = {"image_url": eintrag["image_url"], "access_token": token}
+    if art == "story":
+        params["media_type"] = "STORIES"
+    else:
+        params["caption"] = eintrag["caption"]
+
+    container = api("POST", f"{user_id}/media", params)
+    creation_id = container["id"]
+    print(f"Container {creation_id} angelegt, warte auf Verarbeitung...")
+
+    # Warten bis Meta das Bild geholt und verarbeitet hat.
+    for _ in range(POLL_VERSUCHE):
+        st = api(
+            "GET",
+            creation_id,
+            {"fields": "status_code,status", "access_token": token},
+        )
+        code = st.get("status_code")
+        if code == "FINISHED":
+            break
+        if code == "ERROR":
+            sys.exit(f"Container fehlgeschlagen: {st.get('status')}")
+        time.sleep(POLL_PAUSE)
+    else:
+        sys.exit("Container wurde nicht rechtzeitig fertig. Nichts veroeffentlicht.")
+
+    res = api(
+        "POST",
+        f"{user_id}/media_publish",
+        {"creation_id": creation_id, "access_token": token},
+    )
+    return res.get("id", "")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -134,20 +216,7 @@ def main():
     tz = ZoneInfo(plan.get("timezone", "Europe/Berlin"))
     jetzt = datetime.now(tz)
 
-    faellig = None
-    for p in plan["posts"]:
-        if args.force:
-            if p["date"] == args.force:
-                faellig = p
-                break
-        # Nicht auf die exakte Stunde pruefen: GitHub-Cron ist regelmaessig
-        # zwei bis vier Stunden verspaetet, dann waere die Zielstunde laengst
-        # vorbei und der Tag fiele still aus. Stattdessen: alles ab der
-        # Zielstunde am selben Tag zaehlt als faellig. Gegen Doppelposts
-        # schuetzt published.json weiter unten, nicht das Zeitfenster.
-        elif p["date"] == jetzt.date().isoformat() and jetzt.hour >= p["hour"]:
-            faellig = p
-            break
+    faellig = faellige_eintraege(plan, jetzt, args.force)
 
     if not faellig:
         print(
@@ -158,8 +227,8 @@ def main():
         print(f"  --force war: {args.force!r}")
         print(f"  Heute:       {jetzt.date().isoformat()}, Stunde {jetzt.hour}")
         print("  Termine im Plan:")
-        for p in plan["posts"]:
-            print(f"    {p['date']} {p['hour']:02d}:00  {Path(p['file']).name}")
+        for art, e in alle_eintraege(plan):
+            print(f"    {e['date']} {e['hour']:02d}:00  {art:5s}  {Path(e['file']).name}")
         if not args.force:
             print(
                 "  Hinweis: ohne --force zaehlt ein Termin erst ab seiner "
@@ -167,64 +236,37 @@ def main():
             )
         return
 
-    key = f"{plan['week']}:{faellig['date']}"
     done = load_state()
-    if key in done and not args.force:
-        print(f"{key} wurde bereits veroeffentlicht. Nichts zu tun.")
-        return
 
-    if not faellig.get("image_url"):
-        sys.exit(f"Kein image_url fuer {faellig['date']}. prepare_week.py mit --base-url laufen lassen.")
+    # Ein Lauf kann mehrere Termine abarbeiten - an einem Tag stehen Story und
+    # Feed-Post nebeneinander, und der Cron startet fuer beide nur einmal.
+    for art, eintrag in faellig:
+        key = zustands_schluessel(plan, art, eintrag)
+        if key in done and not args.force:
+            print(f"{key} wurde bereits veroeffentlicht. Uebersprungen.")
+            continue
 
-    erste = faellig["caption"].split("\n")[0]
-    kurz = erste if len(erste) <= 90 else erste[:87] + "..."
-    print(f"Faellig: {faellig['date']} {faellig['hour']:02d}:00")
-    print(f"Bild:    {faellig['image_url']}")
-    print(f"Hook:    {kurz}")
+        if not eintrag.get("image_url"):
+            sys.exit(
+                f"Kein image_url fuer {art} {eintrag['date']}. "
+                "prepare_week.py mit --base-url laufen lassen."
+            )
 
-    if args.dry_run:
-        print("\n--dry-run: es wurde nichts gesendet.")
-        return
+        erste = eintrag.get("caption", "").split("\n")[0]
+        kurz = erste if len(erste) <= 90 else erste[:87] + "..."
+        print(f"\nFaellig: {art} {eintrag['date']} {eintrag['hour']:02d}:00")
+        print(f"Bild:    {eintrag['image_url']}")
+        if kurz:
+            print(f"Hook:    {kurz}")
 
-    # Schritt 1: Media-Container anlegen
-    container = api(
-        "POST",
-        f"{user_id}/media",
-        {
-            "image_url": faellig["image_url"],
-            "caption": faellig["caption"],
-            "access_token": token,
-        },
-    )
-    creation_id = container["id"]
-    print(f"Container {creation_id} angelegt, warte auf Verarbeitung...")
+        if args.dry_run:
+            print("--dry-run: es wurde nichts gesendet.")
+            continue
 
-    # Schritt 2: warten bis Meta das Bild geholt und verarbeitet hat
-    for versuch in range(POLL_VERSUCHE):
-        st = api(
-            "GET",
-            creation_id,
-            {"fields": "status_code,status", "access_token": token},
-        )
-        code = st.get("status_code")
-        if code == "FINISHED":
-            break
-        if code == "ERROR":
-            sys.exit(f"Container fehlgeschlagen: {st.get('status')}")
-        time.sleep(POLL_PAUSE)
-    else:
-        sys.exit("Container wurde nicht rechtzeitig fertig. Nichts veroeffentlicht.")
-
-    # Schritt 3: veroeffentlichen
-    res = api(
-        "POST",
-        f"{user_id}/media_publish",
-        {"creation_id": creation_id, "access_token": token},
-    )
-
-    print(f"Veroeffentlicht. Media-ID {res.get('id')}")
-    done.add(key)
-    save_state(done)
+        media_id = veroeffentliche(user_id, token, art, eintrag)
+        print(f"Veroeffentlicht. Media-ID {media_id}")
+        done.add(key)
+        save_state(done)
 
 
 if __name__ == "__main__":

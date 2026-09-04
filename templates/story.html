@@ -1,0 +1,101 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Trademate Story</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  /* 1080x1920. Oben und unten bleiben rund 250 px frei, damit weder der
+     Instagram-Header noch die Antwortleiste ueber den Inhalt laufen. */
+  .buehne { width: 1080px; height: 1920px; }
+  .logo { position: absolute; left: 96px; top: 296px; width: 320px; }
+  .headline { position: absolute; left: 92px; top: 412px; width: 900px; font-size: 108px; }
+
+  .karte {
+    position: absolute; left: 96px; top: 856px; width: 888px; height: 540px;
+    border-radius: 34px; padding: 40px 44px 34px;
+  }
+  .karte-kopf { font-size: 36px; }
+  /* Plotflaeche 300 px, Nulllinie 142 px unter der Oberkante:
+     ein Massstab von 0,129 px je Dollar fuer +840 wie fuer -960. */
+  .balken-feld { margin-top: 44px; }
+  .spalte { width: 160px; }
+  .plot { height: 300px; }
+  .balken { width: 84px; }
+  .balken.plus { border-radius: 10px 10px 2px 2px; }
+  .balken.minus { border-radius: 2px 2px 10px 10px; }
+  .wert { font-size: 28px; line-height: 30px; }
+  .nulllinie {
+    position: absolute; left: 0; right: 0; top: 142px; height: 2px;
+    background: rgba(255, 255, 255, 0.13);
+  }
+  .tag { font-size: 28px; margin-top: 26px; }
+
+  .pille {
+    position: absolute; left: 96px; top: 1490px;
+    display: flex; align-items: center; gap: 22px;
+    padding: 30px 44px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 36px; font-weight: 600; letter-spacing: -0.02em; color: #eef0f3;
+  }
+  .pille span { color: var(--gruen); font-size: 40px; }
+  .hinweis {
+    position: absolute; left: 100px; top: 1612px;
+    color: #5f646c; font-size: 26px; font-weight: 500; letter-spacing: -0.01em;
+  }
+</style>
+<div class="buehne">
+  <img class="logo" src="../images/brand/logo.png" alt="Trademate">
+
+  <div class="headline">One weekday<br>is eating<br>your week</div>
+
+  <div class="karte">
+    <div class="karte-kopf"><span>Net P&amp;L by Weekday</span><span class="chevron">&rsaquo;</span></div>
+
+    <div class="balken-feld">
+      <div class="nulllinie"></div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="wert plus" style="bottom:274px">+$840</div>
+          <div class="balken plus" style="bottom:158px; height:108px"></div>
+        </div>
+        <div class="tag">Mon</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="wert plus" style="bottom:194px">+$215</div>
+          <div class="balken plus" style="bottom:158px; height:28px"></div>
+        </div>
+        <div class="tag">Tue</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="balken minus" style="top:142px; height:15px"></div>
+          <div class="wert minus" style="top:165px">&minus;$120</div>
+        </div>
+        <div class="tag">Wed</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="wert plus" style="bottom:231px">+$505</div>
+          <div class="balken plus" style="bottom:158px; height:65px"></div>
+        </div>
+        <div class="tag">Thu</div>
+      </div>
+
+      <div class="spalte">
+        <div class="plot">
+          <div class="balken minus" style="top:142px; height:124px"></div>
+          <div class="wert minus" style="top:274px">&minus;$960</div>
+        </div>
+        <div class="tag">Fri</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pille">See your own week <span>&rarr;</span></div>
+  <div class="hinweis">Product example &middot; not real trader results</div>
+</div>
