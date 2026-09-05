@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Trademate Feed Post – Setups</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .buehne { width: 1080px; height: 1080px; }
+  .logo { position: absolute; left: 96px; top: 94px; width: 344px; }
+  .headline { position: absolute; left: 92px; top: 210px; width: 880px; font-size: 100px; }
+  .karte {
+    position: absolute; left: 114px; top: 468px; width: 852px; height: 516px;
+    border-radius: 30px; padding: 34px 38px 30px;
+  }
+  .karte-kopf { font-size: 34px; }
+  .tabelle { margin-top: 30px; }
+  .tabelle th { font-size: 23px; padding-bottom: 18px; }
+  .tabelle td { font-size: 33px; padding: 16px 0; }
+  .tabelle td:first-child { font-size: 34px; }
+  .fuss {
+    position: absolute; left: 38px; right: 38px; bottom: 26px;
+    display: flex; justify-content: space-between;
+    color: #6f747c; font-size: 25px; font-weight: 500; letter-spacing: -0.01em;
+  }
+  .fuss b { color: #b9bec6; font-weight: 600; }
+  .fuss b.plus { color: var(--gruen); }
+</style>
+<div class="buehne">
+  <img class="logo" src="../images/brand/logo.png" alt="Trademate">
+
+  <div class="headline">Most traded.<br>Least earned.</div>
+
+  <div class="karte">
+    <div class="karte-kopf"><span>Performance by Setup</span><span class="chevron">&rsaquo;</span></div>
+
+    <table class="tabelle">
+      <thead>
+        <tr><th>Setup</th><th>Trades</th><th>Win rate</th><th>Net</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="punkt an"></span>Breakout</td>
+          <td class="neutral">28</td><td class="neutral">46%</td><td class="plus">+$1,240</td>
+        </tr>
+        <tr>
+          <td><span class="punkt aus"></span>Pullback</td>
+          <td class="neutral">34</td><td class="neutral">62%</td><td class="plus">+$310</td>
+        </tr>
+        <tr>
+          <td><span class="punkt"></span>Reversal</td>
+          <td class="neutral">17</td><td class="neutral">53%</td><td class="minus">&minus;$580</td>
+        </tr>
+        <tr>
+          <td><span class="punkt"></span>News</td>
+          <td class="neutral">9</td><td class="neutral">33%</td><td class="minus">&minus;$220</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fuss">
+      <span>88 trades</span>
+      <span>Net <b class="plus">+$750</b></span>
+    </div>
+  </div>
+</div>

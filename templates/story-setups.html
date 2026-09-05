@@ -1,0 +1,87 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Trademate Story – Setups</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  /* 1080x1920. Oben und unten bleiben rund 250 px frei, damit weder der
+     Instagram-Header noch die Antwortleiste ueber den Inhalt laufen. */
+  .buehne { width: 1080px; height: 1920px; }
+  .logo { position: absolute; left: 96px; top: 296px; width: 320px; }
+  .headline { position: absolute; left: 92px; top: 408px; width: 900px; font-size: 112px; }
+  .unterzeile {
+    position: absolute; left: 100px; top: 676px; width: 860px;
+    color: var(--grau-hell); font-size: 44px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.35;
+  }
+
+  .karte {
+    position: absolute; left: 96px; top: 866px; width: 888px; height: 580px;
+    border-radius: 34px; padding: 40px 44px 34px;
+  }
+  .karte-kopf { font-size: 36px; }
+  .tabelle { margin-top: 34px; }
+  .tabelle th { font-size: 26px; padding-bottom: 18px; }
+  .tabelle td { font-size: 38px; padding: 18px 0; }
+  .fuss {
+    position: absolute; left: 44px; right: 44px; bottom: 30px;
+    display: flex; justify-content: space-between;
+    color: #6f747c; font-size: 28px; font-weight: 500; letter-spacing: -0.01em;
+  }
+  .fuss b.plus { color: var(--gruen); font-weight: 600; }
+
+  .pille {
+    position: absolute; left: 96px; top: 1506px;
+    display: flex; align-items: center; gap: 22px;
+    padding: 30px 44px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 36px; font-weight: 600; letter-spacing: -0.02em; color: #eef0f3;
+  }
+  .pille span { color: var(--gruen); font-size: 40px; }
+  .hinweis {
+    position: absolute; left: 100px; top: 1626px;
+    color: #5f646c; font-size: 26px; font-weight: 500; letter-spacing: -0.01em;
+  }
+</style>
+<div class="buehne">
+  <img class="logo" src="../images/brand/logo.png" alt="Trademate">
+
+  <div class="headline">Most traded.<br>Least earned.</div>
+  <div class="unterzeile">A high win rate and a high payout are not the same thing.</div>
+
+  <div class="karte">
+    <div class="karte-kopf"><span>Performance by Setup</span><span class="chevron">&rsaquo;</span></div>
+
+    <table class="tabelle">
+      <thead>
+        <tr><th>Setup</th><th>Trades</th><th>Win rate</th><th>Net</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="punkt an"></span>Breakout</td>
+          <td class="neutral">28</td><td class="neutral">46%</td><td class="plus">+$1,240</td>
+        </tr>
+        <tr>
+          <td><span class="punkt aus"></span>Pullback</td>
+          <td class="neutral">34</td><td class="neutral">62%</td><td class="plus">+$310</td>
+        </tr>
+        <tr>
+          <td><span class="punkt"></span>Reversal</td>
+          <td class="neutral">17</td><td class="neutral">53%</td><td class="minus">&minus;$580</td>
+        </tr>
+        <tr>
+          <td><span class="punkt"></span>News</td>
+          <td class="neutral">9</td><td class="neutral">33%</td><td class="minus">&minus;$220</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fuss">
+      <span>88 trades</span>
+      <span>Net <b class="plus">+$750</b></span>
+    </div>
+  </div>
+
+  <div class="pille">Rank your own setups <span>&rarr;</span></div>
+  <div class="hinweis">Product example &middot; not real trader results</div>
+</div>
